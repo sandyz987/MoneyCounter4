@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?selectableItemBackground">
+
+    <com.example.moneycounter4.view.costom.ImageViewInfoZ
+        android:id="@+id/imageViewTalk"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="?selectableItemBackground"
+        app:end_src="@drawable/ic_favorite_fill"
+        app:hint_a="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewLike"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewPic"
+        app:start_src="@drawable/ic_talk" />
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/imageViewUsrPic"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:riv_oval="true"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/textViewUsrName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="5dp"
+        android:fontFamily="@font/alibaba_regular"
+        android:text="昵称"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/textViewTime"
+        app:layout_constraintStart_toEndOf="@+id/imageViewUsrPic"
+        app:layout_constraintTop_toTopOf="@+id/imageViewUsrPic" />
+
+    <TextView
+        android:id="@+id/textViewTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/alibaba_regular"
+        android:text="时间"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewUsrPic"
+        app:layout_constraintStart_toEndOf="@+id/imageViewUsrPic"
+        app:layout_constraintTop_toBottomOf="@+id/textViewUsrName" />
+
+    <Button
+        android:id="@+id/buttonFollow"
+        android:layout_width="67dp"
+        android:layout_height="38dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/shape_big_corners_light_white_red"
+        android:text="关注"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewUsrPic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageViewUsrPic" />
+
+    <TextView
+        android:id="@+id/textViewContent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/alibaba_regular"
+        android:text="内容"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textViewTime"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewUsrPic" />
+
+    <TextView
+        android:id="@+id/textViewMore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/alibaba_regular"
+        android:text="全文"
+        android:textColor="@color/colorLightBlue"
+        app:layout_constraintStart_toStartOf="@+id/textViewContent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewContent" />
+
+    <ImageView
+        android:id="@+id/imageViewSex"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewUsrName"
+        app:layout_constraintStart_toEndOf="@+id/textViewUsrName"
+        app:layout_constraintTop_toTopOf="@+id/textViewUsrName" />
+
+    <com.example.moneycounter4.view.costom.ImageViewInfoZLike
+        android:id="@+id/imageViewLike"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginBottom="16dp"
+        android:background="?selectableItemBackground"
+        app:end_src="@drawable/ic_favorite_fill"
+        app:hint_a="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageViewTalk"
+        app:layout_constraintTop_toTopOf="@+id/imageViewTalk"
+        app:start_src="@drawable/ic_favorite_stroke" />
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/imageViewPic"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp"
+
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/textViewMore"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMore"
+        app:riv_corner_radius_bottom_left="10dp"
+        app:riv_corner_radius_bottom_right="10dp"
+        app:riv_corner_radius_top_left="10dp"
+        app:riv_corner_radius_top_right="10dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

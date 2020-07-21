@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="typeItem"
+            type="com.example.moneycounter4.bean.TypeItem" />
+        <variable
+            name="width"
+            type="Integer" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="?selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/imageViewTypePic"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageViewDel"
+            app:layout_constraintTop_toTopOf="parent"
+            app:riv_border_color="@color/colorLightRed"
+            app:riv_border_width="@{width}"
+            app:riv_oval="true"
+            app:src="@{typeItem.resId}" />
+
+        <TextView
+            android:id="@+id/textViewTypeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@{typeItem.name}"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewTypePic"
+            app:layout_constraintStart_toEndOf="@+id/imageViewTypePic"
+            app:layout_constraintTop_toTopOf="@+id/imageViewTypePic" />
+
+        <ImageView
+            android:id="@+id/imageViewDel"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.476"
+            app:srcCompat="@drawable/ic_delete" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_item" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

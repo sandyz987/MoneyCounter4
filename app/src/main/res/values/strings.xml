@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">MoneyCounter4</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome_text">慧记账</string>
+    <string name="welcome_text_details">让您的生活更加计划化</string>
+    <string name="register_text_detail">欢迎加入我们~</string>
+    <string name="register_text_main">注册</string>
+    <string name="login_text_detail">您好，欢迎来到慧记账</string>
+    <string name="login_text_main">登录</string>
+    <string name="register_connection_error">注册失败！服务器君打盹了？！</string>
+    <string name="register_denied_error">注册失败！服务器君不同意呀，换个用户名呗</string>
+    <string name="register_success">注册成功！快登录鸭~</string>
+    <string name="login_success">登录成功！欢迎回来</string>
+    <string name="login_denied_error">登录失败！是不是账号密码错了鸭</string>
+    <string name="login_connection_error">登录失败！服务器君打盹了？！</string>
+</resources>

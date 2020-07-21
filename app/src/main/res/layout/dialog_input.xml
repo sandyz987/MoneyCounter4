@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ebebeb"
+    android:orientation="vertical">
+
+    <fragment
+        android:id="@+id/fragmentInput"
+        android:name="com.example.moneycounter4.view.fragment.InsideFragmentMoneyInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

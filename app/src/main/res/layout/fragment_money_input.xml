@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.fragment.InsideFragmentMoneyInput">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textViewDel"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:background="?selectableItemBackground"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="←"
+                android:textColor="#000000"
+                android:textSize="36sp"
+                app:layout_constraintEnd_toStartOf="@+id/textViewOk"
+                app:layout_constraintStart_toEndOf="@+id/textViewNum0"
+                app:layout_constraintTop_toBottomOf="@+id/textViewNum1" />
+
+            <EditText
+                android:id="@+id/editTextTip"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:hint="备注"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewMoneyNum"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="16dp"
+                android:background="?selectableItemBackground"
+                android:fontFamily="@font/alibaba_light"
+                android:gravity="right|center_vertical"
+                android:textColor="#000000"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@+id/editTextTip"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/editTextTip"
+                app:layout_constraintTop_toTopOf="@+id/editTextTip" />
+
+            <TextView
+                android:id="@+id/textViewNum7"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:background="?selectableItemBackground"
+                android:fontFamily="@font/alibaba_light"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="7"
+                android:textColor="#000000"
+                android:textSize="36sp"
+                app:layout_constraintEnd_toStartOf="@+id/textViewNum8"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextTip" />
+
+            <TextView
+                android:id="@+id/textViewNum8"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:background="?selectableItemBackground"
+                android:fontFamily="@font/alibaba_light"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="8"
+                android:textColor="#000000"
+                android:textSize="36sp"
+                app:layout_constraintEnd_toStartOf="@+id/textViewNum9"
+                app:layout_constraintStart_toEndOf="@+id/textViewNum7"
+                app:layout_constraintTop_toTopOf="@+id/textViewNum7" />
+
+            <TextView
+                android:id="@+id/textViewNum9"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:background="?selectableItemBackground"
+                android:fontFamily="@font/alibaba_light"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="9"
+                android:textColor="#000000"
+                android:textSize="36sp"
+                app:layout_constraintEnd_toStartOf="@+id/textViewDate"
+                app:layout_constraintStart_toEndOf="@+id/textViewNum8"
+                app:layout_constraintTop_toTopOf="@+id/textViewNum7" />
+
+            <TextView
+                android:id="@+id/textViewDate"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:background="?selectableItemBackground"
+                android:fontFamily="@font/alibaba_light"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="今天"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textViewNum9"
+                app:layout_constraintTop_toTopOf="@+id/textViewNum7" />
+
+            <TextView
+                android:id="@+id/textViewNum6"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:background="?selectableItemBackground"
+                android:fontFamily="@font/alibaba_light"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="6"
+                android:textColor="#000000"
+                android:textSize="36sp"
+                app:layout_constraintEnd_toStartOf="@+id/textViewDate"
+                app:layout_constraintStart_toEndOf="@+id/textViewNum8"
+                app:layout_constraintTop_toBottomOf="@+id/textViewNum7" />
+
+            <TextView
+                android:id="@+id/textViewNum4"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:background="?selectableItemBackground"
+                android:fontFamily="@font/alibaba_light"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="4"
+                android:textColor="#000000"
+                android:textSize="36sp"
+                app:layout_constraintEnd_toStartOf="@+id/textViewNum8"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewNum7" />
+
+            <TextView
+                android:id="@+id/textViewNum5"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:background="?selectableItemBackground"
+                android:fontFamily="@font/alibaba_light"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="5"
+                android:textColor="#000000"
+                android:textSize="36sp"
+                app:layout_constraintEnd_toStartOf="@+id/textViewNum9"
+                app:layout_constraintStart_toEndOf="@+id/textViewNum7"
+                app:layout_constraintTop_toBottomOf="@+id/textViewNum7" />
+
+            <TextView
+                android:id="@+id/textViewAdd"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:background="?selectableItemBackground"
+                android:fontFamily="@font/alibaba_light"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="+"
+                android:textColor="#000000"
+                android:textSize="36sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textViewNum9"
+                app:layout_constraintTop_toBottomOf="@+id/textViewNum7" />
+
+            <TextView
+                android:id="@+id/textViewNum3"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:background="?selectableItemBackground"
+                android:fontFamily="@font/alibaba_light"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="3"
+                android:textColor="#000000"
+                android:textSize="36sp"
+                app:layout_constraintEnd_toStartOf="@+id/textViewDate"
+                app:layout_constraintStart_toEndOf="@+id/textViewNum8"
+                app:layout_constraintTop_toBottomOf="@+id/textViewNum5" />
+
+            <TextView
+                android:id="@+id/textViewNum1"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:background="?selectableItemBackground"
+                android:fontFamily="@font/alibaba_light"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="1"
+                android:textColor="#000000"
+                android:textSize="36sp"
+                app:layout_constraintEnd_toStartOf="@+id/textViewNum8"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewNum4" />
+
+            <TextView
+                android:id="@+id/textViewNum2"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:background="?selectableItemBackground"
+                android:fontFamily="@font/alibaba_light"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="2"
+                android:textColor="#000000"
+                android:textSize="36sp"
+                app:layout_constraintEnd_toStartOf="@+id/textViewNum9"
+                app:layout_constraintStart_toEndOf="@+id/textViewNum7"
+                app:layout_constraintTop_toBottomOf="@+id/textViewNum4" />
+
+            <TextView
+                android:id="@+id/textViewSub"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:background="?selectableItemBackground"
+                android:fontFamily="@font/alibaba_light"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="-"
+                android:textColor="#000000"
+                android:textSize="36sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textViewNum9"
+                app:layout_constraintTop_toTopOf="@+id/textViewNum3" />
+
+            <TextView
+                android:id="@+id/textViewDot"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:background="?selectableItemBackground"
+                android:fontFamily="@font/alibaba_light"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="."
+                android:textColor="#000000"
+                android:textSize="36sp"
+                app:layout_constraintEnd_toStartOf="@+id/textViewNum8"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewNum1" />
+
+            <TextView
+                android:id="@+id/textViewNum0"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:background="?selectableItemBackground"
+                android:fontFamily="@font/alibaba_light"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="0"
+                android:textColor="#000000"
+                android:textSize="36sp"
+                app:layout_constraintEnd_toStartOf="@+id/textViewNum9"
+                app:layout_constraintStart_toEndOf="@+id/textViewNum7"
+                app:layout_constraintTop_toBottomOf="@+id/textViewNum1" />
+
+            <TextView
+                android:id="@+id/textViewOk"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:background="@color/colorLightWhiteRed"
+                android:fontFamily="@font/alibaba_light"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="完成"
+                android:textColor="#000000"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/textViewNum9"
+                app:layout_constraintTop_toBottomOf="@+id/textViewNum3" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+</FrameLayout>

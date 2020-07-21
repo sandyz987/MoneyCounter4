@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragmentHome">
+
+    <fragment
+        android:id="@+id/fragmentMine"
+        android:name="com.example.moneycounter4.view.fragment.FragmentMine"
+        android:label="fragment_mine"
+        tools:layout="@layout/fragment_mine" >
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentHome"
+        android:name="com.example.moneycounter4.view.fragment.FragmentHome"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+    </fragment>
+    <action
+        android:id="@+id/action_global_fragmentMine"
+        app:destination="@id/fragmentMine"
+        app:launchSingleTop="true"
+        app:popEnterAnim="@anim/fragment_open_enter"
+        app:enterAnim="@anim/fragment_open_enter" />
+    <fragment
+        android:id="@+id/fragmentCommunity"
+        android:name="com.example.moneycounter4.view.fragment.FragmentCommunity"
+        android:label="fragment_community"
+        tools:layout="@layout/fragment_community" />
+    <fragment
+        android:id="@+id/fragmentGraph"
+        android:name="com.example.moneycounter4.view.fragment.FragmentGraph"
+        android:label="fragment_graph"
+        tools:layout="@layout/fragment_graph" />
+    <action
+        android:id="@+id/action_global_fragmentHome"
+        app:destination="@id/fragmentHome"
+        app:enterAnim="@anim/fragment_open_enter"
+        app:popEnterAnim="@anim/fragment_open_enter" />
+    <action
+        android:id="@+id/action_global_fragmentCommunity"
+        app:destination="@id/fragmentCommunity"
+        app:enterAnim="@anim/fragment_open_enter"
+        app:popEnterAnim="@anim/fragment_open_enter" />
+    <action
+        android:id="@+id/action_global_fragmentGraph"
+        app:destination="@id/fragmentGraph"
+        app:enterAnim="@anim/fragment_open_enter"
+        app:popEnterAnim="@anim/fragment_open_enter" />
+    <fragment
+        android:id="@+id/fragmentTalkDetails"
+        android:name="com.example.moneycounter4.view.fragment.FragmentTalkDetails"
+        android:label="fragment_talk_details"
+        tools:layout="@layout/fragment_talk_details" />
+    <action
+        android:id="@+id/action_global_fragmentTalkDetails"
+        app:destination="@id/fragmentTalkDetails"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
+    <fragment
+        android:id="@+id/fragmentTalkEdit"
+        android:name="com.example.moneycounter4.view.fragment.FragmentTalkEdit"
+        android:label="fragment_talk_edit"
+        tools:layout="@layout/fragment_talk_edit" />
+    <action
+        android:id="@+id/action_global_fragmentTalkEdit"
+        app:destination="@id/fragmentTalkEdit"
+        app:enterAnim="@anim/slide_in_bottom"
+        app:popExitAnim="@anim/slide_out_bottom"
+        app:exitAnim="@anim/alpha_hide"
+        app:popEnterAnim="@anim/alpha_show" />
+    <fragment
+        android:id="@+id/fragmentCounterEdit"
+        android:name="com.example.moneycounter4.view.fragment.FragmentCounterEdit"
+        android:label="FragmentCounterEdit" >
+        <action
+            android:id="@+id/action_fragmentCounterEdit_pop"
+            app:enterAnim="@anim/alpha_hide"
+            app:exitAnim="@anim/slide_in_bottom"
+            app:popEnterAnim="@anim/slide_out_bottom"
+            app:popExitAnim="@anim/alpha_show"
+            app:popUpTo="@id/fragmentCounterEdit"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_fragmentCounterEdit"
+        app:destination="@id/fragmentCounterEdit"
+        app:enterAnim="@anim/slide_in_bottom"
+        app:exitAnim="@anim/alpha_hide"
+        app:popEnterAnim="@anim/alpha_show"
+        app:popExitAnim="@anim/slide_out_bottom" />
+    <fragment
+        android:id="@+id/fragmentTypeEdit"
+        android:name="com.example.moneycounter4.view.fragment.FragmentTypeEdit"
+        android:label="FragmentTypeEdit" >
+        <action
+            android:id="@+id/action_fragmentTypeEdit_pop"
+            app:enterAnim="@anim/alpha_hide"
+            app:exitAnim="@anim/slide_in_bottom"
+            app:popEnterAnim="@anim/slide_out_bottom"
+            app:popExitAnim="@anim/alpha_show"
+            app:popUpTo="@id/fragmentTypeEdit"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_fragmentTypeEdit"
+        app:destination="@id/fragmentTypeEdit"
+        app:enterAnim="@anim/slide_in_bottom"
+        app:exitAnim="@anim/alpha_hide"
+        app:popEnterAnim="@anim/alpha_show"
+        app:popExitAnim="@anim/slide_out_bottom" />
+    <fragment
+        android:id="@+id/fragmentAddType"
+        android:name="com.example.moneycounter4.view.fragment.FragmentAddType"
+        android:label="FragmentAddType" >
+        <action
+            android:id="@+id/action_fragmentAddType_pop"
+            app:enterAnim="@anim/alpha_hide"
+            app:exitAnim="@anim/slide_in_bottom"
+            app:popEnterAnim="@anim/slide_out_bottom"
+            app:popExitAnim="@anim/alpha_show"
+            app:popUpTo="@id/fragmentAddType"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_fragmentAddType"
+        app:destination="@id/fragmentAddType"
+        app:enterAnim="@anim/slide_in_bottom"
+        app:exitAnim="@anim/alpha_hide"
+        app:popEnterAnim="@anim/alpha_show"
+        app:popExitAnim="@anim/slide_out_bottom" />
+    <fragment
+        android:id="@+id/fragmentSetting"
+        android:name="com.example.moneycounter4.view.fragment.FragmentSetting"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" >
+        <action
+            android:id="@+id/action_fragmentSetting_pop"
+            app:enterAnim="@anim/alpha_hide"
+            app:exitAnim="@anim/slide_in_bottom"
+            app:popUpTo="@id/fragmentSetting"
+            app:popUpToInclusive="true"
+            app:popEnterAnim="@anim/slide_out_bottom"
+            app:popExitAnim="@anim/alpha_show" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_fragmentSetting"
+        app:destination="@id/fragmentSetting"
+        app:enterAnim="@anim/slide_in_bottom"
+        app:exitAnim="@anim/alpha_hide"
+        app:popEnterAnim="@anim/alpha_show"
+        app:popExitAnim="@anim/slide_out_bottom" />
+    <fragment
+        android:id="@+id/fragmentItemDetail"
+        android:name="com.example.moneycounter4.view.fragment.FragmentItemDetail"
+        android:label="FragmentItemDetail" />
+    <action
+        android:id="@+id/action_global_fragmentItemDetail"
+        app:destination="@id/fragmentItemDetail"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
+</navigation>
