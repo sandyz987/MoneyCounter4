@@ -17,12 +17,10 @@ import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.bigkoo.pickerview.listener.OnTimeSelectListener
 import com.example.moneycounter4.R
 import com.example.moneycounter4.bean.DataItem
-import com.example.moneycounter4.databinding.FragmentHomeBinding
+import com.example.moneycounter4.databinding.FragmentMyHomeBinding
 import com.example.moneycounter4.view.adapter.LogRecyclerViewAdapter
 import com.example.moneycounter4.viewmodel.MainViewModel
-//import jdk.nashorn.internal.objects.NativeDate.getTime
-import kotlinx.android.synthetic.main.fragment_home.*
-import java.util.*
+import kotlinx.android.synthetic.main.fragment_my_home.*
 import kotlin.collections.ArrayList
 
 
@@ -32,7 +30,7 @@ class FragmentHome : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        val fragmentHomeBinding = DataBindingUtil.inflate<FragmentHomeBinding>(LayoutInflater.from(requireContext()),R.layout.fragment_home,null,false)
+        val fragmentHomeBinding = DataBindingUtil.inflate<FragmentMyHomeBinding>(LayoutInflater.from(requireContext()),R.layout.fragment_my_home,null,false)
         viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
         fragmentHomeBinding.vm = viewModel
 

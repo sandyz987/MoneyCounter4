@@ -14,7 +14,7 @@
         android:inputType="textVisiblePassword"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
-        app:hint_a="请输入账号"
+        app:hint_text="请输入账号"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
@@ -26,7 +26,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:inputType="textPassword"
-        app:hint_a="请输入密码"
+        app:hint_text="请输入密码"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

@@ -8,7 +8,7 @@ import com.example.moneycounter4.R
 
 class MainApplication : Application() {
 
-    val connectionUrlMain = "http://47.115.34.105:8080/mweb/demo1"
+    val connectionUrlMain = "http://sandyz.ink:8080/mweb/counter4"
 
     companion object{
         lateinit var app: Application

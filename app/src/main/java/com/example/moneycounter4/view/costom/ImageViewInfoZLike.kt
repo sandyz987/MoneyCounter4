@@ -7,7 +7,6 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.MotionEvent
-import android.widget.ImageView
 import androidx.core.content.res.ResourcesCompat
 import com.example.moneycounter4.R
 import kotlin.math.abs
@@ -29,14 +28,14 @@ class ImageViewInfoZLike : androidx.appcompat.widget.AppCompatImageView {
     constructor(context: Context): super(context)
 
     constructor(context: Context, attributeSet: AttributeSet): super(context, attributeSet){
-        val typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.attr)
+        val typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.ImageViewInfoZLike)
 
         paint = Paint()
         paint.isAntiAlias = true
         paint.color = Color.GRAY
-        s = typedArray.getString(R.styleable.attr_hint_a)
-        endSrcId = typedArray.getResourceId(R.styleable.attr_end_src,0)
-        startSrcId = typedArray.getResourceId(R.styleable.attr_start_src,0)
+        s = typedArray.getString(R.styleable.ImageViewInfoZLike_like_count_text)
+        endSrcId = typedArray.getResourceId(R.styleable.ImageViewInfoZLike_liked_src,0)
+        startSrcId = typedArray.getResourceId(R.styleable.ImageViewInfoZLike_no_liked_src,0)
         typedArray.recycle()
         setImageDrawable(ResourcesCompat.getDrawable(resources,startSrcId,null))
     }
@@ -50,7 +49,6 @@ class ImageViewInfoZLike : androidx.appcompat.widget.AppCompatImageView {
     }
 
     override fun onDraw(canvas: Canvas?) {
-
 
 
         canvas?.translate(trX - (measuredWidth/4),0f)

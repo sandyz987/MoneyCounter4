@@ -13,13 +13,12 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:background="?selectableItemBackground"
-        app:end_src="@drawable/ic_favorite_fill"
-        app:hint_a="0"
+        app:reply_count_text="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageViewLike"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewPic"
-        app:start_src="@drawable/ic_talk" />
+        app:reply_pic_src="@drawable/ic_talk" />
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/imageViewUsrPic"
@@ -109,13 +108,13 @@
         android:layout_height="20dp"
         android:layout_marginBottom="16dp"
         android:background="?selectableItemBackground"
-        app:end_src="@drawable/ic_favorite_fill"
-        app:hint_a="0"
+        app:liked_src="@drawable/ic_favorite_fill"
+        app:like_count_text="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageViewTalk"
         app:layout_constraintTop_toTopOf="@+id/imageViewTalk"
-        app:start_src="@drawable/ic_favorite_stroke" />
+        app:no_liked_src="@drawable/ic_favorite_stroke" />
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/imageViewPic"

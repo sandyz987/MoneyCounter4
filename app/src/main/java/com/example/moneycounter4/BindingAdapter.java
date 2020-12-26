@@ -9,7 +9,7 @@ import com.makeramen.roundedimageview.RoundedImageView;
 public class BindingAdapter {
 
     //给home页面的页面选择按钮（自定义ImageViewSelectZ）设置文字月份
-    @androidx.databinding.BindingAdapter("hint_a")
+    @androidx.databinding.BindingAdapter("month_text")
     public static void setMonth(ImageViewSelectZ view, int value) {
         view.setHint(value + "月");
     }

@@ -8,6 +8,10 @@ import java.lang.ref.WeakReference
 
 //安全的handler，持有T的弱引用，可以随便使用不会内存泄漏
 
+interface SafeHandlerCallback<T> {
+    fun doSomething(msg:Message,weakReference :WeakReference<T>)
+}
+
 class SafeHandler<T>(private val weakReference: WeakReference<T>, private val safeHandlerCallback: SafeHandlerCallback<T>):Handler() {
 
 

@@ -15,7 +15,7 @@
         android:id="@+id/fragmentHome"
         android:name="com.example.moneycounter4.view.fragment.FragmentHome"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_my_home" >
     </fragment>
     <action
         android:id="@+id/action_global_fragmentMine"

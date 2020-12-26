@@ -24,13 +24,12 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
-            app:end_src="@drawable/ic_home_fill"
-            app:hint_a="主页"
+            app:checked_src="@drawable/ic_home_fill"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/bottomViewGraph"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:start_src="@drawable/ic_home_stroke" />
+            app:no_checked_src="@drawable/ic_home_stroke" />
 
         <com.example.moneycounter4.view.costom.BottomViewZ
             android:id="@+id/bottomViewGraph"
@@ -41,14 +40,13 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
-            app:end_src="@drawable/ic_graph_fill"
-            app:hint_a="主页"
+            app:checked_src="@drawable/ic_graph_fill"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/floatingAdd"
             app:layout_constraintStart_toEndOf="@+id/bottomViewHome"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            app:start_src="@drawable/ic_graph_stroke" />
+            app:no_checked_src="@drawable/ic_graph_stroke" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingAdd"
@@ -71,14 +69,13 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
-            app:end_src="@drawable/ic_community_fill"
-            app:hint_a="主页"
+            app:checked_src="@drawable/ic_community_fill"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/bottomViewMine"
             app:layout_constraintStart_toEndOf="@+id/floatingAdd"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            app:start_src="@drawable/ic_community_stroke" />
+            app:no_checked_src="@drawable/ic_community_stroke" />
 
         <com.example.moneycounter4.view.costom.BottomViewZ
             android:id="@+id/bottomViewMine"
@@ -89,14 +86,13 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
-            app:end_src="@drawable/ic_mine_fill"
-            app:hint_a="主页"
+            app:checked_src="@drawable/ic_mine_new_fill"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/bottomViewCommunity"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            app:start_src="@drawable/ic_mine_stroke" />
+            app:no_checked_src="@drawable/ic_mine_new_fill" />
     </com.example.moneycounter4.view.costom.BottomConstraintLayoutZ>
 
     <fragment

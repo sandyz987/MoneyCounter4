@@ -1,8 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="attr">
-        <attr name="hint_a" format="string"/>
-        <attr name="end_src" format="reference"/>
-        <attr name="start_src" format="reference"/>
+    <declare-styleable name="BottomViewZ">
+        <attr name="checked_src" format="reference"/>
+        <attr name="no_checked_src" format="reference"/>
     </declare-styleable>
+    <declare-styleable name="EditTextZ">
+        <attr name="hint_text" format="string"/>
+    </declare-styleable>
+    <declare-styleable name="ImageViewSelectZ">
+        <attr name="month_text" format="string"/>
+        <attr name="month_pic_src" format="reference"/>
+    </declare-styleable>
+    <declare-styleable name="ImageViewInfoZ">
+        <attr name="reply_count_text" format="string"/>
+        <attr name="reply_pic_src" format="reference"/>
+    </declare-styleable>
+    <declare-styleable name="ImageViewInfoZLike">
+        <attr name="like_count_text" format="string"/>
+        <attr name="liked_src" format="reference"/>
+        <attr name="no_liked_src" format="reference"/>
+    </declare-styleable>
+
 </resources>

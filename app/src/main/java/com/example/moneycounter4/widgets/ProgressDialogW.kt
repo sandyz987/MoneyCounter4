@@ -8,8 +8,8 @@ import android.content.Context
 object ProgressDialogW {
     private var progressDialog : ProgressDialog? = null
 
-    fun show(context: Context, title:String,message:String) {
-        progressDialog = ProgressDialog.show(context, title, message, true, true);
+    fun show(context: Context, title: String, message: String, cancelable: Boolean) {
+        progressDialog = ProgressDialog.show(context, title, message, true, cancelable);
         progressDialog?.setTitle(title);
         progressDialog?.setMessage(message);
         progressDialog?.show()

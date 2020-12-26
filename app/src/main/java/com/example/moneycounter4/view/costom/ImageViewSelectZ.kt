@@ -7,7 +7,6 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.MotionEvent
-import android.widget.ImageView
 import androidx.core.content.res.ResourcesCompat
 import com.example.moneycounter4.R
 import kotlin.math.abs
@@ -29,16 +28,15 @@ class ImageViewSelectZ : androidx.appcompat.widget.AppCompatImageView {
     constructor(context: Context): super(context)
 
     constructor(context: Context, attributeSet: AttributeSet): super(context, attributeSet){
-        val typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.attr)
+        val typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.ImageViewSelectZ)
 
         paint = Paint()
         paint.isAntiAlias = true
         paint.color = Color.BLACK
-        s = typedArray.getString(R.styleable.attr_hint_a)
-        endSrcId = typedArray.getResourceId(R.styleable.attr_end_src,0)
-        startSrcId = typedArray.getResourceId(R.styleable.attr_start_src,0)
+        s = typedArray.getString(R.styleable.ImageViewSelectZ_month_text)
+        startSrcId = typedArray.getResourceId(R.styleable.ImageViewSelectZ_month_pic_src,0)
         typedArray.recycle()
-        setImageDrawable(ResourcesCompat.getDrawable(resources,startSrcId,null))
+        setImageDrawable(ResourcesCompat.getDrawable(resources, startSrcId, null))
     }
 
     constructor(context: Context, attributeSet: AttributeSet, defStyleAttr: Int): super(context, attributeSet, defStyleAttr)
@@ -80,16 +78,6 @@ class ImageViewSelectZ : androidx.appcompat.widget.AppCompatImageView {
         }
         return super.onTouchEvent(event)
 
-    }
-
-    fun setSelect(boolean: Boolean){
-        mSelected = boolean
-        if (mSelected){
-            setImageDrawable(ResourcesCompat.getDrawable(resources,endSrcId,null))
-        }else{
-            setImageDrawable(ResourcesCompat.getDrawable(resources,startSrcId,null))
-        }
-        invalidate()
     }
 
     fun setHint(string:String){

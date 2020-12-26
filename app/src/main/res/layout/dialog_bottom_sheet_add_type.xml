@@ -49,7 +49,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            app:hint_a="请输入类目名"
+            app:hint_text="请输入类目名"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/tabLayoutAdd"
             app:layout_constraintStart_toStartOf="@+id/tabLayoutAdd"

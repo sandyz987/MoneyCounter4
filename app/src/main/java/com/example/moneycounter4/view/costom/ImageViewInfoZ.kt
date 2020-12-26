@@ -7,7 +7,6 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.MotionEvent
-import android.widget.ImageView
 import androidx.core.content.res.ResourcesCompat
 import com.example.moneycounter4.R
 import kotlin.math.abs
@@ -20,7 +19,6 @@ class ImageViewInfoZ : androidx.appcompat.widget.AppCompatImageView {
     private lateinit var paint : Paint
     private lateinit var anim : ValueAnimator
     private var s : String? = null
-    private var endSrcId = 0
     private var startSrcId = 0
     private var trX = 0f
     private var mSelected = false
@@ -30,14 +28,13 @@ class ImageViewInfoZ : androidx.appcompat.widget.AppCompatImageView {
     constructor(context: Context): super(context)
 
     constructor(context: Context, attributeSet: AttributeSet): super(context, attributeSet){
-        val typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.attr)
+        val typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.ImageViewInfoZ)
 
         paint = Paint()
         paint.isAntiAlias = true
         paint.color = Color.GRAY
-        s = typedArray.getString(R.styleable.attr_hint_a)
-        endSrcId = typedArray.getResourceId(R.styleable.attr_end_src,0)
-        startSrcId = typedArray.getResourceId(R.styleable.attr_start_src,0)
+        s = typedArray.getString(R.styleable.ImageViewInfoZ_reply_count_text)
+        startSrcId = typedArray.getResourceId(R.styleable.ImageViewInfoZ_reply_pic_src,0)
         typedArray.recycle()
         setImageDrawable(ResourcesCompat.getDrawable(resources,startSrcId,null))
     }
@@ -81,16 +78,6 @@ class ImageViewInfoZ : androidx.appcompat.widget.AppCompatImageView {
         }
         return super.onTouchEvent(event)
 
-    }
-
-    fun setSelect(boolean: Boolean){
-        mSelected = boolean
-        if (mSelected){
-            setImageDrawable(ResourcesCompat.getDrawable(resources,endSrcId,null))
-        }else{
-            setImageDrawable(ResourcesCompat.getDrawable(resources,startSrcId,null))
-        }
-        invalidate()
     }
 
     fun setHint(string:String){

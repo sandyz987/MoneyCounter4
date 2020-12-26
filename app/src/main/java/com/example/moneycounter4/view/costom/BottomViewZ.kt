@@ -2,17 +2,13 @@ package com.example.moneycounter4.view.costom
 
 import android.animation.ValueAnimator
 import android.content.Context
-import android.content.res.Resources
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.MotionEvent
-import android.widget.ImageView
 import androidx.core.content.res.ResourcesCompat
-import com.bumptech.glide.load.engine.Resource
 import com.example.moneycounter4.R
-import com.example.moneycounter4.widgets.LogW
 import kotlin.math.abs
 
 //底下导航栏的按钮 增加动画效果 左右晃动
@@ -33,14 +29,14 @@ class BottomViewZ : androidx.appcompat.widget.AppCompatImageView {
     constructor(context: Context): super(context)
 
     constructor(context: Context, attributeSet: AttributeSet): super(context, attributeSet){
-        val typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.attr)
+        val typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.BottomViewZ)
 
         paint = Paint()
         paint.isAntiAlias = true
         paint.color = Color.GRAY
-        s = typedArray.getString(R.styleable.attr_hint_a)
-        endSrcId = typedArray.getResourceId(R.styleable.attr_end_src,0)
-        startSrcId = typedArray.getResourceId(R.styleable.attr_start_src,0)
+        s = ""
+        endSrcId = typedArray.getResourceId(R.styleable.BottomViewZ_checked_src,0)
+        startSrcId = typedArray.getResourceId(R.styleable.BottomViewZ_no_checked_src,0)
         typedArray.recycle()
         setImageDrawable(ResourcesCompat.getDrawable(resources,startSrcId,null))
     }
