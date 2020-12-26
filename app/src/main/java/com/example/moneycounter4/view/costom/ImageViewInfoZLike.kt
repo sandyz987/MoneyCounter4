@@ -52,7 +52,6 @@ class ImageViewInfoZLike : androidx.appcompat.widget.AppCompatImageView {
     override fun onDraw(canvas: Canvas?) {
 
 
-
         canvas?.translate(trX - (measuredWidth/4),0f)
         super.onDraw(canvas)
         paint.textSize = 40f

@@ -90,7 +90,7 @@ class FragmentTalkEdit : Fragment() {
                 Toast.makeText(requireContext(),"图片还没上传好鸭~",Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            ProgressDialogW.show(requireContext(),"提示","正在上传数据中")
+            ProgressDialogW.show(requireContext(),"提示","正在上传数据中",false)
             if (talkId == null){
                 HttpUtil.getInstance().httpGet((requireActivity().application as MainApplication).connectionUrlMain,object : HttpUtilCallback{
                     @SuppressLint("RestrictedApi")

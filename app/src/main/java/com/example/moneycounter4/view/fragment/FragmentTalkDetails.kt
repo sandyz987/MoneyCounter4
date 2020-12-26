@@ -188,7 +188,7 @@ class FragmentTalkDetails : Fragment() {
             builder.setPositiveButton(
                 "是"
             ) { _, _ ->
-                ProgressDialogW.show(requireContext(),"提示","正在删除")
+                ProgressDialogW.show(requireContext(),"提示","正在删除",false)
                 HttpUtil.getInstance().httpGet((activity?.application as MainApplication).connectionUrlMain,object :
                     HttpUtilCallback {
                     override fun doSomething(respond: String?) {

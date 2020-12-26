@@ -22,10 +22,10 @@ class EditTextZ : androidx.appcompat.widget.AppCompatEditText {
     constructor(context: Context): super(context)
 
     constructor(context: Context, attributeSet: AttributeSet):super(context, attributeSet){
-        val typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.attr)
+        val typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.EditTextZ)
         paint = Paint()
         paint.isAntiAlias = true
-        s = typedArray.getString(R.styleable.attr_hint_a)
+        s = typedArray.getString(R.styleable.EditTextZ_hint_text)
         typedArray.recycle()
         focused = false
     }

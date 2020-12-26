@@ -32,13 +32,13 @@ public class BaseFullBottomSheetFragment extends BottomSheetDialogFragment {
         if (getContext() == null) {
             return super.onCreateDialog(savedInstanceState);
         }
-
+        //设置透明样式
         return new BottomSheetDialog(getContext(), R.style.TransparentBottomSheetStyle);
     }
     @Override
     public void onStart() {
         super.onStart();
-        // 设置软键盘不自动弹出
+        //设置软键盘不自动弹出
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         BottomSheetDialog dialog = (BottomSheetDialog) getDialog();
         FrameLayout bottomSheet = dialog.getDelegate().findViewById(R.id.design_bottom_sheet);

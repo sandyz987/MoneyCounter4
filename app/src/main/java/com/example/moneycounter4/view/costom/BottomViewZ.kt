@@ -33,14 +33,14 @@ class BottomViewZ : androidx.appcompat.widget.AppCompatImageView {
     constructor(context: Context): super(context)
 
     constructor(context: Context, attributeSet: AttributeSet): super(context, attributeSet){
-        val typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.attr)
+        val typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.BottomViewZ)
 
         paint = Paint()
         paint.isAntiAlias = true
         paint.color = Color.GRAY
-        s = typedArray.getString(R.styleable.attr_hint_a)
-        endSrcId = typedArray.getResourceId(R.styleable.attr_end_src,0)
-        startSrcId = typedArray.getResourceId(R.styleable.attr_start_src,0)
+        s = ""
+        endSrcId = typedArray.getResourceId(R.styleable.BottomViewZ_end_src,0)
+        startSrcId = typedArray.getResourceId(R.styleable.BottomViewZ_start_src,0)
         typedArray.recycle()
         setImageDrawable(ResourcesCompat.getDrawable(resources,startSrcId,null))
     }

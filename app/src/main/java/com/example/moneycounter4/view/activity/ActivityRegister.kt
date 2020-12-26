@@ -38,7 +38,7 @@ class ActivityRegister : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            ProgressDialogW.show(this@ActivityRegister,"提示","正在注册中")
+            ProgressDialogW.show(this@ActivityRegister,"提示","正在注册中",false)
             HttpUtil.getInstance().httpGet((application as MainApplication).connectionUrlMain,object :
                 HttpUtilCallback {
                 override fun doSomething(respond: String?) {

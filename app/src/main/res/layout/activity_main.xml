@@ -89,14 +89,14 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
-            app:end_src="@drawable/ic_mine_fill"
+            app:end_src="@drawable/ic_mine_new_fill"
             app:hint_a="主页"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/bottomViewCommunity"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            app:start_src="@drawable/ic_mine_stroke" />
+            app:start_src="@drawable/ic_mine_new_fill" />
     </com.example.moneycounter4.view.costom.BottomConstraintLayoutZ>
 
     <fragment

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="attr">
-        <attr name="hint_a" format="string"/>
+    <declare-styleable name="BottomViewZ">
         <attr name="end_src" format="reference"/>
         <attr name="start_src" format="reference"/>
+    </declare-styleable>
+    <declare-styleable name="EditTextZ">
+        <attr name="hint_text" format="string"/>
     </declare-styleable>
 </resources>

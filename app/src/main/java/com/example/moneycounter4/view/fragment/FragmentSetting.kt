@@ -53,7 +53,7 @@ class FragmentSetting : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        ProgressDialogW.show(requireContext(),"提示","从服务器读取信息中，请稍后")
+        ProgressDialogW.show(requireContext(),"提示","从服务器读取信息中，请稍后",false)
         HttpUtil.getInstance().httpGet((activity?.application as MainApplication).connectionUrlMain,object :
             HttpUtilCallback {
             override fun doSomething(respond: String?) {
@@ -100,7 +100,7 @@ class FragmentSetting : Fragment() {
                 return@setOnClickListener
             }
 
-            ProgressDialogW.show(requireContext(),"提示","正在上传~请稍后")
+            ProgressDialogW.show(requireContext(),"提示","正在上传~请稍后",false)
 
             val account = ItemAccount()
             account.usrName = textViewUsrName.text.toString()
@@ -313,7 +313,7 @@ class FragmentSetting : Fragment() {
 
 
             upLoading = true
-            ProgressDialogW.show(requireContext(),"提示","正在上传~")
+            ProgressDialogW.show(requireContext(),"提示","正在上传~",false)
             UploadPic.upload(imgPath,object : HttpUtilCallback{
                 override fun doSomething(respond: String?) {
                     activity?.runOnUiThread {

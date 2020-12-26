@@ -30,14 +30,18 @@ class ActivityLogin : AppCompatActivity() {
         viewModel.saveUsrInfo("","",-1)
 
         floatLoginLogin.setOnClickListener {
-            ProgressDialogW.show(this,"提示","正在登录中")
+            ProgressDialogW.show(this,"提示","正在登录中",false)
             HttpUtil.getInstance().httpGet((application as MainApplication).connectionUrlMain,object :
                 HttpUtilCallback {
                 override fun doSomething(respond: String?) {
                     ProgressDialogW.hide()
                     if(respond.equals("-1")){
                         this@ActivityLogin.runOnUiThread { Toast.makeText(applicationContext,R.string.login_denied_error,
-                            Toast.LENGTH_SHORT).show() }
+                            Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this@ActivityLogin,ActivityMain::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
                     }else{
                         this@ActivityLogin.runOnUiThread { Toast.makeText(applicationContext,R.string.login_success,
                             Toast.LENGTH_SHORT).show() }
@@ -53,7 +57,11 @@ class ActivityLogin : AppCompatActivity() {
                 override fun error() {
                     ProgressDialogW.hide()
                     this@ActivityLogin.runOnUiThread { Toast.makeText(applicationContext,R.string.login_connection_error,
-                        Toast.LENGTH_SHORT).show() }
+                        Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this@ActivityLogin,ActivityMain::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
                 }
             },this,"page","test","post","login","accountnum",edittextLoginAccountnum.text.toString(),"password",edittextLoginPassword.text.toString())
 
