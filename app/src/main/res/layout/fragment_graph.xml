@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/prime_background_color"
     tools:context=".view.fragment.FragmentGraph">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,7 +23,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorLightWhiteRed">
+                android:background="@color/appbar_color">
 
                 <LinearLayout
                     android:id="@+id/linearLayout14"
@@ -78,7 +79,7 @@
                     android:layout_marginTop="16dp"
                     android:fontFamily="@font/alibaba_bold"
                     android:text="收支状况"
-                    android:textColor="#000000"
+                    android:textColor="#ffffff"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

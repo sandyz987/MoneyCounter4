@@ -32,7 +32,7 @@ class ImageViewSelectZ : androidx.appcompat.widget.AppCompatImageView {
 
         paint = Paint()
         paint.isAntiAlias = true
-        paint.color = Color.BLACK
+        paint.color = Color.WHITE
         s = typedArray.getString(R.styleable.ImageViewSelectZ_month_text)
         startSrcId = typedArray.getResourceId(R.styleable.ImageViewSelectZ_month_pic_src,0)
         typedArray.recycle()

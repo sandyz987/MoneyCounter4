@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/prime_background_color"
     tools:context=".view.fragment.FragmentMine">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -46,7 +47,7 @@
                     android:id="@+id/constraintLayout"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:background="@color/colorLightRed"
+                    android:background="@color/appbar_color"
                     app:layout_constraintBottom_toTopOf="@+id/guideline2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -193,7 +194,7 @@
                     android:id="@+id/layoutCondition"
                     android:layout_width="0dp"
                     android:layout_height="120dp"
-                    android:background="@drawable/shape_big_corners_light_white_red"
+                    android:background="@color/appbar_color"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
@@ -216,7 +217,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
                         android:text="月总预算"
-                        android:textColor="#000000"
+                        android:textColor="#ffffff"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -228,6 +229,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
                         android:text="查看全部 >"
+                        android:textColor="#ffffff"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>

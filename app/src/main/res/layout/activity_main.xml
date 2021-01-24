@@ -4,19 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/prime_background_color"
+    android:clipChildren="false"
     tools:context=".view.activity.ActivityMain">
+
+    <fragment
+        android:id="@+id/fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toTopOf="@+id/bottomView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/nav_graph" />
 
     <com.example.moneycounter4.view.costom.BottomConstraintLayoutZ
         android:id="@+id/bottomView"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:background="#ebebeb"
+        android:background="@color/bottom_view_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <com.example.moneycounter4.view.costom.BottomViewZ
-            android:id="@+id/bottomViewHome"
+            android:id="@+id/bottomViewList"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_marginTop="12dp"
@@ -24,12 +38,12 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
-            app:checked_src="@drawable/ic_home_fill"
+            app:checked_src="@drawable/ic_list_new_fill"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/bottomViewGraph"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:no_checked_src="@drawable/ic_home_stroke" />
+            app:no_checked_src="@drawable/ic_list_new_fill" />
 
         <com.example.moneycounter4.view.costom.BottomViewZ
             android:id="@+id/bottomViewGraph"
@@ -40,25 +54,27 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
-            app:checked_src="@drawable/ic_graph_fill"
+            app:checked_src="@drawable/ic_graph_new_fill"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/floatingAdd"
-            app:layout_constraintStart_toEndOf="@+id/bottomViewHome"
+            app:layout_constraintStart_toEndOf="@+id/bottomViewList"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            app:no_checked_src="@drawable/ic_graph_stroke" />
+            app:no_checked_src="@drawable/ic_graph_new_fill" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingAdd"
-            android:layout_width="wrap_content"
+            android:layout_width="55dp"
             android:layout_height="wrap_content"
             android:clickable="true"
-            app:backgroundTint="@color/colorLightRed"
+            app:backgroundTint="#fff77e"
+            app:fabCustomSize="55dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/bottomViewCommunity"
             app:layout_constraintStart_toEndOf="@+id/bottomViewGraph"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_add" />
+            app:maxImageSize="40dp"
+            app:srcCompat="@drawable/ic_home_new_fill" />
 
         <com.example.moneycounter4.view.costom.BottomViewZ
             android:id="@+id/bottomViewCommunity"
@@ -69,13 +85,13 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
-            app:checked_src="@drawable/ic_community_fill"
+            app:checked_src="@drawable/ic_community_new_fill"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/bottomViewMine"
             app:layout_constraintStart_toEndOf="@+id/floatingAdd"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            app:no_checked_src="@drawable/ic_community_stroke" />
+            app:no_checked_src="@drawable/ic_community_new_fill" />
 
         <com.example.moneycounter4.view.costom.BottomViewZ
             android:id="@+id/bottomViewMine"
@@ -94,17 +110,5 @@
             app:layout_constraintVertical_bias="0.0"
             app:no_checked_src="@drawable/ic_mine_new_fill" />
     </com.example.moneycounter4.view.costom.BottomConstraintLayoutZ>
-
-    <fragment
-        android:id="@+id/fragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@+id/bottomView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/nav_graph" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

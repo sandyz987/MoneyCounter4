@@ -14,5 +14,8 @@
     <color name="colorGray">#EDEDED</color>
     <color name="colorBlue">#3245B8</color>
     <color name="colorLightBlue">#0091EA</color>
+    <color name="prime_background_color">#f7fdcf</color>
+    <color name="bottom_view_color">#a0cbaf</color>
+    <color name="appbar_color">#3b6865</color>
 
 </resources>

@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F6F6F6">
+        android:background="@color/prime_background_color">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -226,7 +226,7 @@
             android:id="@+id/linearLayout6"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/colorLightWhiteRed"
+            android:background="@color/appbar_color"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -244,7 +244,7 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
                     android:text="完成"
-                    android:textColor="@color/colorLightBlue"
+                    android:textColor="@color/prime_background_color"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -258,7 +258,7 @@
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/alibaba_bold"
                     android:text="类目"
-                    android:textColor="#000000"
+                    android:textColor="#ffffff"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

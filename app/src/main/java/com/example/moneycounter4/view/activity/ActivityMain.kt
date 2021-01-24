@@ -3,16 +3,12 @@ package com.example.moneycounter4.view.activity
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
-import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import com.example.moneycounter4.R
 import com.example.moneycounter4.viewmodel.MainViewModel
-import com.example.moneycounter4.widgets.LogW
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -29,10 +25,10 @@ class ActivityMain : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         //简单的navigation导航部分
-        bottomViewHome.setSelect(true)
-        bottomViewHome.setOnClickListener {
+        bottomViewList.setSelect(true)
+        bottomViewList.setOnClickListener {
             clrBottomViewSelect()
-            bottomViewHome.setSelect(true)
+            bottomViewList.setSelect(true)
             navTo(R.id.action_global_fragmentHome,null)
         }
 
@@ -99,7 +95,7 @@ class ActivityMain : AppCompatActivity() {
         bottomViewMine.setSelect(false)
         bottomViewCommunity.setSelect(false)
         bottomViewGraph.setSelect(false)
-        bottomViewHome.setSelect(false)
+        bottomViewList.setSelect(false)
     }
 
 }

@@ -12,6 +12,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/prime_background_color"
         tools:context=".view.fragment.FragmentHome">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,7 +23,7 @@
                 android:id="@+id/linearLayout3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@color/colorLightWhiteRed"
+                android:background="@color/appbar_color"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +42,7 @@
                         android:layout_marginBottom="8dp"
                         android:fontFamily="@font/alibaba_light"
                         android:text="@{String.format(&quot;%.2f&quot;,vm.income)}"
-                        android:textColor="#000000"
+                        android:textColor="#ffffff"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/guideline4"
@@ -61,7 +62,7 @@
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/alibaba_bold"
                         android:text="慧记账"
-                        android:textColor="#000000"
+                        android:textColor="#ffffff"
                         android:textSize="24sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -73,6 +74,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="@{vm.year.toString()+&quot;&quot;}"
+                        android:textColor="#ffffff"
                         app:layout_constraintEnd_toStartOf="@+id/guideline4"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -84,6 +86,7 @@
                         android:layout_marginStart="24dp"
                         android:layout_marginTop="8dp"
                         android:text="收入"
+                        android:textColor="#ffffff"
                         app:layout_constraintStart_toStartOf="@+id/guideline4"
                         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
@@ -94,6 +97,7 @@
                         android:layout_marginStart="24dp"
                         android:layout_marginTop="8dp"
                         android:text="支出"
+                        android:textColor="#ffffff"
                         app:layout_constraintStart_toStartOf="@+id/guideline5"
                         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
@@ -113,7 +117,7 @@
                         android:layout_marginBottom="8dp"
                         android:fontFamily="@font/alibaba_light"
                         android:text="@{String.format(&quot;%.2f&quot;,vm.expend)}"
-                        android:textColor="#000000"
+                        android:textColor="#ffffff"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/guideline5"
@@ -128,12 +132,12 @@
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:clickable="true"
                         android:tint="#000000"
-                        app:month_text="@{vm.month}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/guideline4"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textViewYear"
-                        app:month_pic_src="@drawable/ic_drop_down" />
+                        app:month_pic_src="@drawable/ic_drop_down"
+                        app:month_text="@{vm.month}" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>

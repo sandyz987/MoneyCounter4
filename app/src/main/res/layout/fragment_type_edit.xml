@@ -11,6 +11,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
+        android:background="@color/prime_background_color"
         android:layout_height="match_parent"
         tools:context=".view.fragment.FragmentCounterEdit">
 
@@ -30,18 +31,18 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorLightWhiteRed">
+                    android:background="@color/appbar_color">
 
                     <com.google.android.material.tabs.TabLayout
                         android:id="@+id/tabLayout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:tabIndicatorColor="@color/colorLightRed"
                         android:layout_marginTop="8dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tabIndicatorColor="@color/colorLightRed" />
 
                     <TextView
                         android:id="@+id/textViewCancel"
