@@ -252,7 +252,7 @@
                 android:id="@+id/textViewOk"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
-                android:background="@color/colorLightWhiteRed"
+                android:background="@color/yellow_button_color"
                 android:fontFamily="@font/alibaba_light"
                 android:gravity="center_horizontal|center_vertical"
                 android:text="完成"

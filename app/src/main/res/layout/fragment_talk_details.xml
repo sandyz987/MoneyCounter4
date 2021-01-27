@@ -76,7 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:src="@drawable/ic_like"
+            android:src="@drawable/ic_like_img"
             android:tint="@color/colorLightWhiteRed"
             app:layout_constraintBottom_toBottomOf="@+id/recyclerViewLikeAccount"
             app:layout_constraintStart_toStartOf="parent"

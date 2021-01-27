@@ -18,11 +18,11 @@ import com.example.moneycounter4.widgets.LogW
 import kotlinx.android.synthetic.main.activity_login.*
 
 class ActivityWelcome : AppCompatActivity() {
+    val viewModel: MainViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)
 
-        val viewModel :MainViewModel by viewModels()
 
         if(viewModel.accountNum.get() != null){
             //如果保存了账号密码，就自动登录
@@ -80,7 +80,7 @@ class ActivityWelcome : AppCompatActivity() {
     fun startLoginActivity(){
         this@ActivityWelcome.finish()
         val mainIntent = Intent(this@ActivityWelcome, ActivityLogin::class.java)
-        startActivity(mainIntent)
+        startActivity(mainIntent.apply { putExtra("username", viewModel.accountNum.get()?: "") })
 
     }
 }

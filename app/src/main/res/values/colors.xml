@@ -17,5 +17,9 @@
     <color name="prime_background_color">#f7fdcf</color>
     <color name="bottom_view_color">#a0cbaf</color>
     <color name="appbar_color">#3b6865</color>
+    <color name="floating_button_color">#f3e5fe</color>
+    <color name="light_button_color">#fbca53</color>
+    <color name="yellow_button_color">#fff98c</color>
+    <color name="edit_text_hint_color">#94969E</color>
 
 </resources>

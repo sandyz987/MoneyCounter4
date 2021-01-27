@@ -21,8 +21,10 @@
         android:theme="@style/NoActionBar"
         tools:targetApi="n">
 
-        <activity android:name=".view.activity.ActivityRegister" />
-        <activity android:name=".view.activity.ActivityLogin" />
+        <activity android:name=".view.activity.ActivityRegister"
+            android:launchMode="singleTop"/>
+        <activity android:name=".view.activity.ActivityLogin"
+            android:launchMode="singleTop"/>
         <activity android:name=".view.activity.ActivityMain" />
         <activity android:name=".view.activity.ActivityWelcome">
             <intent-filter>

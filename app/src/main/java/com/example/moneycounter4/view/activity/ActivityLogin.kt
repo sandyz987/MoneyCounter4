@@ -1,14 +1,16 @@
 package com.example.moneycounter4.view.activity
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.transition.Slide
+import android.view.Gravity
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
 import com.example.moneycounter4.R
 import com.example.moneycounter4.utils.HttpUtilCallback
 import com.example.moneycounter4.utils.HttpUtils.HttpUtil
@@ -16,14 +18,21 @@ import com.example.moneycounter4.viewmodel.MainApplication
 import com.example.moneycounter4.viewmodel.MainViewModel
 import com.example.moneycounter4.widgets.ProgressDialogW
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_login.imageView
 
+@RequiresApi(Build.VERSION_CODES.N)
 class ActivityLogin : AppCompatActivity() {
-    @RequiresApi(Build.VERSION_CODES.N)
+
+//    override fun onNewIntent(intent: Intent?) {
+//        super.onNewIntent(intent)
+//        edittextLoginAccountnum.setText(intent?.getStringExtra("username")?: "")
+//    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        imageView.setColorFilter(Color.BLACK)
+        window.enterTransition = Slide(Gravity.LEFT)
+
 
         val viewModel :MainViewModel by viewModels()
 
@@ -36,8 +45,9 @@ class ActivityLogin : AppCompatActivity() {
                 override fun doSomething(respond: String?) {
                     ProgressDialogW.hide()
                     if(respond.equals("-1")){
-                        this@ActivityLogin.runOnUiThread { Toast.makeText(applicationContext,R.string.login_denied_error,
-                            Toast.LENGTH_SHORT).show()
+                        this@ActivityLogin.runOnUiThread {
+                            Toast.makeText(applicationContext,R.string.login_denied_error, Toast.LENGTH_SHORT).show()
+                            edittextLoginPassword.setText("")
                         }
                     }else{
                         this@ActivityLogin.runOnUiThread { Toast.makeText(applicationContext,R.string.login_success,
@@ -63,10 +73,16 @@ class ActivityLogin : AppCompatActivity() {
         }
 
 
-        floatLoginRegister.setOnClickListener {
+        tvRegister.setOnClickListener {
             val intent = Intent(this,ActivityRegister::class.java)
-            startActivity(intent)
-            finish()
+            window.exitTransition = Slide(Gravity.LEFT)
+            val option = ActivityOptionsCompat.makeSceneTransitionAnimation(this,
+                Pair(edittextLoginAccountnum, "et1"),
+                Pair(edittextLoginPassword, "et2"),
+                Pair(floatLoginLogin, "ok"),
+                Pair(logo, "logo")
+            )
+            startActivity(intent, option.toBundle())
         }
     }
 }

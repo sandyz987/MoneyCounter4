@@ -4,43 +4,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/prime_background_color"
     tools:context=".view.activity.ActivityLogin">
 
-    <com.example.moneycounter4.view.costom.EditTextZ
-        android:id="@+id/edittextRegisterAccountnum"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:inputType="textVisiblePassword"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        app:hint_text="请输入账号"
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:transitionName="logo"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_home_background_pic" />
+
+    <com.example.moneycounter4.view.costom.ZEditText
+        android:id="@+id/edittextRegisterAccountnum"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:transitionName="et1"
+        android:background="@drawable/shape_show_status_layout"
+        android:inputType="textVisiblePassword"
+        app:hintText="请输入账号"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/floatRegisterBack"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
-    <com.example.moneycounter4.view.costom.EditTextZ
+    <com.example.moneycounter4.view.costom.ZEditText
         android:id="@+id/edittextRegisterPassword"
-        android:layout_width="0dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:transitionName="et2"
+        android:background="@drawable/shape_show_status_layout"
         android:inputType="textPassword"
-        app:hint_text="请输入密码"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:hintText="请输入密码"
+        app:layout_constraintEnd_toEndOf="@+id/edittextRegisterAccountnum"
         app:layout_constraintTop_toBottomOf="@+id/edittextRegisterAccountnum" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/register_text_main"
         android:textColor="#000000"
         android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -55,7 +66,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/register_text_detail"
-        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintEnd_toEndOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -64,9 +75,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
+        android:transitionName="ok"
         android:clickable="true"
         android:focusable="true"
-        app:backgroundTint="@color/colorLightRed"
+        app:backgroundTint="@color/light_button_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edittextRegisterPassword"
         app:srcCompat="@drawable/ic_arrow_forward" />
@@ -75,22 +87,13 @@
         android:id="@+id/floatRegisterBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
         android:clickable="true"
         android:focusable="true"
-        app:backgroundTint="@color/colorLightRed"
-        app:layout_constraintEnd_toStartOf="@+id/floatRegisterRegister"
-        app:layout_constraintTop_toBottomOf="@+id/edittextRegisterPassword"
+        app:backgroundTint="@color/light_button_color"
+        app:layout_constraintBottom_toBottomOf="@+id/edittextRegisterPassword"
+        app:layout_constraintEnd_toStartOf="@+id/edittextRegisterAccountnum"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/edittextRegisterAccountnum"
         app:srcCompat="@drawable/abc_vector_test" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="130dp"
-        android:layout_height="132dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_coins" />
 </androidx.constraintlayout.widget.ConstraintLayout>

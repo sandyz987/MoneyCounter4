@@ -24,8 +24,7 @@ class ActivityMain : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        //简单的navigation导航部分
-        bottomViewList.setSelect(true)
+
         bottomViewList.setOnClickListener {
             clrBottomViewSelect()
             bottomViewList.setSelect(true)
@@ -53,7 +52,12 @@ class ActivityMain : AppCompatActivity() {
             navTo(R.id.action_global_fragmentGraph,null)
         }
 
-        floatingAdd.setOnClickListener {
+        floatingMain.setOnClickListener {
+            clrBottomViewSelect()
+            navTo(R.id.action_global_fragmentMain,null)
+        }
+
+        floatingCreate.setOnClickListener {
             if(findNavController(R.id.fragment).backStack.size == 2){
                 findNavController(R.id.fragment).navigate(R.id.action_global_fragmentCounterEdit)
             }
@@ -65,10 +69,12 @@ class ActivityMain : AppCompatActivity() {
             if(navController.backStack.size > 2){//因为这个callback是导航完成后才触发的，栈中已经添加了目标fragment了，所以不是1而是2
                 if(!bottomView.isHide){
                     bottomView.hide()//隐藏的动态效果
+                    floatingCreate.hide()
                 }
             }else{
                 if(bottomView.isHide){
                     bottomView.show()//进入的动态效果
+                    floatingCreate.show()
                 }
             }
         }
@@ -79,8 +85,7 @@ class ActivityMain : AppCompatActivity() {
     @SuppressLint("RestrictedApi")
     private fun navTo(id : Int, bundle: Bundle?){
         val navController = findNavController(R.id.fragment)
-
-        while(navController.backStack.size >= 1){//当底部栏点击，将所有
+        if(navController.backStack.size > 1){
             navController.popBackStack()
         }
         if(bundle!= null){
@@ -88,6 +93,7 @@ class ActivityMain : AppCompatActivity() {
         }else{
             navController.navigate(id)
         }
+
 
     }
 

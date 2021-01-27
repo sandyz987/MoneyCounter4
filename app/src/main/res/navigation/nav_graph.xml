@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragmentHome">
+    app:startDestination="@id/fragmentMain">
 
     <fragment
         android:id="@+id/fragmentMine"
@@ -164,4 +164,14 @@
         app:exitAnim="@anim/slide_out_left"
         app:popEnterAnim="@anim/slide_in_left"
         app:popExitAnim="@anim/slide_out_right" />
+    <fragment
+        android:id="@+id/fragmentMain"
+        android:name="com.example.moneycounter4.view.fragment.FragmentMain"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" />
+    <action
+        android:id="@+id/action_global_fragmentMain"
+        app:destination="@id/fragmentMain"
+        app:enterAnim="@anim/fragment_open_enter"
+        app:popEnterAnim="@anim/fragment_open_enter" />
 </navigation>

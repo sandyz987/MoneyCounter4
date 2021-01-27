@@ -104,18 +104,6 @@
                         app:layout_constraintStart_toEndOf="@+id/imageViewUsrPic"
                         app:layout_constraintTop_toTopOf="@+id/imageViewUsrPic" />
 
-                    <Button
-                        android:id="@+id/buttonCheckIn"
-                        android:layout_width="85dp"
-                        android:layout_height="42dp"
-                        android:layout_marginEnd="16dp"
-                        android:background="@drawable/shape_big_corners_white_button"
-                        android:text="打卡"
-                        android:textColor="#000000"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageViewUsrPic"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/imageViewUsrPic" />
-
                     <TextView
                         android:id="@+id/textViewAccountNum"
                         android:layout_width="wrap_content"
@@ -183,11 +171,11 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginEnd="16dp"
-                        android:layout_marginBottom="16dp"
                         android:src="@drawable/ic_settings"
                         android:tint="@color/colorWhite"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" />
+                        app:layout_constraintBottom_toBottomOf="@+id/imageViewUsrPic"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/imageViewUsrPic" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout

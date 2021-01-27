@@ -41,7 +41,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:tabIndicatorColor="@color/colorLightRed"
+                        app:tabIndicatorColor="@color/colorAccent"
                         app:tabTextColor="#ffffff" />
 
                     <TextView
@@ -50,7 +50,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:text="取消"
-                        android:textColor="#ffffff"
+                        android:textColor="@color/yellow_button_color"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"

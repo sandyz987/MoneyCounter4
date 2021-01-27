@@ -4,32 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/prime_background_color"
     tools:context=".view.activity.ActivityLogin">
 
-    <com.example.moneycounter4.view.costom.EditTextZ
+    <com.example.moneycounter4.view.costom.ZEditText
         android:id="@+id/edittextLoginAccountnum"
-        android:layout_width="0dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
+        android:transitionName="et1"
+        android:background="@drawable/shape_show_status_layout"
         android:inputType="textVisiblePassword"
-        app:hint_text="请输入账号"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:hintText="请输入账号"
+        app:layout_constraintEnd_toStartOf="@id/floatLoginLogin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
-    <com.example.moneycounter4.view.costom.EditTextZ
+    <com.example.moneycounter4.view.costom.ZEditText
         android:id="@+id/edittextLoginPassword"
-        android:layout_width="0dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:transitionName="et2"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/shape_show_status_layout"
         android:inputType="textPassword"
-        app:hint_text="请输入密码"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:hintText="请输入密码"
+        app:layout_constraintStart_toStartOf="@+id/edittextLoginAccountnum"
         app:layout_constraintTop_toBottomOf="@+id/edittextLoginAccountnum" />
 
     <TextView
@@ -62,37 +62,36 @@
         android:id="@+id/floatLoginLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
         android:clickable="true"
         android:focusable="true"
-        app:backgroundTint="@color/colorLightRed"
+        android:transitionName="ok"
+        app:backgroundTint="@color/light_button_color"
+        app:layout_constraintBottom_toBottomOf="@+id/edittextLoginPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edittextLoginPassword"
+        app:layout_constraintStart_toEndOf="@+id/edittextLoginAccountnum"
+        app:layout_constraintTop_toTopOf="@+id/edittextLoginAccountnum"
         app:srcCompat="@drawable/ic_arrow_forward" />
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatLoginRegister"
+    <TextView
+        android:id="@+id/tvRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:clickable="true"
-        android:focusable="true"
-        app:backgroundTint="@color/colorLightRed"
-        app:layout_constraintEnd_toStartOf="@+id/floatLoginLogin"
-        app:layout_constraintTop_toBottomOf="@+id/edittextLoginPassword"
-        app:srcCompat="@drawable/ic_register" />
+        android:layout_marginTop="8dp"
+        android:text="没有账号？"
+        android:textColor="#2196F3"
+        app:layout_constraintStart_toStartOf="@+id/edittextLoginPassword"
+        app:layout_constraintTop_toBottomOf="@+id/edittextLoginPassword" />
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="130dp"
-        android:layout_height="132dp"
+        android:id="@+id/logo"
+        android:layout_width="120dp"
+        android:transitionName="logo"
+        android:layout_height="120dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_coins" />
+        app:srcCompat="@drawable/ic_home_background_pic" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

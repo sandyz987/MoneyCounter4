@@ -56,14 +56,14 @@
             android:focusable="true"
             app:checked_src="@drawable/ic_graph_new_fill"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/floatingAdd"
+            app:layout_constraintEnd_toStartOf="@+id/floatingMain"
             app:layout_constraintStart_toEndOf="@+id/bottomViewList"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             app:no_checked_src="@drawable/ic_graph_new_fill" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingAdd"
+            android:id="@+id/floatingMain"
             android:layout_width="55dp"
             android:layout_height="wrap_content"
             android:clickable="true"
@@ -88,7 +88,7 @@
             app:checked_src="@drawable/ic_community_new_fill"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/bottomViewMine"
-            app:layout_constraintStart_toEndOf="@+id/floatingAdd"
+            app:layout_constraintStart_toEndOf="@+id/floatingMain"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             app:no_checked_src="@drawable/ic_community_new_fill" />
@@ -110,5 +110,18 @@
             app:layout_constraintVertical_bias="0.0"
             app:no_checked_src="@drawable/ic_mine_new_fill" />
     </com.example.moneycounter4.view.costom.BottomConstraintLayoutZ>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingCreate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        app:backgroundTint="@color/floating_button_color"
+        app:layout_constraintBottom_toBottomOf="@+id/fragment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="40dp"
+        app:srcCompat="@drawable/ic_add" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

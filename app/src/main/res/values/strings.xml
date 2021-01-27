@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MoneyCounter4</string>
+    <string name="app_name">记账鸭</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="welcome_text">慧记账</string>

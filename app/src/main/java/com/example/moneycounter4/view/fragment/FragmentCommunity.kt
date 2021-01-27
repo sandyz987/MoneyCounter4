@@ -112,7 +112,7 @@ class FragmentCommunity : Fragment() {
         pullRefreshLayout.setRefreshing(true)
         pullRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_WATER_DROP)
 
-        floatingAdd.setOnClickListener {
+        sendDynamic.setOnClickListener {
             val navController = findNavController()
             navController.navigate(R.id.action_global_fragmentTalkEdit)
         }

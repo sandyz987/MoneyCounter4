@@ -47,7 +47,6 @@ class FragmentMine : Fragment() {
         isMine?.let {
             if (!isMine) {
                 layoutCondition.visibility = View.GONE
-                buttonCheckIn.visibility = View.GONE
                 imageViewSetting.visibility = View.GONE
             } else {
                 textViewTag.text = "我的主题"

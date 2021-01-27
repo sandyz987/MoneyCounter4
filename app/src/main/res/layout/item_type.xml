@@ -27,7 +27,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:riv_border_color="@color/colorLightRed"
+            app:riv_border_color="@color/appbar_color"
             app:riv_border_width="@{width}"
             app:riv_oval="true"
             app:src="@{typeItem.resId}" />

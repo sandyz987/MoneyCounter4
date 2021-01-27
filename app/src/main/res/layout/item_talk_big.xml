@@ -9,16 +9,18 @@
     <com.example.moneycounter4.view.costom.ImageViewInfoZ
         android:id="@+id/imageViewTalk"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="30dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:background="?selectableItemBackground"
-        app:reply_count_text="0"
+        android:background="?selectableItemBackgroundBorderless"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageViewLike"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewPic"
-        app:reply_pic_src="@drawable/ic_talk" />
+        app:reply_count_text="0"
+        app:reply_pic_src="@drawable/ic_comment" />
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/imageViewUsrPic"
@@ -59,10 +61,12 @@
 
     <Button
         android:id="@+id/buttonFollow"
-        android:layout_width="67dp"
-        android:layout_height="38dp"
+        android:layout_width="43dp"
+        android:layout_height="27dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/shape_big_corners_light_white_red"
+        android:background="@drawable/shape_show_status_layout"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
         android:text="关注"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewUsrPic"
@@ -105,16 +109,18 @@
     <com.example.moneycounter4.view.costom.ImageViewInfoZLike
         android:id="@+id/imageViewLike"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="30dp"
         android:layout_marginBottom="16dp"
-        android:background="?selectableItemBackground"
-        app:liked_src="@drawable/ic_favorite_fill"
-        app:like_count_text="0"
+        android:background="?selectableItemBackgroundBorderless"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageViewTalk"
         app:layout_constraintTop_toTopOf="@+id/imageViewTalk"
-        app:no_liked_src="@drawable/ic_favorite_stroke" />
+        app:like_count_text="0"
+        app:liked_src="@drawable/ic_like_checked"
+        app:no_liked_src="@drawable/ic_like_img" />
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/imageViewPic"

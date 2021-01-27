@@ -20,5 +20,7 @@
         <attr name="liked_src" format="reference"/>
         <attr name="no_liked_src" format="reference"/>
     </declare-styleable>
-
+    <declare-styleable name="ZEditText">
+        <attr name="hintText" format="string" />
+    </declare-styleable>
 </resources>
