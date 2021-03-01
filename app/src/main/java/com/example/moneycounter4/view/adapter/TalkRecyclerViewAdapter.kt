@@ -21,13 +21,10 @@ import com.example.moneycounter4.bean.ItemAccount
 import com.example.moneycounter4.bean.TalkItem
 import com.example.moneycounter4.utils.HttpUtilCallback
 import com.example.moneycounter4.utils.HttpUtils.HttpUtil
-import com.example.moneycounter4.utils.MyImageUtils.ImageLoader
 import com.example.moneycounter4.utils.TimeUtil
 import com.example.moneycounter4.view.costom.ImageViewInfoZ
 import com.example.moneycounter4.view.costom.ImageViewInfoZLike
 import com.example.moneycounter4.viewmodel.MainApplication
-import kotlinx.android.synthetic.main.fragment_community.*
-import kotlinx.android.synthetic.main.item_talk_big.*
 
 //加载帖子的adapter，有两处用了。
 
@@ -171,9 +168,7 @@ class TalkRecyclerViewAdapter(private val mActivity:Activity? ,private var mCont
                             }
                         },
                         mActivity,
-                        "page",
-                        "test",
-                        "post",
+                        "action",
                         "cancellike",
                         "token",
                         mToken.toString(),
@@ -212,9 +207,7 @@ class TalkRecyclerViewAdapter(private val mActivity:Activity? ,private var mCont
                             }
                         },
                         mActivity,
-                        "page",
-                        "test",
-                        "post",
+                        "action",
                         "like",
                         "token",
                         mToken.toString(),

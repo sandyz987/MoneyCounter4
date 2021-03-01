@@ -6,13 +6,10 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
-import android.graphics.BitmapFactory
-import android.graphics.ColorFilter
 import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +27,6 @@ import com.example.moneycounter4.utils.MyImageUtils.ImageLoader
 import com.example.moneycounter4.utils.UploadPic
 import com.example.moneycounter4.viewmodel.MainApplication
 import com.example.moneycounter4.viewmodel.MainViewModel
-import com.example.moneycounter4.widgets.LogW
 import com.example.moneycounter4.widgets.ProgressDialogW
 import kotlinx.android.synthetic.main.fragment_mine.*
 import kotlinx.android.synthetic.main.fragment_talk_edit.*
@@ -92,61 +88,118 @@ class FragmentTalkEdit : Fragment() {
             }
             ProgressDialogW.show(requireContext(),"提示","正在上传数据中",false)
             if (talkId == null){
-                HttpUtil.getInstance().httpGet((requireActivity().application as MainApplication).connectionUrlMain,object : HttpUtilCallback{
-                    @SuppressLint("RestrictedApi")
-                    override fun doSomething(respond: String?) {
-                        requireActivity().runOnUiThread {
-                            when(respond){
-                                "1"->{
-                                    Toast.makeText(requireContext(),"已发表~~~(￣▽￣)~*",Toast.LENGTH_SHORT).show()
-                                    val navController = findNavController()
-                                    while(navController.backStack.size >= 1){
-                                        navController.popBackStack()
+                HttpUtil.getInstance().httpGet(
+                    (requireActivity().application as MainApplication).connectionUrlMain,
+                    object : HttpUtilCallback {
+                        @SuppressLint("RestrictedApi")
+                        override fun doSomething(respond: String?) {
+                            requireActivity().runOnUiThread {
+                                when (respond) {
+                                    "1" -> {
+                                        Toast.makeText(
+                                            requireContext(),
+                                            "已发表~~~(￣▽￣)~*",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        val navController = findNavController()
+                                        while (navController.backStack.size >= 1) {
+                                            navController.popBackStack()
+                                        }
+                                        navController.navigate(R.id.action_global_fragmentCommunity)
                                     }
-                                    navController.navigate(R.id.action_global_fragmentCommunity)
+                                    else -> {
+                                        Toast.makeText(
+                                            requireContext(),
+                                            "上传失败了诶，未知错误，登录失效了？请重新登录试试嘛？",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
                                 }
-                                else->{
-                                    Toast.makeText(requireContext(),"上传失败了诶，未知错误，登录失效了？请重新登录试试嘛？",Toast.LENGTH_SHORT).show()
-                                }
+                                ProgressDialogW.hide()
                             }
-                            ProgressDialogW.hide()
                         }
-                    }
-                    override fun error() {
-                        requireActivity().runOnUiThread {
-                            Toast.makeText(requireContext(),"上传失败了诶，是不是没网了？",Toast.LENGTH_SHORT).show()
-                            ProgressDialogW.hide()
+
+                        override fun error() {
+                            requireActivity().runOnUiThread {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "上传失败了诶，是不是没网了？",
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
+                                ProgressDialogW.hide()
+                            }
                         }
-                    }
-                },requireContext(),"page", "test", "post", "talk","text",editTextTalk.text.toString(),"token",viewModel.token.toString(),"picurl",picUrl?:"")
+                    },
+                    requireContext(),
+                    "action",
+                    "talk",
+                    "text",
+                    editTextTalk.text.toString(),
+                    "token",
+                    viewModel.token.toString(),
+                    "picurl",
+                    picUrl ?: ""
+                )
             }else{
-                HttpUtil.getInstance().httpGet((requireActivity().application as MainApplication).connectionUrlMain,object : HttpUtilCallback{
-                    override fun doSomething(respond: String?) {
-                        requireActivity().runOnUiThread {
-                            when(respond){
-                                "1"->{
-                                    Toast.makeText(requireContext(),"已回复~~~(￣▽￣)~*",Toast.LENGTH_SHORT).show()
-                                    val navController = findNavController()
-                                    val bundle = Bundle()
-                                    bundle.putLong("talkId",talkId)
-                                    navController.popBackStack()
-                                    navController.popBackStack()
-                                    navController.navigate(R.id.action_global_fragmentTalkDetails,bundle)
+                HttpUtil.getInstance().httpGet(
+                    (requireActivity().application as MainApplication).connectionUrlMain,
+                    object : HttpUtilCallback {
+                        override fun doSomething(respond: String?) {
+                            requireActivity().runOnUiThread {
+                                when (respond) {
+                                    "1" -> {
+                                        Toast.makeText(
+                                            requireContext(),
+                                            "已回复~~~(￣▽￣)~*",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        val navController = findNavController()
+                                        val bundle = Bundle()
+                                        bundle.putLong("talkId", talkId)
+                                        navController.popBackStack()
+                                        navController.popBackStack()
+                                        navController.navigate(
+                                            R.id.action_global_fragmentTalkDetails,
+                                            bundle
+                                        )
+                                    }
+                                    else -> {
+                                        Toast.makeText(
+                                            requireContext(),
+                                            "上传失败了诶，未知错误，登录失效了？请重新登录试试嘛？",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
                                 }
-                                else->{
-                                    Toast.makeText(requireContext(),"上传失败了诶，未知错误，登录失效了？请重新登录试试嘛？",Toast.LENGTH_SHORT).show()
-                                }
+                                ProgressDialogW.hide()
                             }
-                            ProgressDialogW.hide()
                         }
-                    }
-                    override fun error() {
-                        requireActivity().runOnUiThread {
-                            Toast.makeText(requireContext(),"上传失败了诶，是不是没网了？",Toast.LENGTH_SHORT).show()
-                            ProgressDialogW.hide()
+
+                        override fun error() {
+                            requireActivity().runOnUiThread {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "上传失败了诶，是不是没网了？",
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
+                                ProgressDialogW.hide()
+                            }
                         }
-                    }
-                },requireContext(),"page", "test", "post", "reply","id",talkId.toString(),"text",editTextTalk.text.toString(),"token",viewModel.token.toString(),"picurl",picUrl?:"")
+                    },
+                    requireContext(),
+                    "action",
+                    "reply",
+                    "id",
+                    talkId.toString(),
+                    "text",
+                    editTextTalk.text.toString(),
+                    "token",
+                    viewModel.token.toString(),
+                    "picurl",
+                    picUrl ?: ""
+                )
             }
         }
 

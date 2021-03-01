@@ -55,7 +55,12 @@ class FragmentCommunity : Fragment() {
                             val jsonArray = JSonArray(respond)
                             for (i in 0 until jsonArray.size()) {
                                 val gson = Gson()
-                                list.add(gson.fromJson(jsonArray.get(i),TalkItem::class.javaObjectType))
+                                list.add(
+                                    gson.fromJson(
+                                        jsonArray.get(i),
+                                        TalkItem::class.javaObjectType
+                                    )
+                                )
                             }
                         } catch (e: Exception) {
                             e.printStackTrace()
@@ -104,7 +109,7 @@ class FragmentCommunity : Fragment() {
                         }
 
                     }
-                }, activity, "page", "test", "post", "gettalk")
+                }, activity, "action", "gettalk")
         }
 
         pullRefreshLayout.setOnRefreshListener(listener)

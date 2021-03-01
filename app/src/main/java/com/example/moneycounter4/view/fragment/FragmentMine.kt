@@ -94,9 +94,8 @@ class FragmentMine : Fragment() {
                     }
                 },
                 activity,
-                "page",
-                "test",
-                "post",
+
+                "action",
                 "getaccountinfo",
                 "accountnum",
                 accountNumS
@@ -123,7 +122,7 @@ class FragmentMine : Fragment() {
                             e.printStackTrace()
                         }
                         activity?.runOnUiThread {
-                            if (activity?.application ==null){
+                            if (activity?.application == null) {
                                 return@runOnUiThread
                             }
                             val adapter = TalkRecyclerViewAdapter(
@@ -150,9 +149,8 @@ class FragmentMine : Fragment() {
                     }
                 },
                 activity,
-                "page",
-                "test",
-                "post",
+
+                "action",
                 "getaccounttalk",
                 "accountnum",
                 accountNumS
