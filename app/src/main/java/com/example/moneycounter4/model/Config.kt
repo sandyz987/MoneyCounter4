@@ -8,7 +8,7 @@ package com.example.moneycounter4.model
 
 class Config {
     companion object {
-        val MainUrl = "http://sandyz.ink:8080/Counter4/Counter4Sql"
+        const val MainUrl = "http://sandyz.ink:8080/Counter4/"
         var userId = ""
         var password = ""
     }

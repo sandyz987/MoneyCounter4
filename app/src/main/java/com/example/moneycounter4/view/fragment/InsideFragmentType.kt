@@ -2,7 +2,6 @@ package com.example.moneycounter4.view.fragment
 
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,12 +9,12 @@ import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableList
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.moneycounter4.R
 import com.example.moneycounter4.bean.TypeItem
 import com.example.moneycounter4.databinding.FragmentTypeBinding
-import com.example.moneycounter4.view.adapter.OnClickCallBack
 import com.example.moneycounter4.view.adapter.TypeRecyclerViewAdapter
 import com.example.moneycounter4.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_type.*

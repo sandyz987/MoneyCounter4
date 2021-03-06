@@ -20,11 +20,10 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.moneycounter4.R
 import com.example.moneycounter4.utils.HttpUtilCallback
 import com.example.moneycounter4.utils.HttpUtils.HttpUtil
-import com.example.moneycounter4.utils.MyImageUtils.ImageLoader
-import com.example.moneycounter4.utils.UploadPic
 import com.example.moneycounter4.viewmodel.MainApplication
 import com.example.moneycounter4.viewmodel.MainViewModel
 import com.example.moneycounter4.widgets.ProgressDialogW
@@ -275,15 +274,15 @@ class FragmentTalkEdit : Fragment() {
             imageViewPic.setImageBitmap(null)
 
             upLoading = true
-            UploadPic.upload(imgPath,object : HttpUtilCallback{
+            UploadPic.upload(imgPath, object : HttpUtilCallback {
                 override fun doSomething(respond: String?) {
                     activity?.runOnUiThread {
                         progressBar.visibility = View.GONE
                         imageViewPic.visibility = View.VISIBLE
-                        ImageLoader.with(requireContext()).load(respond).into(imageViewPic)
+                        context?.let { Glide.with(it).load(respond).into(imageViewPic) }
                     }
                     upLoading = false
-                    picUrl = respond?:""
+                    picUrl = respond ?: ""
                 }
 
                 override fun error() {
@@ -291,7 +290,7 @@ class FragmentTalkEdit : Fragment() {
                         progressBar.visibility = View.GONE
                         imageViewPic.visibility = View.VISIBLE
                         imageViewPic.setImageResource(R.drawable.ic_add_pic)
-                        Toast.makeText(requireContext(),"上传失败了~请重试",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "上传失败了~请重试", Toast.LENGTH_SHORT).show()
                     }
                     upLoading = false
                 }

@@ -1,10 +1,8 @@
 package com.example.moneycounter4.bean;
 
-import java.io.Serializable;
-
 public class ItemAccount {
     private String usrName;
-    private String accountNum;
+    private String userId;
     private String text;
     private String sex;
     private String picUrl;
@@ -26,12 +24,12 @@ public class ItemAccount {
         this.usrName = usrName;
     }
 
-    public String getAccountNum() {
-        return accountNum;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setAccountNum(String accountNum) {
-        this.accountNum = accountNum;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getText() {

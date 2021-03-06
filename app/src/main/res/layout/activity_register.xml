@@ -19,7 +19,7 @@
         app:srcCompat="@drawable/ic_home_background_pic" />
 
     <com.example.moneycounter4.view.costom.ZEditText
-        android:id="@+id/edittextRegisterAccountnum"
+        android:id="@+id/edittextRegisterUserId"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -40,8 +40,8 @@
         android:background="@drawable/shape_show_status_layout"
         android:inputType="textPassword"
         app:hintText="请输入密码"
-        app:layout_constraintEnd_toEndOf="@+id/edittextRegisterAccountnum"
-        app:layout_constraintTop_toBottomOf="@+id/edittextRegisterAccountnum" />
+        app:layout_constraintEnd_toEndOf="@+id/edittextRegisterUserId"
+        app:layout_constraintTop_toBottomOf="@+id/edittextRegisterUserId" />
 
     <TextView
         android:id="@+id/textView4"
@@ -91,9 +91,9 @@
         android:focusable="true"
         app:backgroundTint="@color/light_button_color"
         app:layout_constraintBottom_toBottomOf="@+id/edittextRegisterPassword"
-        app:layout_constraintEnd_toStartOf="@+id/edittextRegisterAccountnum"
+        app:layout_constraintEnd_toStartOf="@+id/edittextRegisterUserId"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/edittextRegisterAccountnum"
+        app:layout_constraintTop_toTopOf="@+id/edittextRegisterUserId"
         app:srcCompat="@drawable/abc_vector_test" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

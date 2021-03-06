@@ -19,7 +19,6 @@ import com.example.moneycounter4.bean.TypeItem
 import com.example.moneycounter4.databinding.FragmentTypeBinding
 import com.example.moneycounter4.model.DataReader
 import com.example.moneycounter4.model.TypeIndex
-import com.example.moneycounter4.view.adapter.OnClickCallBack
 import com.example.moneycounter4.view.adapter.TypeRecyclerViewAdapter
 import com.example.moneycounter4.view.costom.EditTextZ
 import com.example.moneycounter4.viewmodel.MainViewModel

@@ -1,98 +1,50 @@
 package com.example.moneycounter4.view.activity
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.widget.Toast
-import androidx.activity.viewModels
-import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
 import com.example.moneycounter4.R
-import com.example.moneycounter4.utils.HttpUtilCallback
-import com.example.moneycounter4.utils.HttpUtils.HttpUtil
-import com.example.moneycounter4.utils.ThreadPool
-import com.example.moneycounter4.viewmodel.MainApplication
-import com.example.moneycounter4.viewmodel.MainViewModel
+import com.example.moneycounter4.base.BaseViewModelActivity
+import com.example.moneycounter4.extensions.toast
+import com.example.moneycounter4.model.Config
+import com.example.moneycounter4.viewmodel.LoginViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 
-class ActivityWelcome : AppCompatActivity() {
-    val viewModel: MainViewModel by viewModels()
+class ActivityWelcome : BaseViewModelActivity<LoginViewModel>() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)
 
 
-        if(viewModel.accountNum.get() != null){
-            //如果保存了账号密码，就自动登录
-            HttpUtil.getInstance().httpGet(
-                (application as MainApplication).connectionUrlMain, object :
-                    HttpUtilCallback {
-                    @RequiresApi(Build.VERSION_CODES.N)
-                    override fun doSomething(respond: String?) {
-                        if (respond.equals("-1")) {//登录失败
-                            this@ActivityWelcome.runOnUiThread {
-                                startLoginActivity()
-                            }
+        val p = viewModel.getUserInfo()
+        Config.userId = p.first
+        Config.password = p.second
 
-                        } else {//成功
-                            this@ActivityWelcome.runOnUiThread {
-                                Toast.makeText(
-                                    applicationContext, R.string.login_success,
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                viewModel.saveUsrInfo(null, null, respond?.toInt())
-                                startMainActivity()
-                            }
 
-                        }
-
-                    }
-
-                    override fun error() {
-                        this@ActivityWelcome.runOnUiThread {
-                            Toast.makeText(
-                                applicationContext, R.string.login_connection_error,
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                        startLoginActivity()
-                    }
-                },
-                this,
-                "action",
-                "login",
-                "accountnum",
-                viewModel.accountNum.get(),
-                "password",
-                viewModel.password.get()
-            )
-
-        }else{
-            ThreadPool.getInstance().execute{
-                try {
-                    Thread.sleep(1000)
-                    startLoginActivity()
-                }catch (e : Exception){
-                    e.printStackTrace()
-                }
-            }
-        }
-
+        Thread {
+            Thread.sleep(1000)
+            viewModel.checkLogin(this, {
+                toast("登录成功！欢迎回来~")
+                startMainActivity()
+            }, {
+                startLoginActivity()
+            })
+        }.start()
 
 
     }
 
-    fun startMainActivity(){
+    private fun startMainActivity() {
         this@ActivityWelcome.finish()
         val mainIntent = Intent(this@ActivityWelcome, ActivityMain::class.java)
         startActivity(mainIntent)
-        //this@ActivityWelcome.finish()
     }
 
-    fun startLoginActivity(){
+    private fun startLoginActivity() {
         this@ActivityWelcome.finish()
         val mainIntent = Intent(this@ActivityWelcome, ActivityLogin::class.java)
-        startActivity(mainIntent.apply { putExtra("username", viewModel.accountNum.get()?: "") })
+        startActivity(mainIntent)
 
     }
 }

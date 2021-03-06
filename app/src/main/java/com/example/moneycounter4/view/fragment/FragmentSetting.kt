@@ -29,7 +29,6 @@ import com.example.moneycounter4.utils.HttpUtilCallback
 import com.example.moneycounter4.utils.HttpUtils.HttpUtil
 import com.example.moneycounter4.utils.JSonEvalUtils.JSonEval
 import com.example.moneycounter4.utils.MyImageUtils.ImageLoader
-import com.example.moneycounter4.utils.UploadPic
 import com.example.moneycounter4.view.activity.ActivityLogin
 import com.example.moneycounter4.viewmodel.MainApplication
 import com.example.moneycounter4.viewmodel.MainViewModel
@@ -66,7 +65,7 @@ class FragmentSetting : Fragment() {
                     }
                     activity?.runOnUiThread {
                         account?.let {
-                            textViewMoney?.text = it.accountNum
+                            textViewMoney?.text = it.userId
                             textViewTips?.text = it.text
                             textViewUsrName?.text = it.usrName
                             textViewTime?.text = it.sex
@@ -92,8 +91,8 @@ class FragmentSetting : Fragment() {
             activity,
             "action",
             "getaccountinfo",
-            "accountnum",
-            viewModel.accountNum.get()
+            "UserId",
+            viewModel.userId.get()
         )
 
 
@@ -135,7 +134,7 @@ class FragmentSetting : Fragment() {
                                     }
                                     val bundle = Bundle()
                                     bundle.putBoolean("isMine", true)
-                                    bundle.putString("accountNum", viewModel.accountNum.get())
+                                    bundle.putString("userId", viewModel.userId.get())
                                     navController.navigate(R.id.action_global_fragmentMine, bundle)
                                     Toast.makeText(activity, "修改成功！", Toast.LENGTH_SHORT).show()
                                 }

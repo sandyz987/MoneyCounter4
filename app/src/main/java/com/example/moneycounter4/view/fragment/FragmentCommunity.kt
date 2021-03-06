@@ -13,9 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.baoyz.widget.PullRefreshLayout
 import com.example.moneycounter4.R
 import com.example.moneycounter4.bean.TalkItem
-import com.example.moneycounter4.utils.HttpUtilCallback
-import com.example.moneycounter4.utils.HttpUtils.HttpUtil
-import com.example.moneycounter4.utils.JSonEvalUtils.JSonArray
 import com.example.moneycounter4.view.adapter.TalkRecyclerViewAdapter
 import com.example.moneycounter4.viewmodel.MainApplication
 import com.example.moneycounter4.viewmodel.MainViewModel
@@ -72,7 +69,7 @@ class FragmentCommunity : Fragment() {
                                 it,
                                 list,
                                 (activity?.application as MainApplication).connectionUrlMain,
-                                viewModel.accountNum.get(),
+                                viewModel.userId.get(),
                                 viewModel.token
                             )
                         }

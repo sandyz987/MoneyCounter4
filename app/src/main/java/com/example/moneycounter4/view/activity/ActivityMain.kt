@@ -1,28 +1,26 @@
 package com.example.moneycounter4.view.activity
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import com.example.moneycounter4.R
+import com.example.moneycounter4.base.BaseViewModelActivity
+import com.example.moneycounter4.model.Config
 import com.example.moneycounter4.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 //所有fragment都在这个activity中运行
 
-class ActivityMain : AppCompatActivity() {
-    lateinit var viewModel :MainViewModel
+class ActivityMain : BaseViewModelActivity<MainViewModel>() {
 
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
 
         bottomViewList.setOnClickListener {
@@ -35,9 +33,9 @@ class ActivityMain : AppCompatActivity() {
             clrBottomViewSelect()
             bottomViewMine.setSelect(true)
             val bundle = Bundle()
-            bundle.putBoolean("isMine",true)
-            bundle.putString("accountNum",viewModel.accountNum.get())
-            navTo(R.id.action_global_fragmentMine,bundle)
+            bundle.putBoolean("isMine", true)
+            bundle.putString("userId", Config.userId)
+            navTo(R.id.action_global_fragmentMine, bundle)
 
         }
         bottomViewCommunity.setOnClickListener {

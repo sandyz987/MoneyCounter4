@@ -1,5 +1,6 @@
 package com.example.moneycounter4.viewmodel
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.graphics.Typeface
@@ -11,8 +12,10 @@ class MainApplication : Application() {
 
     val connectionUrlMain = Config.MainUrl
 
-    companion object{
+    companion object {
         lateinit var app: Application
+
+        @SuppressLint("StaticFieldLeak")
         lateinit var context: Context
     }
 
@@ -30,5 +33,6 @@ class MainApplication : Application() {
         field.isAccessible = true
         field.set(null,typeface)
     }
+
 
 }

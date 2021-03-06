@@ -1,4 +1,4 @@
-package beannew
+package com.example.moneycounter4.beannew
 
 import com.google.gson.Gson
 import java.io.Serializable

@@ -3,7 +3,7 @@ package com.example.moneycounter4.bean;
 import java.util.ArrayList;
 
 public class TalkItem {
-    private String accountNum;
+    private String userId;
     private String picUrl;
     private String text;
     private Long time;
@@ -54,12 +54,12 @@ public class TalkItem {
         this.usrPic = usrPic;
     }
 
-    public String getAccountNum() {
-        return accountNum;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setAccountNum(String accountNum) {
-        this.accountNum = accountNum;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getPicUrl() {

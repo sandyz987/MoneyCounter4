@@ -28,15 +28,22 @@ import com.example.moneycounter4.viewmodel.MainApplication
 
 //加载帖子的adapter，有两处用了。
 
-class TalkRecyclerViewAdapter(private val mActivity:Activity? ,private var mContext: Context, private var mList: ArrayList<TalkItem>, private val mUrl:String?, private val mAccountNum :String?,private val mToken : Int) :
+class TalkRecyclerViewAdapter(
+    private val mActivity: Activity?,
+    private var mContext: Context,
+    private var mList: ArrayList<TalkItem>,
+    private val mUrl: String?,
+    private val mUserId: String?,
+    private val mToken: Int
+) :
     RecyclerView.Adapter<TalkRecyclerViewAdapter.ViewHolder>() {
 
     private var mLayoutInflater = LayoutInflater.from(mContext)
 
     override fun getItemViewType(position: Int): Int {
-        return if(position == mList.size){
+        return if (position == mList.size) {
             1
-        }else{
+        } else {
             0
         }
     }
@@ -65,7 +72,7 @@ class TalkRecyclerViewAdapter(private val mActivity:Activity? ,private var mCont
         holder.imageViewLike?.setSelect(false)
         holder.imageViewLike?.setHint("0")
 
-        holder.textViewUsrName?.text = mList[position].accountNum
+        holder.textViewUsrName?.text = mList[position].userId
         holder.textViewContent?.text = mList[position].text.take(30)
 
         holder.textViewContent?.text?.length?.let {
@@ -98,11 +105,11 @@ class TalkRecyclerViewAdapter(private val mActivity:Activity? ,private var mCont
         holder.imageViewTalk?.setHint(mList[position].replies.size.toString())
 
         for (account : ItemAccount in mList[position].likeAccounts){
-            if (account.accountNum == mAccountNum){
+            if (account.userId == mUserId) {
                 holder.imageViewLike?.setSelect(true)
-                holder.imageViewLike?.setHint((mList[position].likeAccounts.size-1).toString())
+                holder.imageViewLike?.setHint((mList[position].likeAccounts.size - 1).toString())
                 break
-            }else{
+            } else {
                 holder.imageViewLike?.setHint(mList[position].likeAccounts.size.toString())
             }
         }
@@ -111,9 +118,9 @@ class TalkRecyclerViewAdapter(private val mActivity:Activity? ,private var mCont
         holder.imageViewUsrPic?.setOnClickListener {
             val navController = Navigation.findNavController(holder.itemView)
             val bundle = Bundle()
-            bundle.putBoolean("isMine",false)
-            bundle.putString("accountNum",mList[position].accountNum)
-            navController.navigate(R.id.action_global_fragmentMine,bundle)
+            bundle.putBoolean("isMine", false)
+            bundle.putString("userId", mList[position].userId)
+            navController.navigate(R.id.action_global_fragmentMine, bundle)
         }
         holder.imageViewTalk?.setOnClickListener {
             val navController = Navigation.findNavController(holder.itemView)

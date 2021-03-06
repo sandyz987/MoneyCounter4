@@ -14,10 +14,6 @@ import com.bumptech.glide.Glide
 import com.example.moneycounter4.R
 import com.example.moneycounter4.bean.ItemAccount
 import com.example.moneycounter4.bean.TalkItem
-import com.example.moneycounter4.utils.HttpUtilCallback
-import com.example.moneycounter4.utils.HttpUtils.HttpUtil
-import com.example.moneycounter4.utils.JSonEvalUtils.JSonArray
-import com.example.moneycounter4.utils.JSonEvalUtils.JSonEval
 import com.example.moneycounter4.view.adapter.TalkRecyclerViewAdapter
 import com.example.moneycounter4.viewmodel.MainApplication
 import com.example.moneycounter4.viewmodel.MainViewModel
@@ -42,7 +38,7 @@ class FragmentMine : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val isMine = arguments?.getBoolean("isMine")
-        val accountNumS = arguments?.getString("accountNum")
+        val userIdS = arguments?.getString("userId")
 
         isMine?.let {
             if (!isMine) {
@@ -60,6 +56,7 @@ class FragmentMine : Fragment() {
                     override fun doSomething(respond: String?) {
                         var account: ItemAccount? = null
                         try {
+
                             account = JSonEval.getInstance()
                                 .fromJson(respond, ItemAccount::class.java)
                         } catch (e: Exception) {
@@ -67,7 +64,7 @@ class FragmentMine : Fragment() {
                         }
                         activity?.runOnUiThread {
                             account?.let {
-                                textViewAccountNum?.text = "账号：" + it.accountNum
+                                textViewUserId?.text = "账号：" + it.userId
                                 textViewText?.text = it.text
                                 textViewUsrName?.text = it.usrName
                                 when (it.sex) {
@@ -97,8 +94,8 @@ class FragmentMine : Fragment() {
 
                 "action",
                 "getaccountinfo",
-                "accountnum",
-                accountNumS
+                "UserId",
+                userIdS
             )
 
 
@@ -130,7 +127,7 @@ class FragmentMine : Fragment() {
                                 context ?: MainApplication.context,
                                 list,
                                 (activity?.application as MainApplication).connectionUrlMain,
-                                viewModel.accountNum.get(),
+                                viewModel.userId.get(),
                                 viewModel.token
                             )
                             textViewTalkCount?.text = list.size.toString()
@@ -152,8 +149,8 @@ class FragmentMine : Fragment() {
 
                 "action",
                 "getaccounttalk",
-                "accountnum",
-                accountNumS
+                "UserId",
+                userIdS
             )
 
 

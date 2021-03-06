@@ -18,8 +18,6 @@ import com.bumptech.glide.Glide
 import com.example.moneycounter4.R
 import com.example.moneycounter4.bean.ItemAccount
 import com.example.moneycounter4.bean.TalkItem
-import com.example.moneycounter4.utils.HttpUtilCallback
-import com.example.moneycounter4.utils.HttpUtils.HttpUtil
 import com.example.moneycounter4.utils.TimeUtil
 import com.example.moneycounter4.view.adapter.LikeRecyclerViewAdapter
 import com.example.moneycounter4.view.adapter.TalkRecyclerViewAdapter
@@ -82,7 +80,7 @@ class FragmentTalkDetails : Fragment() {
                                         talkItem.text
                                     includeView?.findViewById<ImageViewInfoZLike>(R.id.imageViewLike)
                                         ?.setHint(talkItem.likeAccounts.size.toString())
-                                    if (it.accountNum == viewModel.accountNum.get()) {
+                                    if (it.userId == viewModel.userId.get()) {
                                         textViewDelTalk?.visibility = View.VISIBLE
                                     } else {
                                         textViewDelTalk?.visibility = View.GONE
@@ -111,7 +109,7 @@ class FragmentTalkDetails : Fragment() {
                                             ?.setImageBitmap(null)
                                     }
                                     for (account: ItemAccount in talkItem.likeAccounts) {
-                                        if (account.accountNum == viewModel.accountNum.get()) {
+                                        if (account.userId == viewModel.userId.get()) {
                                             imageViewLike?.setSelect(true)
                                             imageViewLike?.setHint((talkItem.likeAccounts.size - 1).toString())
                                             break
@@ -146,7 +144,7 @@ class FragmentTalkDetails : Fragment() {
                                         ?.setOnClickListener {
                                             val navController = findNavController()
                                             val bundle = Bundle()
-                                            bundle.putString("accountNum", talkItem.accountNum)
+                                            bundle.putString("userId", talkItem.userId)
                                             bundle.putBoolean("isMain", false)
                                             navController.navigate(
                                                 R.id.action_global_fragmentMine,
@@ -159,7 +157,7 @@ class FragmentTalkDetails : Fragment() {
                                         bundle.putLong("talkId", talkId)
                                         bundle.putString(
                                             "usrName",
-                                            talkItem.usrName + " (" + talkItem.accountNum + ")"
+                                            talkItem.usrName + " (" + talkItem.userId + ")"
                                         )
                                         val navController = findNavController()
                                         navController.navigate(
@@ -176,7 +174,7 @@ class FragmentTalkDetails : Fragment() {
                                                 it1,
                                                 talkItem.replies,
                                                 (activity?.application as MainApplication).connectionUrlMain,
-                                                viewModel.accountNum.get(),
+                                                viewModel.userId.get(),
                                                 viewModel.token
                                             )
                                         }

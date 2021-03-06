@@ -1,31 +1,20 @@
 package com.example.moneycounter4.viewmodel
 
-import android.app.Application
-import android.content.Context
-import android.content.SharedPreferences
 import android.icu.util.Calendar
 import android.os.Build
 import android.os.Handler
 import androidx.annotation.RequiresApi
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableField
-import androidx.databinding.ObservableList
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.example.moneycounter4.bean.CounterData
+import com.example.moneycounter4.base.BaseViewModel
 import com.example.moneycounter4.bean.DataItem
 import com.example.moneycounter4.bean.TypeItem
 import com.example.moneycounter4.model.DataReader
 import com.example.moneycounter4.model.TypeIndex
 import com.example.moneycounter4.widgets.LogW
-import java.util.*
 
 @RequiresApi(Build.VERSION_CODES.N)
-class MainViewModel : ViewModel() {
-    var accountNum = ObservableField<String>()
-    var password = ObservableField<String>()
-    var token = -1
+class MainViewModel : BaseViewModel() {
 
 
     var year = ObservableField<Int>()
@@ -35,7 +24,7 @@ class MainViewModel : ViewModel() {
 
     var selectedYear = 0
 
-    var handlerAddType : Handler? = null
+    var handlerAddType: Handler? = null
 
     var list = ObservableArrayList<DataItem>()
     var typeListOut = ObservableArrayList<TypeItem>()
@@ -44,11 +33,6 @@ class MainViewModel : ViewModel() {
 
 
     init {
-        //从sp中读取账号密码
-        val sharedPreferences = MainApplication.app.getSharedPreferences("usrInfo",Context.MODE_PRIVATE)
-        sharedPreferences.getString("accountNum",null).let { accountNum.set(it) }
-        sharedPreferences.getString("password",null).let { password.set(it) }
-        sharedPreferences.getInt("token",-1).let { token = it }
         LogW.d(this.toString())
         //初始化年月显示
         month.set(Calendar.getInstance().get(Calendar.MONTH)+1)
@@ -125,19 +109,7 @@ class MainViewModel : ViewModel() {
 
 
 
-    fun saveUsrInfo(accountNum:String?, password:String?,token:Int?){
-        accountNum?.let { this.accountNum.set(it) }
-        password?.let { this.password.set(it) }
-        this.token = token?:-1
 
-        //账号密码存入sp
-        val sharedPreferences = MainApplication.app.getSharedPreferences("usrInfo",Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putString("accountNum",this.accountNum.get())
-        editor.putString("password",this.password.get())
-        editor.putInt("token",this.token)
-        editor.apply()
-    }
 
 
 }

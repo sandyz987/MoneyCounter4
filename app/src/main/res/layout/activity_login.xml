@@ -8,7 +8,7 @@
     tools:context=".view.activity.ActivityLogin">
 
     <com.example.moneycounter4.view.costom.ZEditText
-        android:id="@+id/edittextLoginAccountnum"
+        android:id="@+id/edittextLoginUserId"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -29,8 +29,8 @@
         android:background="@drawable/shape_show_status_layout"
         android:inputType="textPassword"
         app:hintText="请输入密码"
-        app:layout_constraintStart_toStartOf="@+id/edittextLoginAccountnum"
-        app:layout_constraintTop_toBottomOf="@+id/edittextLoginAccountnum" />
+        app:layout_constraintStart_toStartOf="@+id/edittextLoginUserId"
+        app:layout_constraintTop_toBottomOf="@+id/edittextLoginUserId" />
 
     <TextView
         android:id="@+id/textView4"
@@ -68,8 +68,8 @@
         app:backgroundTint="@color/light_button_color"
         app:layout_constraintBottom_toBottomOf="@+id/edittextLoginPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/edittextLoginAccountnum"
-        app:layout_constraintTop_toTopOf="@+id/edittextLoginAccountnum"
+        app:layout_constraintStart_toEndOf="@+id/edittextLoginUserId"
+        app:layout_constraintTop_toTopOf="@+id/edittextLoginUserId"
         app:srcCompat="@drawable/ic_arrow_forward" />
 
 

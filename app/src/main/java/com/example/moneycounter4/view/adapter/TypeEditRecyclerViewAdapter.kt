@@ -13,18 +13,10 @@ import androidx.databinding.ObservableArrayList
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moneycounter4.R
-import com.example.moneycounter4.bean.DataItem
-import com.example.moneycounter4.bean.LogItem
 import com.example.moneycounter4.bean.TypeItem
-import com.example.moneycounter4.databinding.ItemCounterDataBinding
-import com.example.moneycounter4.databinding.ItemCounterTimeBinding
-import com.example.moneycounter4.databinding.ItemTypeBinding
 import com.example.moneycounter4.databinding.ItemTypeRemoveBinding
-import com.example.moneycounter4.utils.ThreadPool
 import com.example.moneycounter4.view.activity.ActivityMain
-import com.example.moneycounter4.viewmodel.MainApplication
 import com.example.moneycounter4.widgets.LogW
-import java.lang.Exception
 
 //记账记录的adapter
 @RequiresApi(Build.VERSION_CODES.N)

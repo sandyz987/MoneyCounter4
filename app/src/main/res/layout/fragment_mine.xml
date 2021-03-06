@@ -100,12 +100,12 @@
                         android:text="昵称"
                         android:textColor="#FFFFFF"
                         android:textSize="18sp"
-                        app:layout_constraintBottom_toTopOf="@id/textViewAccountNum"
+                        app:layout_constraintBottom_toTopOf="@id/textViewUserId"
                         app:layout_constraintStart_toEndOf="@+id/imageViewUsrPic"
                         app:layout_constraintTop_toTopOf="@+id/imageViewUsrPic" />
 
                     <TextView
-                        android:id="@+id/textViewAccountNum"
+                        android:id="@+id/textViewUserId"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"

@@ -15,9 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moneycounter4.R
 import com.example.moneycounter4.bean.TypeItem
 import com.example.moneycounter4.databinding.ItemTypeBinding
-import com.example.moneycounter4.utils.ThreadPool
 import com.example.moneycounter4.view.activity.ActivityMain
-import com.example.moneycounter4.viewmodel.MainViewModel
 
 //记账记录的adapter
 @RequiresApi(Build.VERSION_CODES.N)
