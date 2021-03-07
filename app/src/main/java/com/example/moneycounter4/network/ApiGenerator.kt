@@ -54,9 +54,17 @@ fun <T> Observable<T>.setSchedulers(
     .unsubscribeOn(unsubscribeOn)
     .observeOn(observeOn)
 
-fun Observable<out InfoWrapper>.checkError(): Observable<out InfoWrapper> = map {
+fun Observable<InfoWrapper>.checkError(): Observable<InfoWrapper> = map {
     if (it.isSuccessful) {
         it
+    } else {
+        throw ApiException(it.info, it.status)
+    }
+}
+
+fun <T> Observable<ApiWrapper<T>>.checkApiError(): Observable<T> = map {
+    if (it.isSuccessful) {
+        it. data ?: throw ApiException(it.info, it.status)
     } else {
         throw ApiException(it.info, it.status)
     }

@@ -99,13 +99,13 @@ class FragmentCounterEdit : Fragment() {
             arguments = Bundle().apply {
                 putInt("conf", InsideFragmentType.CONF_OUT)
             }
-            setOnClickAction(onClickAction)
+            setInnerOnClickAction(onClickAction)
         })
         fragmentList.add(InsideFragmentType().apply {
             arguments = Bundle().apply {
                 putInt("conf", InsideFragmentType.CONF_IN)
             }
-            setOnClickAction(onClickAction)
+            setInnerOnClickAction(onClickAction)
         })
         adapter =
             TypeFragmentPagerAdapter(requireActivity().supportFragmentManager, 0, fragmentList)

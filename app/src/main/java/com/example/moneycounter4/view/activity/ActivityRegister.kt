@@ -34,8 +34,9 @@ class ActivityRegister : BaseViewModelActivity<LoginViewModel>() {
                 edittextRegisterUserId.text.toString(),
                 edittextRegisterPassword.text.toString()
             ) {
-                startActivity(Intent(this, ActivityMain::class.java))
-                finish()
+//                startActivity(Intent(this, ActivityMain::class.java))
+//                finish()
+                onBackPressed()
             }
 
         }

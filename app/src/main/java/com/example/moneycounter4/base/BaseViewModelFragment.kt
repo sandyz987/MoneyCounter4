@@ -17,8 +17,10 @@ import java.lang.reflect.ParameterizedType
 abstract class BaseViewModelFragment<T : BaseViewModel> : BaseFragment() {
     lateinit var viewModel: T
 
-    private val progressDialog: ProgressDialog = ProgressDialog(this.context).apply {
-        isIndeterminate = true
+    private val progressDialog: ProgressDialog by lazy {
+        ProgressDialog(this.context).apply {
+            isIndeterminate = true
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -27,7 +29,9 @@ abstract class BaseViewModelFragment<T : BaseViewModel> : BaseFragment() {
         viewModel = ViewModelProviders.of(this)
             .get((javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[0] as Class<T>)
         viewModel.toastEvent.observeNotNull {
-            Toast.makeText(this.context, it, Toast.LENGTH_SHORT).show()
+            if (it.isNotBlank()) {
+                Toast.makeText(this.context, it, Toast.LENGTH_SHORT).show()
+            }
         }
         viewModel.progressDialogEvent.observeNotNull {
             progressDialog.setMessage(it)

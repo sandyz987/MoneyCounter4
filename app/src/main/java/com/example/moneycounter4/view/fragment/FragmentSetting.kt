@@ -25,10 +25,6 @@ import com.bigkoo.pickerview.view.OptionsPickerView
 import com.bumptech.glide.Glide
 import com.example.moneycounter4.R
 import com.example.moneycounter4.bean.ItemAccount
-import com.example.moneycounter4.utils.HttpUtilCallback
-import com.example.moneycounter4.utils.HttpUtils.HttpUtil
-import com.example.moneycounter4.utils.JSonEvalUtils.JSonEval
-import com.example.moneycounter4.utils.MyImageUtils.ImageLoader
 import com.example.moneycounter4.view.activity.ActivityLogin
 import com.example.moneycounter4.viewmodel.MainApplication
 import com.example.moneycounter4.viewmodel.MainViewModel
@@ -53,47 +49,47 @@ class FragmentSetting : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         ProgressDialogW.show(requireContext(),"提示","从服务器读取信息中，请稍后",false)
-        HttpUtil.getInstance().httpGet(
-            (activity?.application as MainApplication).connectionUrlMain, object :
-                HttpUtilCallback {
-                override fun doSomething(respond: String?) {
-                    var account: ItemAccount? = null
-                    try {
-                        account = JSonEval.getInstance().fromJson(respond, ItemAccount::class.java)
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
-                    activity?.runOnUiThread {
-                        account?.let {
-                            textViewMoney?.text = it.userId
-                            textViewTips?.text = it.text
-                            textViewUsrName?.text = it.usrName
-                            textViewTime?.text = it.sex
-                            picUrl = it.picUrl ?: "null"
-                            imageViewUsrPic?.let { it2 ->
-                                Glide.with(requireActivity()).load(it.picUrl).into(it2)
-                            }
-                            ProgressDialogW.hide()
-                        }
-                    }
-
-                }
-
-                override fun error() {
-                    activity?.runOnUiThread {
-                        Toast.makeText(activity, "加载失败，请检查网络连接呀", Toast.LENGTH_SHORT).show()
-                        ProgressDialogW.hide()
-                        findNavController().navigate(R.id.action_fragmentSetting_pop)
-                    }
-
-                }
-            },
-            activity,
-            "action",
-            "getaccountinfo",
-            "UserId",
-            viewModel.userId.get()
-        )
+//        HttpUtil.getInstance().httpGet(
+//            (activity?.application as MainApplication).connectionUrlMain, object :
+//                HttpUtilCallback {
+//                override fun doSomething(respond: String?) {
+//                    var account: ItemAccount? = null
+//                    try {
+//                        account = JSonEval.getInstance().fromJson(respond, ItemAccount::class.java)
+//                    } catch (e: Exception) {
+//                        e.printStackTrace()
+//                    }
+//                    activity?.runOnUiThread {
+//                        account?.let {
+//                            textViewMoney?.text = it.userId
+//                            textViewTips?.text = it.text
+//                            textViewUsrName?.text = it.usrName
+//                            textViewTime?.text = it.sex
+//                            picUrl = it.picUrl ?: "null"
+//                            imageViewUsrPic?.let { it2 ->
+//                                Glide.with(requireActivity()).load(it.picUrl).into(it2)
+//                            }
+//                            ProgressDialogW.hide()
+//                        }
+//                    }
+//
+//                }
+//
+//                override fun error() {
+//                    activity?.runOnUiThread {
+//                        Toast.makeText(activity, "加载失败，请检查网络连接呀", Toast.LENGTH_SHORT).show()
+//                        ProgressDialogW.hide()
+//                        findNavController().navigate(R.id.action_fragmentSetting_pop)
+//                    }
+//
+//                }
+//            },
+//            activity,
+//            "action",
+//            "getaccountinfo",
+//            "UserId",
+//            viewModel.userId.get()
+//        )
 
 
 
@@ -120,52 +116,52 @@ class FragmentSetting : Fragment() {
             val gson = Gson()
             val info = gson.toJson(account)
 
-            HttpUtil.getInstance().httpPost(
-                (activity?.application as MainApplication).connectionUrlMain, object :
-                    HttpUtilCallback {
-                    @SuppressLint("RestrictedApi")
-                    override fun doSomething(respond: String?) {
-                        activity?.runOnUiThread {
-                            when (respond) {
-                                "1" -> {
-                                    val navController = findNavController()
-                                    while (navController.backStack.size >= 1) {//当底部栏点击，将所有
-                                        navController.popBackStack()
-                                    }
-                                    val bundle = Bundle()
-                                    bundle.putBoolean("isMine", true)
-                                    bundle.putString("userId", viewModel.userId.get())
-                                    navController.navigate(R.id.action_global_fragmentMine, bundle)
-                                    Toast.makeText(activity, "修改成功！", Toast.LENGTH_SHORT).show()
-                                }
-                                else -> {
-                                    Toast.makeText(activity, "修改失败，登录失效了？", Toast.LENGTH_SHORT)
-                                        .show()
-                                    findNavController().navigate(R.id.action_fragmentSetting_pop)
-                                }
-                            }
-                            ProgressDialogW.hide()
-                        }
-
-                    }
-
-                    override fun error() {
-                        activity?.runOnUiThread {
-                            Toast.makeText(activity, "修改失败，请检查网络连接呀", Toast.LENGTH_SHORT).show()
-                            ProgressDialogW.hide()
-                            findNavController().navigate(R.id.action_fragmentSetting_pop)
-                        }
-
-                    }
-                },
-                activity,
-                "action",
-                "setusrinfo",
-                "token",
-                viewModel.token.toString(),
-                "info",
-                info
-            )
+//            HttpUtil.getInstance().httpPost(
+//                (activity?.application as MainApplication).connectionUrlMain, object :
+//                    HttpUtilCallback {
+//                    @SuppressLint("RestrictedApi")
+//                    override fun doSomething(respond: String?) {
+//                        activity?.runOnUiThread {
+//                            when (respond) {
+//                                "1" -> {
+//                                    val navController = findNavController()
+//                                    while (navController.backStack.size >= 1) {//当底部栏点击，将所有
+//                                        navController.popBackStack()
+//                                    }
+//                                    val bundle = Bundle()
+//                                    bundle.putBoolean("isMine", true)
+//                                    bundle.putString("userId", viewModel.userId.get())
+//                                    navController.navigate(R.id.action_global_fragmentMine, bundle)
+//                                    Toast.makeText(activity, "修改成功！", Toast.LENGTH_SHORT).show()
+//                                }
+//                                else -> {
+//                                    Toast.makeText(activity, "修改失败，登录失效了？", Toast.LENGTH_SHORT)
+//                                        .show()
+//                                    findNavController().navigate(R.id.action_fragmentSetting_pop)
+//                                }
+//                            }
+//                            ProgressDialogW.hide()
+//                        }
+//
+//                    }
+//
+//                    override fun error() {
+//                        activity?.runOnUiThread {
+//                            Toast.makeText(activity, "修改失败，请检查网络连接呀", Toast.LENGTH_SHORT).show()
+//                            ProgressDialogW.hide()
+//                            findNavController().navigate(R.id.action_fragmentSetting_pop)
+//                        }
+//
+//                    }
+//                },
+//                activity,
+//                "action",
+//                "setusrinfo",
+//                "token",
+//                viewModel.token.toString(),
+//                "info",
+//                info
+//            )
         }
 
 
@@ -334,25 +330,25 @@ class FragmentSetting : Fragment() {
 
             upLoading = true
             ProgressDialogW.show(requireContext(),"提示","正在上传~",false)
-            UploadPic.upload(imgPath,object : HttpUtilCallback{
-                override fun doSomething(respond: String?) {
-                    activity?.runOnUiThread {
-                        ImageLoader.with(requireContext()).load(respond).into(imageViewUsrPic)
-                    }
-                    upLoading = false
-                    picUrl = respond?:""
-                    ProgressDialogW.hide()
-                }
-
-                override fun error() {
-                    activity?.runOnUiThread {
-                        picUrl = ""
-                        Toast.makeText(requireContext(),"上传失败了~请重试",Toast.LENGTH_SHORT).show()
-                    }
-                    upLoading = false
-                    ProgressDialogW.hide()
-                }
-            })
+//            UploadPic.upload(imgPath,object : HttpUtilCallback{
+//                override fun doSomething(respond: String?) {
+//                    activity?.runOnUiThread {
+//                        ImageLoader.with(requireContext()).load(respond).into(imageViewUsrPic)
+//                    }
+//                    upLoading = false
+//                    picUrl = respond?:""
+//                    ProgressDialogW.hide()
+//                }
+//
+//                override fun error() {
+//                    activity?.runOnUiThread {
+//                        picUrl = ""
+//                        Toast.makeText(requireContext(),"上传失败了~请重试",Toast.LENGTH_SHORT).show()
+//                    }
+//                    upLoading = false
+//                    ProgressDialogW.hide()
+//                }
+//            })
 
 
         }

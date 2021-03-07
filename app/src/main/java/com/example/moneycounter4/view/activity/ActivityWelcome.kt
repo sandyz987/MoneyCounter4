@@ -2,6 +2,7 @@ package com.example.moneycounter4.view.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.PersistableBundle
 import com.example.moneycounter4.R
 import com.example.moneycounter4.base.BaseViewModelActivity
 import com.example.moneycounter4.extensions.toast

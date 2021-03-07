@@ -3,6 +3,7 @@ package com.example.moneycounter4.network
 import com.example.moneycounter4.beannew.ApiWrapper
 import com.example.moneycounter4.beannew.DynamicItem
 import com.example.moneycounter4.beannew.InfoWrapper
+import com.example.moneycounter4.beannew.User
 import io.reactivex.Observable
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -38,4 +39,11 @@ interface Api {
         @Field("text") pos: String,
         @Field("topic") topic: String
     ): Observable<InfoWrapper>
+
+    @FormUrlEncoded
+    @POST("Counter4Sql?action=getUserInfo")
+    fun getUserInfo(
+        @Field("user_id") userId: String
+    ): Observable<ApiWrapper<User>>
+
 }

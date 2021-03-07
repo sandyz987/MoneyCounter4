@@ -18,17 +18,21 @@ import java.lang.reflect.ParameterizedType
 abstract class BaseViewModelActivity<T : BaseViewModel> : BaseActivity() {
     lateinit var viewModel: T
 
-    private val progressDialog: ProgressDialog = ProgressDialog(this).apply {
-        isIndeterminate = true
+    private val progressDialog: ProgressDialog by lazy {
+        ProgressDialog(this).apply {
+            isIndeterminate = true
+        }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         @Suppress("UNCHECKED_CAST")
         viewModel = ViewModelProviders.of(this)
             .get((javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[0] as Class<T>)
         viewModel.toastEvent.observeNotNull {
-            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            if (it.isNotBlank()) {
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            }
         }
         viewModel.progressDialogEvent.observeNotNull {
             progressDialog.setMessage(it)

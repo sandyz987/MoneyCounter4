@@ -29,6 +29,7 @@ class InsideFragmentType : Fragment() {
     }
 
     lateinit var adapter: TypeRecyclerViewAdapter
+    lateinit var onClickAction: (TypeItem) -> Unit
 
     lateinit var viewModel: MainViewModel
     override fun onCreateView(
@@ -94,6 +95,7 @@ class InsideFragmentType : Fragment() {
         }
 
         recyclerViewType.adapter = adapter
+        adapter.setOnClick(onClickAction)
 
         list.addOnListChangedCallback(object :
             ObservableList.OnListChangedCallback<ObservableArrayList<TypeItem>>() {
@@ -141,8 +143,8 @@ class InsideFragmentType : Fragment() {
         })
     }
 
-    fun setOnClickAction(t: (TypeItem) -> Unit) {
-        adapter.setOnClick(t)
+    fun setInnerOnClickAction(t: (TypeItem) -> Unit) {
+        onClickAction = t
     }
 
 }
