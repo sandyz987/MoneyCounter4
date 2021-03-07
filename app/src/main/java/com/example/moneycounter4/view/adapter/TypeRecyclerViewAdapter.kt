@@ -2,12 +2,10 @@ package com.example.moneycounter4.view.adapter
 
 import android.app.Activity
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableArrayList
 import androidx.navigation.findNavController
@@ -18,26 +16,30 @@ import com.example.moneycounter4.databinding.ItemTypeBinding
 import com.example.moneycounter4.view.activity.ActivityMain
 
 //记账记录的adapter
-@RequiresApi(Build.VERSION_CODES.N)
 class TypeRecyclerViewAdapter(private val mActivity:Activity,private var mContext:Context, private var mList: ObservableArrayList<TypeItem>?,private val showSettingItem:Int) :
     RecyclerView.Adapter<TypeRecyclerViewAdapter.ViewHolder>() {
 
     private var mLayoutInflater = LayoutInflater.from(mContext)
     private var selectedPos = 0
-    private var onClickCallBack : OnClickCallBack? =null
-    var selectedTypeItem:TypeItem? = null
+    private var onClickAction: ((t: TypeItem) -> Unit)? = null
+    private var selectedTypeItem: TypeItem? = null
 
-    fun setOnClick(onClick : OnClickCallBack){
-        this.onClickCallBack = onClick
+    fun setOnClick(onClick: (t: TypeItem) -> Unit) {
+        this.onClickAction = onClick
     }
 
     override fun onCreateViewHolder(container: ViewGroup, viewType: Int): ViewHolder {
-        val itemTypeBinding = DataBindingUtil.inflate<ItemTypeBinding>(mLayoutInflater,R.layout.item_type,container,false)
+        val itemTypeBinding = DataBindingUtil.inflate<ItemTypeBinding>(
+            mLayoutInflater,
+            R.layout.item_type,
+            container,
+            false
+        )
         return ViewHolder(itemTypeBinding.root)
     }
 
     override fun getItemCount(): Int {
-        return (mList?.size?:0) + showSettingItem
+        return (mList?.size ?: 0) + showSettingItem
     }
 
 
@@ -64,15 +66,15 @@ class TypeRecyclerViewAdapter(private val mActivity:Activity,private var mContex
             binding?.width = 0
         }
         holder.itemView.setOnClickListener {
-            ThreadPool.getInstance().execute {
+            Thread {
                 Thread.sleep(200)
                 mActivity.runOnUiThread {
                     selectedPos = position
                     selectedTypeItem = mList?.get(position)
                     notifyDataSetChanged()
-                    onClickCallBack?.onClick(mList?.get(position))
+                    mList?.get(position)?.let { it1 -> onClickAction?.invoke(it1) }
                 }
-            }
+            }.start()
         }
         binding?.executePendingBindings();
     }
@@ -83,10 +85,6 @@ class TypeRecyclerViewAdapter(private val mActivity:Activity,private var mContex
     }
 
 
-
-
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-
-    }
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
 }

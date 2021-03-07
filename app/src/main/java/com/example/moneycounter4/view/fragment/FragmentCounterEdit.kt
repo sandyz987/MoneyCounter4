@@ -30,16 +30,22 @@ import java.lang.ref.WeakReference
 
 class FragmentCounterEdit : Fragment() {
 
-    lateinit var adapter:TypeFragmentPagerAdapter
-    lateinit var viewModel : MainViewModel
-    lateinit var dialog : BaseFullBottomSheetFragment
-    var type : TypeItem? = null
+    lateinit var adapter: TypeFragmentPagerAdapter
+    lateinit var viewModel: MainViewModel
+    lateinit var dialog: BaseFullBottomSheetFragment
+    var type: TypeItem? = null
     var float = 0f
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
 
-        val fragmentCounterEditBinding = DataBindingUtil.inflate<FragmentCounterEditBinding>(LayoutInflater.from(requireContext()),R.layout.fragment_counter_edit,null,false)
+        val fragmentCounterEditBinding = DataBindingUtil.inflate<FragmentCounterEditBinding>(
+            LayoutInflater.from(requireContext()),
+            R.layout.fragment_counter_edit,
+            null,
+            false
+        )
         viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
         fragmentCounterEditBinding.vm = viewModel
 
@@ -53,41 +59,56 @@ class FragmentCounterEdit : Fragment() {
 
         //当子recyclerview点击种类按钮，则调用callback显示输入金额界面
 
-        val onClickCallBack = object : OnClickCallBack{
-            override fun onClick(t: TypeItem?) {
-                //LogW.d(t?.name?:"null")//=============================
-                type = t
-                dialog = BaseFullBottomSheetFragment()
-                dialog.show(requireActivity().supportFragmentManager,"")
-                val weakReference = WeakReference<FragmentCounterEdit>(this@FragmentCounterEdit)
-                viewModel.handlerAddType = SafeHandler(weakReference,object : SafeHandlerCallback<FragmentCounterEdit>{
+        val onClickAction: ((TypeItem) -> Unit) = { t ->
+            //LogW.d(t?.name?:"null")//=============================
+            type = t
+            dialog = BaseFullBottomSheetFragment()
+            dialog.show(requireActivity().supportFragmentManager, "")
+            val weakReference = WeakReference<FragmentCounterEdit>(this@FragmentCounterEdit)
+            viewModel.handlerAddType =
+                SafeHandler(weakReference, object : SafeHandlerCallback<FragmentCounterEdit> {
                     @RequiresApi(Build.VERSION_CODES.N)
-                    override fun doSomething(msg: Message, weakReference: WeakReference<FragmentCounterEdit>) {
+                    override fun doSomething(
+                        msg: Message,
+                        weakReference: WeakReference<FragmentCounterEdit>
+                    ) {
                         val dataItem = DataItem()
                         dataItem.time = (msg.obj as TranData).time
-                        if(weakReference.get()?.tabLayout?.selectedTabPosition == 0){
+                        if (weakReference.get()?.tabLayout?.selectedTabPosition == 0) {
                             dataItem.money = -(msg.obj as TranData).money
-                        }else{
+                        } else {
                             dataItem.money = (msg.obj as TranData).money
                         }
                         dataItem.type = weakReference.get()?.type?.name.toString()
                         dataItem.tips = (msg.obj as TranData).tips
                         weakReference.get()?.viewModel?.addItem(dataItem)
-                        Toast.makeText(requireContext(),"已添加",Toast.LENGTH_SHORT).show()
-                        weakReference.get()?.findNavController()?.navigate(R.id.action_fragmentCounterEdit_pop)
-                        weakReference.get()?.dialog?.behavior?.state = BottomSheetBehavior.STATE_HIDDEN
+                        Toast.makeText(requireContext(), "已添加", Toast.LENGTH_SHORT).show()
+                        weakReference.get()?.findNavController()
+                            ?.navigate(R.id.action_fragmentCounterEdit_pop)
+                        weakReference.get()?.dialog?.behavior?.state =
+                            BottomSheetBehavior.STATE_HIDDEN
 
                     }
                 }).make()
 
-            }
         }
 
 
         val fragmentList = ArrayList<Fragment>()
-        fragmentList.add(InsideFragmentType(InsideFragmentType.CONF_OUT,onClickCallBack))
-        fragmentList.add(InsideFragmentType(InsideFragmentType.CONF_IN,onClickCallBack))
-        adapter = TypeFragmentPagerAdapter(requireActivity().supportFragmentManager,0,fragmentList)
+        fragmentList.add(InsideFragmentType().apply {
+            arguments = Bundle().apply {
+                putInt("conf", InsideFragmentType.CONF_OUT)
+            }
+            setOnClickAction(onClickAction)
+        })
+        fragmentList.add(InsideFragmentType().apply {
+            arguments = Bundle().apply {
+                putInt("conf", InsideFragmentType.CONF_IN)
+            }
+            setOnClickAction(onClickAction)
+        })
+        adapter =
+            TypeFragmentPagerAdapter(requireActivity().supportFragmentManager, 0, fragmentList)
         viewPager.adapter = adapter
         viewPager.currentItem = 0
         tabLayout.setupWithViewPager(viewPager)

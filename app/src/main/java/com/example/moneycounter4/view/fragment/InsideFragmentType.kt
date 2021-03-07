@@ -21,16 +21,27 @@ import kotlinx.android.synthetic.main.fragment_type.*
 
 //conf表明显示支出列表还是收入列表
 
-class InsideFragmentType(private val conf:Int ,private val t:OnClickCallBack) : Fragment() {
+class InsideFragmentType : Fragment() {
 
     companion object {
         const val CONF_IN = 0//表明这个fragment显示收入类型列表
         const val CONF_OUT = 1//支出类型
     }
 
-    lateinit var viewModel : MainViewModel
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val fragmentTypeBinding = DataBindingUtil.inflate<FragmentTypeBinding>(LayoutInflater.from(requireContext()),R.layout.fragment_type,null,false)
+    lateinit var adapter: TypeRecyclerViewAdapter
+
+    lateinit var viewModel: MainViewModel
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val fragmentTypeBinding = DataBindingUtil.inflate<FragmentTypeBinding>(
+            LayoutInflater.from(requireContext()),
+            R.layout.fragment_type,
+            null,
+            false
+        )
         viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
         fragmentTypeBinding.vm = viewModel
         fragmentTypeBinding.lifecycleOwner = this
@@ -40,16 +51,34 @@ class InsideFragmentType(private val conf:Int ,private val t:OnClickCallBack) : 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        recyclerViewType.layoutManager = GridLayoutManager(requireContext(),4)
-        val adapter = when (conf) {
+
+        val conf = arguments?.get("conf") ?: CONF_OUT
+
+        recyclerViewType.layoutManager = GridLayoutManager(requireContext(), 4)
+        adapter = when (conf) {
             CONF_IN -> {
-                TypeRecyclerViewAdapter(requireActivity(),requireContext(),viewModel.typeListIn,1)
+                TypeRecyclerViewAdapter(
+                    requireActivity(),
+                    requireContext(),
+                    viewModel.typeListIn,
+                    1
+                )
             }
             CONF_OUT -> {
-                TypeRecyclerViewAdapter(requireActivity(),requireContext(),viewModel.typeListOut,1)
+                TypeRecyclerViewAdapter(
+                    requireActivity(),
+                    requireContext(),
+                    viewModel.typeListOut,
+                    1
+                )
             }
             else -> {
-                TypeRecyclerViewAdapter(requireActivity(),requireContext(),viewModel.typeListOut,1)
+                TypeRecyclerViewAdapter(
+                    requireActivity(),
+                    requireContext(),
+                    viewModel.typeListOut,
+                    1
+                )
             }
         }
         val list = when(conf) {
@@ -65,7 +94,6 @@ class InsideFragmentType(private val conf:Int ,private val t:OnClickCallBack) : 
         }
 
         recyclerViewType.adapter = adapter
-        adapter.setOnClick(t)
 
         list.addOnListChangedCallback(object :
             ObservableList.OnListChangedCallback<ObservableArrayList<TypeItem>>() {
@@ -112,4 +140,9 @@ class InsideFragmentType(private val conf:Int ,private val t:OnClickCallBack) : 
             }
         })
     }
+
+    fun setOnClickAction(t: (TypeItem) -> Unit) {
+        adapter.setOnClick(t)
+    }
+
 }

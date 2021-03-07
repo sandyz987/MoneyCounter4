@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
@@ -19,12 +18,9 @@ import com.bumptech.glide.Glide
 import com.example.moneycounter4.R
 import com.example.moneycounter4.bean.ItemAccount
 import com.example.moneycounter4.bean.TalkItem
-import com.example.moneycounter4.utils.HttpUtilCallback
-import com.example.moneycounter4.utils.HttpUtils.HttpUtil
 import com.example.moneycounter4.utils.TimeUtil
 import com.example.moneycounter4.view.costom.ImageViewInfoZ
 import com.example.moneycounter4.view.costom.ImageViewInfoZLike
-import com.example.moneycounter4.viewmodel.MainApplication
 
 //加载帖子的adapter，有两处用了。
 
@@ -144,84 +140,7 @@ class TalkRecyclerViewAdapter(
 
         val likeListener = View.OnClickListener {
             holder.imageViewLike?.let {
-                if (holder.imageViewLike.getSelect()) {
-                    //取消点赞
-                    HttpUtil.getInstance().httpGet(
-                        (mActivity?.application as MainApplication).connectionUrlMain,
-                        object :
-                            HttpUtilCallback {
-                            override fun doSomething(respond: String?) {
-                                mActivity.runOnUiThread {
-                                    when (respond) {
-                                        "1" -> holder.imageViewLike.setSelect(false)
-                                        else -> Toast.makeText(
-                                            mActivity,
-                                            "取消点赞失败，请求错误",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
-                                }
-                            }
-
-                            override fun error() {
-                                mActivity?.runOnUiThread {
-                                    Toast.makeText(
-                                        mActivity,
-                                        "取消点赞失败，请检查网络连接呀",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
-
-                            }
-                        },
-                        mActivity,
-                        "action",
-                        "cancellike",
-                        "token",
-                        mToken.toString(),
-                        "talkid",
-                        mList[position].time.toString()
-                    )
-
-                } else {
-                    //点赞
-                    HttpUtil.getInstance().httpGet(
-                        (mActivity?.application as MainApplication).connectionUrlMain,
-                        object :
-                            HttpUtilCallback {
-                            override fun doSomething(respond: String?) {
-                                mActivity.runOnUiThread {
-                                    when (respond) {
-                                        "1" -> holder.imageViewLike.setSelect(true)
-                                        else -> Toast.makeText(
-                                            mActivity,
-                                            "点赞失败，请求错误",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
-                                }
-                            }
-
-                            override fun error() {
-                                mActivity?.runOnUiThread {
-                                    Toast.makeText(
-                                        mActivity,
-                                        "点赞失败，请检查网络连接呀",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
-
-                            }
-                        },
-                        mActivity,
-                        "action",
-                        "like",
-                        "token",
-                        mToken.toString(),
-                        "talkid",
-                        mList[position].time.toString()
-                    )
-                }
+                it.setSelect(!it.getSelect())
             }
 
 

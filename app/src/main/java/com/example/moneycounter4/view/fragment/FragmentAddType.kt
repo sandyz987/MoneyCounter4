@@ -50,35 +50,35 @@ class FragmentAddType : Fragment() {
         recyclerViewType.adapter = adapter
 
 
-        adapter.setOnClick(object : OnClickCallBack {
-            override fun onClick(t:TypeItem?) {
+        adapter.setOnClick { t ->
 
-                val dialog = BottomSheetDialog(requireContext())
-                val view = requireActivity().layoutInflater.inflate(R.layout.dialog_bottom_sheet_add_type,null)
-                dialog.setContentView(view)
-                val tabLayout = view.findViewById<TabLayout>(R.id.tabLayoutAdd)
-                dialog.show()
-                view.findViewById<TextView>(R.id.textViewOk).setOnClickListener {
+            val dialog = BottomSheetDialog(requireContext())
+            val view = requireActivity().layoutInflater.inflate(
+                R.layout.dialog_bottom_sheet_add_type,
+                null
+            )
+            dialog.setContentView(view)
+            val tabLayout = view.findViewById<TabLayout>(R.id.tabLayoutAdd)
+            dialog.show()
+            view.findViewById<TextView>(R.id.textViewOk).setOnClickListener {
 
-                    val a = tabLayout.selectedTabPosition
-                    val picResId = t?.resId
-                    val typeName = view.findViewById<EditTextZ>(R.id.editTextZAdd).text.toString()
-                    if (typeName.isEmpty() || picResId == null || picResId == 0){
-                        Toast.makeText(requireContext(),"是不是少了点什么鸭",Toast.LENGTH_SHORT).show()
-                        return@setOnClickListener
-                    }
-                    when(a){
-                        0->viewModel.addType(TypeItem(typeName,picResId),DataReader.OPTION_OUT)
-                        1->viewModel.addType(TypeItem(typeName,picResId),DataReader.OPTION_IN)
-                    }
-                    findNavController().navigate(R.id.action_fragmentAddType_pop)
-                    dialog.hide()
-                    Toast.makeText(requireContext(),"已添加！",Toast.LENGTH_SHORT).show()
-
+                val a = tabLayout.selectedTabPosition
+                val picResId = t.resId
+                val typeName = view.findViewById<EditTextZ>(R.id.editTextZAdd).text.toString()
+                if (typeName.isEmpty() || picResId == 0) {
+                    Toast.makeText(requireContext(), "是不是少了点什么鸭", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
                 }
-            }
+                when (a) {
+                    0 -> viewModel.addType(TypeItem(typeName, picResId), DataReader.OPTION_OUT)
+                    1 -> viewModel.addType(TypeItem(typeName, picResId), DataReader.OPTION_IN)
+                }
+                findNavController().navigate(R.id.action_fragmentAddType_pop)
+                dialog.hide()
+                Toast.makeText(requireContext(), "已添加！", Toast.LENGTH_SHORT).show()
 
-        })
+            }
+        }
     }
 
 }
