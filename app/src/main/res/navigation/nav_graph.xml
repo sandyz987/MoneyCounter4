@@ -50,9 +50,9 @@
         app:popEnterAnim="@anim/fragment_open_enter" />
     <fragment
         android:id="@+id/fragmentTalkDetails"
-        android:name="com.example.moneycounter4.view.fragment.FragmentTalkDetails"
+        android:name="com.example.moneycounter4.view.fragment.FragmentTalkDetail"
         android:label="fragment_talk_details"
-        tools:layout="@layout/fragment_talk_details" />
+        tools:layout="@layout/fragment_talk_detail" />
     <action
         android:id="@+id/action_global_fragmentTalkDetails"
         app:destination="@id/fragmentTalkDetails"

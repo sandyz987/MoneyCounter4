@@ -49,11 +49,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
         android:fontFamily="@font/alibaba_regular"
         android:text="内容"
         android:textColor="#000000"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textViewTime"
         app:layout_constraintTop_toBottomOf="@+id/imageViewUsrPic" />
@@ -71,5 +69,17 @@
         app:like_count_text="0"
         app:liked_src="@drawable/ic_like_checked"
         app:no_liked_src="@drawable/ic_like_img" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_comment_inner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        android:minHeight="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textViewContent"
+        app:layout_constraintStart_toStartOf="@+id/textViewContent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewContent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

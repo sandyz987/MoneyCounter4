@@ -26,7 +26,8 @@ import com.example.moneycounter4.view.costom.ImageViewInfoZLike
 //加载帖子的adapter，有两处用了。
 
 class TalkRecyclerViewAdapter(
-    private var mContext: Context
+    private var mContext: Context,
+    val onItemClick: (DynamicItem, View) -> Unit
 
 ) :
     RecyclerView.Adapter<TalkRecyclerViewAdapter.ViewHolder>() {
@@ -86,59 +87,32 @@ class TalkRecyclerViewAdapter(
 
         holder.textViewTime?.text = TimeUtil.getChatTimeStr(mList[position].submitTime)
         // TODO 图片显示
-//        if (mList[position].picUrl != null && mList[position].picUrl != "null" && mList[position].picUrl != "") {
-//            //ImageLoader.with(mContext).load(mList[position].picUrl).into(holder.imageViewPic)
-//            holder.imageViewPic?.let { Glide.with(mContext).load(mList[position].picUrl).into(it) }
-//            holder.imageViewPic?.visibility = View.VISIBLE
-//        } else {
-//            holder.imageViewPic?.visibility = View.GONE
-//        }
         holder.textViewUsrName?.text = mList[position].nickname
         holder.imageViewUsrPic?.let { Glide.with(mContext).load(mList[position].avatarUrl).into(it) }
 
 
-//        when(list[position].sex){
-//            "男"->holder.imageViewSex?.setImageResource(R.drawable.ic_man)
-//            "女"->holder.imageViewSex?.setImageResource(R.drawable.ic_woman)
-//            else->holder.imageViewSex?.setImageBitmap(null)
-//        }
 
         holder.imageViewTalk?.setHint(mList[position].commentList.size.toString())
 
-//        for (account: ItemAccount in mList[position].likeAccounts) {
-//            if (account.userId == mUserId) {
-//                holder.imageViewLike?.setSelect(true)
-//                holder.imageViewLike?.setHint((mList[position].likeAccounts.size - 1).toString())
-//                break
-//            } else {
-//                holder.imageViewLike?.setHint(mList[position].likeAccounts.size.toString())
-//            }
-//        }
-
 
         holder.imageViewUsrPic?.setOnClickListener {
-//            val navController = Navigation.findNavController(holder.itemView)
-//            val bundle = Bundle()
-//            bundle.putBoolean("isMine", false)
-//            bundle.putString("userId", mList[position].userId)
-//            navController.navigate(R.id.action_global_fragmentMine, bundle)
+            val navController = Navigation.findNavController(holder.itemView)
+            val bundle = Bundle()
+            bundle.putBoolean("isMine", false)
+            bundle.putString("userId", mList[position].userId)
+            navController.navigate(R.id.action_global_fragmentMine, bundle)
         }
-        holder.imageViewTalk?.setOnClickListener {
-//            val navController = Navigation.findNavController(holder.itemView)
-//            val bundle = Bundle()
-//            bundle.putLong("talkId", mList[position].time)
-//            navController.navigate(R.id.action_global_fragmentTalkDetails, bundle)
 
-        }
         holder.imageViewLike?.setOnClickListener {
-
+            // TODO 点赞
         }
         holder.itemView.isClickable = true
         holder.itemView.setOnClickListener {
-//            val navController = Navigation.findNavController(holder.itemView)
-//            val bundle = Bundle()
-//            bundle.putLong("talkId", mList[position].time)
-//            navController.navigate(R.id.action_global_fragmentTalkDetails, bundle)
+            onItemClick.invoke(mList[position], it)
+
+        }
+        holder.imageViewTalk?.setOnClickListener {
+            onItemClick.invoke(mList[position], it)
         }
 
 
