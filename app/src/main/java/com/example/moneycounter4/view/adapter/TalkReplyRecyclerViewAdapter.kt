@@ -26,52 +26,32 @@ import com.example.moneycounter4.view.costom.ImageViewInfoZ
 import com.example.moneycounter4.view.costom.ImageViewInfoZLike
 
 
-class TalkCommentRecyclerViewAdapter(
+class TalkReplyRecyclerViewAdapter(
     private var mContext: Context,
-    private val onItemClick: (CommentItem, View) -> Unit,
-    private val onInnerItemClick: (CommentItem, View) -> Unit
+    private val onItemClick: (CommentItem, View) -> Unit
 
 ) :
-    RecyclerView.Adapter<TalkCommentRecyclerViewAdapter.ViewHolder>() {
+    RecyclerView.Adapter<TalkReplyRecyclerViewAdapter.ViewHolder>() {
 
     private var mLayoutInflater = LayoutInflater.from(mContext)
     private var mList: ArrayList<CommentItem> = arrayListOf()
 
-    override fun getItemViewType(position: Int): Int {
-        return if (position == mList.size) {
-            1
-        } else {
-            0
-        }
-    }
 
-    override fun onCreateViewHolder(container: ViewGroup, viewType: Int): ViewHolder {
-
-        when (viewType) {
-            1 -> return ViewHolder(mLayoutInflater.inflate(R.layout.item_more, container, false))
-            0 -> return ViewHolder(
-                mLayoutInflater.inflate(
-                    R.layout.item_talk_small,
-                    container,
-                    false
-                )
+    override fun onCreateViewHolder(container: ViewGroup, viewType: Int): ViewHolder =
+        ViewHolder(
+            mLayoutInflater.inflate(
+                R.layout.item_talk_inner,
+                container,
+                false
             )
-        }
-        return ViewHolder(mLayoutInflater.inflate(R.layout.item_talk_small, container, false))
-    }
+        )
 
-    override fun getItemCount(): Int {
 
-        return mList.size + 1
-
-    }
+    override fun getItemCount(): Int = mList.size
 
     @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if (position == mList.size) {
-            return
-        }
         holder.imageViewLike?.setSelect(false)
         holder.imageViewLike?.setHint("0")
 
@@ -80,9 +60,9 @@ class TalkCommentRecyclerViewAdapter(
 
 
 
-        holder.textViewTime?.text = TimeUtil.getChatTimeStr(mList[position].submitTime)
-        // TODO 图片显示
-        holder.imageViewUsrPic?.let { Glide.with(mContext).load(mList[position].avatarUrl).into(it) }
+        holder.imageViewUsrPic?.let {
+            Glide.with(mContext).load(mList[position].avatarUrl).into(it)
+        }
 
 
 
@@ -104,15 +84,6 @@ class TalkCommentRecyclerViewAdapter(
 
         }
 
-        if (holder.rvCommentInner?.layoutManager == null) {
-            holder.rvCommentInner?.layoutManager = LinearLayoutManager(mContext)
-        }
-        if (holder.rvCommentInner?.adapter == null) {
-            holder.rvCommentInner?.adapter = TalkReplyRecyclerViewAdapter(mContext, onInnerItemClick)
-        }
-        (holder.rvCommentInner?.adapter as TalkReplyRecyclerViewAdapter).setList(mList[position].replyList)
-
-
 
         val likeListener = View.OnClickListener {
             holder.imageViewLike?.let {
@@ -128,13 +99,11 @@ class TalkCommentRecyclerViewAdapter(
 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val textViewUsrName: TextView? = itemView.findViewById<TextView>(R.id.textViewUsrName)//
-        val textViewTime: TextView? = itemView.findViewById<TextView>(R.id.textViewTime)//
-        val textViewContent: TextView? = itemView.findViewById<TextView>(R.id.textViewContent)//
-        val imageViewUsrPic: ImageView? = itemView.findViewById<ImageView>(R.id.imageViewUsrPic)//
+        val textViewUsrName: TextView? = itemView.findViewById<TextView>(R.id.tv_nickname)//
+        val textViewContent: TextView? = itemView.findViewById<TextView>(R.id.tv_content)//
+        val imageViewUsrPic: ImageView? = itemView.findViewById<ImageView>(R.id.iv_avatar)//
         val imageViewLike: ImageViewInfoZLike? =
-            itemView.findViewById<ImageViewInfoZLike>(R.id.imageViewLike)
-        val rvCommentInner: RecyclerView? = itemView.findViewById<RecyclerView>(R.id.rv_comment_inner)
+            itemView.findViewById<ImageViewInfoZLike>(R.id.like_view)
 
     }
 

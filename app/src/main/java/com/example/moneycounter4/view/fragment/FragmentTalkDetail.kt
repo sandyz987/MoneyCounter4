@@ -44,7 +44,7 @@ class FragmentTalkDetail : BaseFragment() {
                 dynamic = it
             }
         }
-        adapter = TalkCommentRecyclerViewAdapter(requireContext(), {_,_->})
+        adapter = TalkCommentRecyclerViewAdapter(requireContext(), {_,_->}, {_,_->})
 
         rv_talk.layoutManager = LinearLayoutManager(context)
         rv_talk.adapter = adapter
