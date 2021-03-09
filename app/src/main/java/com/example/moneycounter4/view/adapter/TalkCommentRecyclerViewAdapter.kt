@@ -18,21 +18,22 @@ import com.bumptech.glide.Glide
 import com.example.moneycounter4.R
 import com.example.moneycounter4.bean.ItemAccount
 import com.example.moneycounter4.bean.TalkItem
+import com.example.moneycounter4.beannew.CommentItem
 import com.example.moneycounter4.beannew.DynamicItem
 import com.example.moneycounter4.utils.TimeUtil
 import com.example.moneycounter4.view.costom.ImageViewInfoZ
 import com.example.moneycounter4.view.costom.ImageViewInfoZLike
 
 
-class TalkRecyclerViewAdapter(
+class TalkCommentRecyclerViewAdapter(
     private var mContext: Context,
-    private val onItemClick: (DynamicItem, View) -> Unit
+    private val onItemClick: (CommentItem, View) -> Unit
 
 ) :
-    RecyclerView.Adapter<TalkRecyclerViewAdapter.ViewHolder>() {
+    RecyclerView.Adapter<TalkCommentRecyclerViewAdapter.ViewHolder>() {
 
     private var mLayoutInflater = LayoutInflater.from(mContext)
-    private var mList: ArrayList<DynamicItem> = arrayListOf()
+    private var mList: ArrayList<CommentItem> = arrayListOf()
 
     override fun getItemViewType(position: Int): Int {
         return if (position == mList.size) {
@@ -48,13 +49,13 @@ class TalkRecyclerViewAdapter(
             1 -> return ViewHolder(mLayoutInflater.inflate(R.layout.item_more, container, false))
             0 -> return ViewHolder(
                 mLayoutInflater.inflate(
-                    R.layout.item_talk_big,
+                    R.layout.item_talk_small,
                     container,
                     false
                 )
             )
         }
-        return ViewHolder(mLayoutInflater.inflate(R.layout.item_talk_big, container, false))
+        return ViewHolder(mLayoutInflater.inflate(R.layout.item_talk_small, container, false))
     }
 
     override fun getItemCount(): Int {
@@ -72,26 +73,17 @@ class TalkRecyclerViewAdapter(
         holder.imageViewLike?.setSelect(false)
         holder.imageViewLike?.setHint("0")
 
-        holder.textViewUsrName?.text = mList[position].userId
-        holder.textViewContent?.text = mList[position].text.take(30)
+        holder.textViewUsrName?.text = mList[position].nickname
+        holder.textViewContent?.text = mList[position].text
 
-        holder.textViewContent?.text?.length?.let {
-            if (it >= 30) {
-                holder.textViewContent.text = holder.textViewContent.text.toString() + "..."
-                holder.textViewMore?.visibility = View.VISIBLE
-            } else {
-                holder.textViewMore?.visibility = View.GONE
-            }
-        }
+
 
         holder.textViewTime?.text = TimeUtil.getChatTimeStr(mList[position].submitTime)
         // TODO 图片显示
-        holder.textViewUsrName?.text = mList[position].nickname
         holder.imageViewUsrPic?.let { Glide.with(mContext).load(mList[position].avatarUrl).into(it) }
 
 
 
-        holder.imageViewTalk?.setHint(mList[position].commentList.size.toString())
 
 
         holder.imageViewUsrPic?.setOnClickListener {
@@ -110,9 +102,6 @@ class TalkRecyclerViewAdapter(
             onItemClick.invoke(mList[position], it)
 
         }
-        holder.imageViewTalk?.setOnClickListener {
-            onItemClick.invoke(mList[position], it)
-        }
 
 
 
@@ -130,25 +119,20 @@ class TalkRecyclerViewAdapter(
 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val textViewUsrName: TextView? = itemView.findViewById<TextView>(R.id.textViewUsrName)
-        val textViewTime: TextView? = itemView.findViewById<TextView>(R.id.textViewTime)
-        val textViewContent: TextView? = itemView.findViewById<TextView>(R.id.textViewContent)
-        val imageViewUsrPic: ImageView? = itemView.findViewById<ImageView>(R.id.imageViewUsrPic)
-        val imageViewPic: ImageView? = itemView.findViewById<ImageView>(R.id.imageViewPic)
-        val imageViewSex: ImageView? = itemView.findViewById<ImageView>(R.id.imageViewSex)
-        val buttonFollow: Button? = itemView.findViewById<Button>(R.id.buttonFollow)
+        val textViewUsrName: TextView? = itemView.findViewById<TextView>(R.id.textViewUsrName)//
+        val textViewTime: TextView? = itemView.findViewById<TextView>(R.id.textViewTime)//
+        val textViewContent: TextView? = itemView.findViewById<TextView>(R.id.textViewContent)//
+        val imageViewUsrPic: ImageView? = itemView.findViewById<ImageView>(R.id.imageViewUsrPic)//
         val imageViewLike: ImageViewInfoZLike? =
             itemView.findViewById<ImageViewInfoZLike>(R.id.imageViewLike)
-        val imageViewTalk: ImageViewInfoZ? =
-            itemView.findViewById<ImageViewInfoZ>(R.id.imageViewTalk)
-        val textViewMore: TextView? = itemView.findViewById<TextView>(R.id.textViewMore)
+        val rvCommentInner: RecyclerView? = itemView.findViewById<RecyclerView>(R.id.rv_comment_inner)
 
     }
 
-    fun setList(list: ArrayList<DynamicItem>) {
+    fun setList(list: List<CommentItem>) {
         mList.clear()
         mList.addAll(list)
-        notifyDataSetChanged()
+        notifyItemRangeChanged(0, mList.size)
     }
 
 

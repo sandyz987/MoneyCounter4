@@ -6,12 +6,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.example.moneycounter4.R
 import com.example.moneycounter4.base.BaseFragment
 import com.example.moneycounter4.beannew.DynamicItem
 import com.example.moneycounter4.utils.TimeUtil
+import com.example.moneycounter4.view.adapter.TalkCommentRecyclerViewAdapter
 import com.example.moneycounter4.viewmodel.CommunityViewModel
 import kotlinx.android.synthetic.main.fragment_talk_detail.*
 import kotlinx.android.synthetic.main.item_talk_big.*
@@ -20,6 +24,7 @@ class FragmentTalkDetail : BaseFragment() {
     
     private var dynamic: DynamicItem? = null
 
+    lateinit var adapter: TalkCommentRecyclerViewAdapter
 
     companion object {
         var viewModel: CommunityViewModel? = null
@@ -39,9 +44,27 @@ class FragmentTalkDetail : BaseFragment() {
                 dynamic = it
             }
         }
+        adapter = TalkCommentRecyclerViewAdapter(requireContext(), {_,_->})
+
+        rv_talk.layoutManager = LinearLayoutManager(context)
+        rv_talk.adapter = adapter
+        adapter.setList(dynamic?.commentList?: listOf())
         
 
         bindView()
+
+        val listener = SwipeRefreshLayout.OnRefreshListener {
+            viewModel?.getAllDynamic(0, 50, "广场")
+        }
+        swipeRefreshLayout.setOnRefreshListener(listener)
+        listener.onRefresh()
+        swipeRefreshLayout.isRefreshing = true
+
+        viewModel?.dynamicList?.observe(viewLifecycleOwner, Observer {
+            bindView()
+            adapter.notifyDataSetChanged()
+            swipeRefreshLayout.isRefreshing = false
+        })
 
 
     }

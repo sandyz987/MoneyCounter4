@@ -23,4 +23,13 @@
     <declare-styleable name="ZEditText">
         <attr name="hintText" format="string" />
     </declare-styleable>
+    <declare-styleable name="DragHeadView">
+        <attr name="head_view" format="reference"/>
+        <attr name="refreshed_text" format="string"/>
+        <attr name="refreshing_text" format="string"/>
+        <attr name="before_refresh_text" format="string"/>
+        <attr name="can_refresh_text" format="string"/>
+        <attr name="refreshed_ic" format="reference" />
+        <attr name="before_ic" format="reference" />
+    </declare-styleable>
 </resources>

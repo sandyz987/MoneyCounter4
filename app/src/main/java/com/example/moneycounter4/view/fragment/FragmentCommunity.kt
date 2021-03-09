@@ -24,6 +24,7 @@ import com.example.moneycounter4.viewmodel.MainApplication
 import com.example.moneycounter4.viewmodel.MainViewModel
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_community.*
+import kotlinx.android.synthetic.main.fragment_community.view.*
 import kotlinx.android.synthetic.main.item_talk_big.*
 
 
@@ -66,14 +67,12 @@ class FragmentCommunity : BaseViewModelFragment<CommunityViewModel>() {
         recyclerViewTalkList.adapter = adapter
 
 
-        val listener = PullRefreshLayout.OnRefreshListener {
+        val listener = {
             viewModel.getAllDynamic(0, 50, "广场")
         }
 
-        pullRefreshLayout.setOnRefreshListener(listener)
-        listener.onRefresh()
-        pullRefreshLayout.setRefreshing(true)
-        pullRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_WATER_DROP)
+        drag_head_view.onRefreshAction = listener
+        drag_head_view.refresh()
 
         sendDynamic.setOnClickListener {
             val navController = findNavController()
@@ -85,7 +84,7 @@ class FragmentCommunity : BaseViewModelFragment<CommunityViewModel>() {
 
         viewModel.dynamicList.observeNotNull {
             adapter.setList(it)
-            pullRefreshLayout.setRefreshing(false)
+            drag_head_view?.finishRefresh()
         }
 
 

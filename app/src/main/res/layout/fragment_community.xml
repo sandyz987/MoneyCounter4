@@ -13,24 +13,33 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.baoyz.widget.PullRefreshLayout
-                android:id="@+id/pullRefreshLayout"
+            <com.example.moneycounter4.widgets.DragHeadView
+                android:id="@+id/drag_head_view"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:orientation="vertical"
+                app:before_refresh_text="下拉刷新"
+                app:can_refresh_text="释放立即刷新"
+                app:head_view="@layout/layout_head_view"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+                app:refreshed_ic="@drawable/ic_positive"
+                app:before_ic="@drawable/ic_down_arrow"
+                app:refreshed_text="加载完成！"
+                app:refreshing_text="玩命加载中...">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewTalkList"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-            </com.baoyz.widget.PullRefreshLayout>
+            </com.example.moneycounter4.widgets.DragHeadView>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout2"
