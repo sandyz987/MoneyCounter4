@@ -2,6 +2,7 @@ package com.example.moneycounter4.view.fragment
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,11 +27,17 @@ import kotlin.collections.ArrayList
 
 class FragmentHome : Fragment() {
 
-    lateinit var viewModel : MainViewModel
+    lateinit var viewModel: MainViewModel
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
 
-        val fragmentHomeBinding = DataBindingUtil.inflate<FragmentMyHomeBinding>(LayoutInflater.from(requireContext()),R.layout.fragment_my_home,null,false)
+        val fragmentHomeBinding = DataBindingUtil.inflate<FragmentMyHomeBinding>(
+            LayoutInflater.from(requireContext()),
+            R.layout.fragment_my_home,
+            null,
+            false
+        )
         viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
         fragmentHomeBinding.vm = viewModel
 
@@ -55,54 +62,15 @@ class FragmentHome : Fragment() {
         }
 
 
-
-        val adapter = LogRecyclerViewAdapter(requireActivity(),viewModel,requireContext(),viewModel.list)
+        val adapter = LogRecyclerViewAdapter(
+            requireActivity(),
+            viewModel,
+            requireContext(),
+            viewModel.list,
+            recyclerViewLog
+        )
         recyclerViewLog.adapter = adapter
         recyclerViewLog.layoutManager = LinearLayoutManager(requireContext())
-        viewModel.list.addOnListChangedCallback(object :
-            ObservableList.OnListChangedCallback<ObservableArrayList<DataItem>>() {
-            override fun onChanged(sender: ObservableArrayList<DataItem>?) {
-                adapter.setList(sender as ArrayList<DataItem>)
-                adapter.notifyDataSetChanged()
-            }
-
-            override fun onItemRangeRemoved(
-                sender: ObservableArrayList<DataItem>?,
-                positionStart: Int,
-                itemCount: Int
-            ) {
-                adapter.setList(sender as ArrayList<DataItem>)
-                adapter.notifyDataSetChanged();
-            }
-
-            override fun onItemRangeMoved(
-                sender: ObservableArrayList<DataItem>?,
-                fromPosition: Int,
-                toPosition: Int,
-                itemCount: Int
-            ) {
-                adapter.setList(sender as ArrayList<DataItem>)
-                adapter.notifyDataSetChanged();
-            }
-
-            override fun onItemRangeInserted(
-                sender: ObservableArrayList<DataItem>?,
-                positionStart: Int,
-                itemCount: Int
-            ) {
-                adapter.setList(sender as ArrayList<DataItem>)
-                adapter.notifyDataSetChanged()
-            }
-
-            override fun onItemRangeChanged(
-                sender: ObservableArrayList<DataItem>?,
-                positionStart: Int,
-                itemCount: Int
-            ) {
-                adapter.setList(sender as ArrayList<DataItem>)
-                adapter.notifyDataSetChanged()
-            }
-        })
         pullRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_WATER_DROP)
         pullRefreshLayout.setOnRefreshListener {
             adapter.notifyDataSetChanged()

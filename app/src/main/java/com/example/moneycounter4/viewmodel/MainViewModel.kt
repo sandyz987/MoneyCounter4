@@ -31,45 +31,56 @@ class MainViewModel : BaseViewModel() {
     var typeListIn = ObservableArrayList<TypeItem>()
 
 
-
     init {
         LogW.d(this.toString())
         //初始化年月显示
-        month.set(Calendar.getInstance().get(Calendar.MONTH)+1)
+        month.set(Calendar.getInstance().get(Calendar.MONTH) + 1)
         year.set(Calendar.getInstance().get(Calendar.YEAR))
         val calendar = java.util.Calendar.getInstance()
         selectedYear = calendar.get(java.util.Calendar.YEAR)
         //初始化记账记录列表
-        val tmpList = DataReader().getItems(Calendar.getInstance().get(Calendar.YEAR),Calendar.getInstance().get(Calendar.MONTH)+1,Calendar.getInstance().get(Calendar.DATE),DataReader.OPTION_BY_MONTH)
+        val tmpList = DataReader().getItems(
+            Calendar.getInstance().get(Calendar.YEAR),
+            Calendar.getInstance().get(Calendar.MONTH) + 1,
+            Calendar.getInstance().get(Calendar.DATE),
+            DataReader.OPTION_BY_MONTH
+        )
         tmpList.forEach { list.add(it) }
         //初始化收入图标种类列表
         val tmpList2 = DataReader().getType(DataReader.OPTION_IN)
-        if(tmpList2.size == 0){
+        if (tmpList2.size == 0) {
             TypeIndex.getInTypeInit().forEach { typeListIn.add(it) }
-        }else {
+        } else {
             tmpList2.forEach { typeListIn.add(it) }
         }
         //初始化支出图标种类列表
         val tmpList3 = DataReader().getType(DataReader.OPTION_OUT)
-        if(tmpList3.size == 0){
+        if (tmpList3.size == 0) {
             TypeIndex.getOutTypeInit().forEach { typeListOut.add(it) }
-        }else {
+        } else {
             tmpList3.forEach { typeListOut.add(it) }
         }
         refreshList()
     }
 
-    fun refreshList(){
+    fun refreshList() {
         list.clear()
-        list.addAll(DataReader().getItems(year.get()!!,month.get()!!,0,DataReader.OPTION_BY_MONTH))
-        income.set(DataReader().count(list,DataReader.OPTION_INCOME))
-        expend.set(DataReader().count(list,DataReader.OPTION_EXPEND))
+        list.addAll(
+            DataReader().getItems(
+                year.get()!!,
+                month.get()!!,
+                0,
+                DataReader.OPTION_BY_MONTH
+            )
+        )
+        income.set(DataReader().count(list, DataReader.OPTION_INCOME))
+        expend.set(DataReader().count(list, DataReader.OPTION_EXPEND))
         list.sortBy { -it.time }
-        income.set(DataReader().count(list,DataReader.OPTION_INCOME))
-        expend.set(DataReader().count(list,DataReader.OPTION_EXPEND))
+        income.set(DataReader().count(list, DataReader.OPTION_INCOME))
+        expend.set(DataReader().count(list, DataReader.OPTION_EXPEND))
     }
 
-    fun addItem(d : DataItem){
+    fun addItem(d: DataItem) {
         DataReader().addItem(d)
         refreshList()
     }
@@ -79,37 +90,33 @@ class MainViewModel : BaseViewModel() {
 //        refreshList()
 //    }
 
-    fun delItemByTime(t:Long){
+    fun delItemByTime(t: Long) {
         DataReader().delItem(t)
 
         refreshList()
     }
 
 
-    fun addType(typeItem: TypeItem,option:Int){
-        when(option){
-            DataReader.OPTION_IN ->{
+    fun addType(typeItem: TypeItem, option: Int) {
+        when (option) {
+            DataReader.OPTION_IN -> {
                 typeListIn.add(typeItem)
-                DataReader().saveType(typeListIn,option)
+                DataReader().saveType(typeListIn, option)
             }
-            DataReader.OPTION_OUT ->{
+            DataReader.OPTION_OUT -> {
                 typeListOut.add(typeItem)
-                DataReader().saveType(typeListOut,option)
+                DataReader().saveType(typeListOut, option)
             }
         }
 
     }
 
-    fun delType(typeItem: TypeItem){
+    fun delType(typeItem: TypeItem) {
         typeListOut.remove(typeItem)
         typeListIn.remove(typeItem)
-        DataReader().saveType(typeListOut,DataReader.OPTION_OUT)
-        DataReader().saveType(typeListIn,DataReader.OPTION_IN)
+        DataReader().saveType(typeListOut, DataReader.OPTION_OUT)
+        DataReader().saveType(typeListIn, DataReader.OPTION_IN)
     }
-
-
-
-
 
 
 }
