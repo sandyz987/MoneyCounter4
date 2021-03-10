@@ -28,7 +28,8 @@ import com.example.moneycounter4.view.costom.ImageViewInfoZLike
 
 class TalkReplyRecyclerViewAdapter(
     private var mContext: Context,
-    private val onItemClick: (CommentItem, View) -> Unit
+    private val onItemClick: (CommentItem, View) -> Unit,
+    private val onInnerLongClick: (CommentItem, View) -> Unit
 
 ) :
     RecyclerView.Adapter<TalkReplyRecyclerViewAdapter.ViewHolder>() {
@@ -83,6 +84,10 @@ class TalkReplyRecyclerViewAdapter(
             onItemClick.invoke(mList[position], it)
 
         }
+        holder.itemView.setOnLongClickListener {
+            onInnerLongClick.invoke(mList[position], it)
+            true
+        }
 
 
         val likeListener = View.OnClickListener {
@@ -110,7 +115,7 @@ class TalkReplyRecyclerViewAdapter(
     fun setList(list: List<CommentItem>) {
         mList.clear()
         mList.addAll(list)
-        notifyItemRangeChanged(0, mList.size)
+        notifyDataSetChanged()
     }
 
 

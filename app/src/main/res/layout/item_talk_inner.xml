@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/ripple_reply_inner_background_ripple"
     android:layout_height="wrap_content">
 
     <com.example.moneycounter4.view.costom.ImageViewInfoZLike
@@ -22,9 +23,10 @@
         android:id="@+id/iv_avatar"
         android:layout_width="20dp"
         android:layout_height="20dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
 
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:riv_oval="true"
         tools:srcCompat="@tools:sample/avatars" />

@@ -1,14 +1,12 @@
 package com.example.moneycounter4.view.adapter
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
@@ -17,19 +15,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.moneycounter4.R
-import com.example.moneycounter4.bean.ItemAccount
-import com.example.moneycounter4.bean.TalkItem
 import com.example.moneycounter4.beannew.CommentItem
-import com.example.moneycounter4.beannew.DynamicItem
 import com.example.moneycounter4.utils.TimeUtil
-import com.example.moneycounter4.view.costom.ImageViewInfoZ
 import com.example.moneycounter4.view.costom.ImageViewInfoZLike
 
 
 class TalkCommentRecyclerViewAdapter(
     private var mContext: Context,
     private val onItemClick: (CommentItem, View) -> Unit,
-    private val onInnerItemClick: (CommentItem, View) -> Unit
+    private val onInnerItemClick: (CommentItem, View) -> Unit,
+    private val onItemLongClick: (CommentItem, View) -> Unit,
+    private val onInnerItemLongClick: (CommentItem, View) -> Unit
 
 ) :
     RecyclerView.Adapter<TalkCommentRecyclerViewAdapter.ViewHolder>() {
@@ -103,12 +99,16 @@ class TalkCommentRecyclerViewAdapter(
             onItemClick.invoke(mList[position], it)
 
         }
+        holder.itemView.setOnLongClickListener {
+            onItemLongClick.invoke(mList[position], it)
+            true
+        }
 
         if (holder.rvCommentInner?.layoutManager == null) {
             holder.rvCommentInner?.layoutManager = LinearLayoutManager(mContext)
         }
         if (holder.rvCommentInner?.adapter == null) {
-            holder.rvCommentInner?.adapter = TalkReplyRecyclerViewAdapter(mContext, onInnerItemClick)
+            holder.rvCommentInner?.adapter = TalkReplyRecyclerViewAdapter(mContext, onInnerItemClick, onInnerItemLongClick)
         }
         (holder.rvCommentInner?.adapter as TalkReplyRecyclerViewAdapter).setList(mList[position].replyList)
 
@@ -128,13 +128,13 @@ class TalkCommentRecyclerViewAdapter(
 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val textViewUsrName: TextView? = itemView.findViewById<TextView>(R.id.textViewUsrName)//
-        val textViewTime: TextView? = itemView.findViewById<TextView>(R.id.textViewTime)//
-        val textViewContent: TextView? = itemView.findViewById<TextView>(R.id.textViewContent)//
-        val imageViewUsrPic: ImageView? = itemView.findViewById<ImageView>(R.id.imageViewUsrPic)//
+        val textViewUsrName: TextView? = itemView.findViewById(R.id.textViewUsrName)//
+        val textViewTime: TextView? = itemView.findViewById(R.id.textViewTime)//
+        val textViewContent: TextView? = itemView.findViewById(R.id.textViewContent)//
+        val imageViewUsrPic: ImageView? = itemView.findViewById(R.id.imageViewUsrPic)//
         val imageViewLike: ImageViewInfoZLike? =
-            itemView.findViewById<ImageViewInfoZLike>(R.id.imageViewLike)
-        val rvCommentInner: RecyclerView? = itemView.findViewById<RecyclerView>(R.id.rv_comment_inner)
+            itemView.findViewById(R.id.imageViewLike)
+        val rvCommentInner: RecyclerView? = itemView.findViewById(R.id.rv_comment_inner)
 
     }
 

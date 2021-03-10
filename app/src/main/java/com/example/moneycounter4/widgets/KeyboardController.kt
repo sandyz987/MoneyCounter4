@@ -17,9 +17,9 @@ object KeyboardController {
      *
      * @param v 要获取焦点的view，一般填editText，隐藏时无所谓
      */
-    fun hideInputKeyboard(context: Context, v: View) {
+    fun hideInputKeyboard(context: Context, v: View?) {
         val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(v.windowToken, 0)
+        imm.hideSoftInputFromWindow(v?.windowToken, 0)
     }
 
     /**

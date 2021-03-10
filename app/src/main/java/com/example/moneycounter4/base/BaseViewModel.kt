@@ -2,6 +2,7 @@ package com.example.moneycounter4.base
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.moneycounter4.widgets.SingleLiveEvent
 import io.reactivex.disposables.Disposable
 
 /**
@@ -11,11 +12,11 @@ import io.reactivex.disposables.Disposable
  */
 
 open class BaseViewModel : ViewModel() {
-    val toastEvent: MutableLiveData<String> = MutableLiveData("")
+    val toastEvent = SingleLiveEvent<String>()
 
     private val disposableList = mutableListOf<Disposable>()
 
-    val progressDialogEvent: MutableLiveData<String> = MutableLiveData("")
+    val progressDialogEvent = SingleLiveEvent<String>()
 
     fun Disposable.lifeCycle(): Disposable {
         disposableList.add(this)

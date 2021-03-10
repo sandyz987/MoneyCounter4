@@ -8,6 +8,7 @@ import io.reactivex.Observable
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
+import retrofit2.http.Url
 
 /**
  *@author zhangzhe
@@ -36,9 +37,28 @@ interface Api {
     @FormUrlEncoded
     @POST("Counter4Sql?action=releaseDynamic")
     fun releaseDynamic(
-        @Field("text") pos: String,
+        @Field("text") text: String,
         @Field("topic") topic: String
     ): Observable<InfoWrapper>
+
+    // 发布有图片的帖子，图片url用逗号分割
+    @FormUrlEncoded
+    @POST("Counter4Sql?action=releaseDynamic")
+    fun releaseDynamicPic(
+        @Field("text") text: String,
+        @Field("topic") topic: String,
+        @Field("pic_url") picUrl: String
+    ): Observable<InfoWrapper>
+
+
+    @FormUrlEncoded
+    @POST("Counter4Sql?action=reply")
+    fun reply(
+        @Field("text") text: String,
+        @Field("reply_id") replyId: Int,
+        @Field("which") which: Int
+    ): Observable<InfoWrapper>
+
 
     @FormUrlEncoded
     @POST("Counter4Sql?action=getUserInfo")

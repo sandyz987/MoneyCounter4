@@ -17,6 +17,7 @@ import com.example.moneycounter4.R
 import com.example.moneycounter4.base.BaseViewModelFragment
 import com.example.moneycounter4.bean.TalkItem
 import com.example.moneycounter4.beannew.DynamicItem
+import com.example.moneycounter4.beannew.ReplyInfo
 import com.example.moneycounter4.utils.TimeUtil
 import com.example.moneycounter4.view.adapter.TalkRecyclerViewAdapter
 import com.example.moneycounter4.viewmodel.CommunityViewModel
@@ -68,13 +69,15 @@ class FragmentCommunity : BaseViewModelFragment<CommunityViewModel>() {
 
 
         val listener = {
-            viewModel.getAllDynamic(0, 50, "广场")
+            viewModel.refreshDynamic()
         }
 
         drag_head_view.onRefreshAction = listener
         drag_head_view.refresh()
 
         sendDynamic.setOnClickListener {
+            viewModel.replyInfo.value = ReplyInfo("", "", -1, -1)
+            FragmentTalkEdit.viewModel = viewModel
             val navController = findNavController()
             navController.navigate(R.id.action_global_fragmentTalkEdit)
         }

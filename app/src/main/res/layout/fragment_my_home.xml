@@ -61,7 +61,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/alibaba_bold"
-                        android:text="慧记账"
+                        android:text="记账鸭"
                         android:textColor="#ffffff"
                         android:textSize="24sp"
                         app:layout_constraintEnd_toEndOf="parent"

@@ -12,7 +12,7 @@ import android.widget.TextView
 import com.example.moneycounter4.R
 
 /**
- * created by zhangzhe, SpreadWater
+ * created by zhangzhe
  * 2020/12/4
  */
 

@@ -17,52 +17,59 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.moneycounter4.R
-import com.example.moneycounter4.viewmodel.MainApplication
-import com.example.moneycounter4.viewmodel.MainViewModel
-import com.example.moneycounter4.widgets.ProgressDialogW
+import com.example.moneycounter4.base.BaseFragment
+import com.example.moneycounter4.viewmodel.CommunityViewModel
+import com.example.moneycounter4.widgets.KeyboardController
 import kotlinx.android.synthetic.main.fragment_mine.*
 import kotlinx.android.synthetic.main.fragment_talk_edit.*
-import java.util.*
 
-class FragmentTalkEdit : Fragment() {
+class FragmentTalkEdit : BaseFragment() {
+
+    companion object {
+        var viewModel: CommunityViewModel? = null
+    }
 
     private var imgPath: String? = null
-    var picUrl: String? =null
     var upLoading = false
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_talk_edit, container, false)
     }
 
+    @SuppressLint("RestrictedApi")
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val viewModel : MainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
-
-        val talkId = arguments?.getLong("talkId")
-        val usrName = arguments?.getString("usrName")
 
 
-        talkId?.let {
-            textViewReplyText.text = "回复：@${usrName}"
+
+        viewModel?.replyInfo?.value?.let {
+            if (it.replyId != -1) {
+                textViewReplyText.text = "回复：@${it.nickname}"
+            }
         }
 
 
-        progressBar.indeterminateDrawable.setColorFilter(resources.getColor(R.color.colorLightRed,null), PorterDuff.Mode.SRC_IN)
+        progressBar.indeterminateDrawable.setColorFilter(
+            resources.getColor(
+                R.color.colorLightRed,
+                null
+            ), PorterDuff.Mode.SRC_IN
+        )
 
         imageViewPic.setOnClickListener {
             context?.let {
                 if (ContextCompat.checkSelfPermission(
-                            it,
-                            Manifest.permission.READ_EXTERNAL_STORAGE
-                        ) != PackageManager.PERMISSION_GRANTED
-                    ) {
+                        it,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
                     ActivityCompat.requestPermissions(
                         requireActivity(),
                         arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
@@ -78,124 +85,33 @@ class FragmentTalkEdit : Fragment() {
 
 
         textViewSend.setOnClickListener {
-            if(upLoading){
-                Toast.makeText(requireContext(),"图片还没上传好鸭~",Toast.LENGTH_SHORT).show()
+            KeyboardController.hideInputKeyboard(requireContext(), it)
+            if (upLoading) {
+                Toast.makeText(requireContext(), "图片还没上传好鸭~", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            ProgressDialogW.show(requireContext(),"提示","正在上传数据中",false)
-            if (talkId == null){
-//                HttpUtil.getInstance().httpGet(
-//                    (requireActivity().application as MainApplication).connectionUrlMain,
-//                    object : HttpUtilCallback {
-//                        @SuppressLint("RestrictedApi")
-//                        override fun doSomething(respond: String?) {
-//                            requireActivity().runOnUiThread {
-//                                when (respond) {
-//                                    "1" -> {
-//                                        Toast.makeText(
-//                                            requireContext(),
-//                                            "已发表~~~(￣▽￣)~*",
-//                                            Toast.LENGTH_SHORT
-//                                        ).show()
-//                                        val navController = findNavController()
-//                                        while (navController.backStack.size >= 1) {
-//                                            navController.popBackStack()
-//                                        }
-//                                        navController.navigate(R.id.action_global_fragmentCommunity)
-//                                    }
-//                                    else -> {
-//                                        Toast.makeText(
-//                                            requireContext(),
-//                                            "上传失败了诶，未知错误，登录失效了？请重新登录试试嘛？",
-//                                            Toast.LENGTH_SHORT
-//                                        ).show()
-//                                    }
-//                                }
-//                                ProgressDialogW.hide()
-//                            }
-//                        }
-//
-//                        override fun error() {
-//                            requireActivity().runOnUiThread {
-//                                Toast.makeText(
-//                                    requireContext(),
-//                                    "上传失败了诶，是不是没网了？",
-//                                    Toast.LENGTH_SHORT
-//                                )
-//                                    .show()
-//                                ProgressDialogW.hide()
-//                            }
-//                        }
-//                    },
-//                    requireContext(),
-//                    "action",
-//                    "talk",
-//                    "text",
-//                    editTextTalk.text.toString(),
-//                    "token",
-//                    viewModel.token.toString(),
-//                    "picurl",
-//                    picUrl ?: ""
-//                )
-            }else{
-//                HttpUtil.getInstance().httpGet(
-//                    (requireActivity().application as MainApplication).connectionUrlMain,
-//                    object : HttpUtilCallback {
-//                        override fun doSomething(respond: String?) {
-//                            requireActivity().runOnUiThread {
-//                                when (respond) {
-//                                    "1" -> {
-//                                        Toast.makeText(
-//                                            requireContext(),
-//                                            "已回复~~~(￣▽￣)~*",
-//                                            Toast.LENGTH_SHORT
-//                                        ).show()
-//                                        val navController = findNavController()
-//                                        val bundle = Bundle()
-//                                        bundle.putLong("talkId", talkId)
-//                                        navController.popBackStack()
-//                                        navController.popBackStack()
-//                                        navController.navigate(
-//                                            R.id.action_global_fragmentTalkDetails,
-//                                            bundle
-//                                        )
-//                                    }
-//                                    else -> {
-//                                        Toast.makeText(
-//                                            requireContext(),
-//                                            "上传失败了诶，未知错误，登录失效了？请重新登录试试嘛？",
-//                                            Toast.LENGTH_SHORT
-//                                        ).show()
-//                                    }
-//                                }
-//                                ProgressDialogW.hide()
-//                            }
-//                        }
-//
-//                        override fun error() {
-//                            requireActivity().runOnUiThread {
-//                                Toast.makeText(
-//                                    requireContext(),
-//                                    "上传失败了诶，是不是没网了？",
-//                                    Toast.LENGTH_SHORT
-//                                )
-//                                    .show()
-//                                ProgressDialogW.hide()
-//                            }
-//                        }
-//                    },
-//                    requireContext(),
-//                    "action",
-//                    "reply",
-//                    "id",
-//                    talkId.toString(),
-//                    "text",
-//                    editTextTalk.text.toString(),
-//                    "token",
-//                    viewModel.token.toString(),
-//                    "picurl",
-//                    picUrl ?: ""
-//                )
+
+            if ((viewModel?.replyInfo?.value?.replyId ?: -1) == -1) {
+                // 发帖
+                viewModel?.releaseDynamic(editTextTalk.text.toString(), "广场")
+            } else {
+                // 回复
+                viewModel?.reply(editTextTalk.text.toString())
+            }
+        }
+        viewModel?.replyStatus?.observe {
+            if (it) {
+                viewModel?.refreshDynamic()
+                findNavController().popBackStack()
+            }
+        }
+        viewModel?.releaseDynamicStatus?.observe {
+            if (it) {
+                val navController = findNavController()
+                while (navController.backStack.size >= 1) {
+                    navController.popBackStack()
+                }
+                navController.navigate(R.id.action_global_fragmentCommunity)
             }
         }
 
@@ -257,12 +173,19 @@ class FragmentTalkEdit : Fragment() {
             val filePathColumn =
                 arrayOf(MediaStore.Images.Media.DATA)
             val cursor: Cursor? =
-                selectedImage?.let { requireContext().contentResolver.query(it, filePathColumn, null, null, null) }
+                selectedImage?.let {
+                    requireContext().contentResolver.query(
+                        it,
+                        filePathColumn,
+                        null,
+                        null,
+                        null
+                    )
+                }
             cursor?.moveToFirst()
             val columnIndex = cursor?.getColumnIndex(filePathColumn[0])
             imgPath = columnIndex?.let { cursor.getString(it) }
             cursor?.close()
-
 
 
             //imgPath?.let { LogW.d(it) }//===================================================

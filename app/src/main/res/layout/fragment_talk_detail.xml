@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/qa_constraint_reply"
+        app:layout_constraintBottom_toTopOf="@+id/constraint_reply"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -127,7 +127,7 @@
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/qa_constraint_reply"
+        android:id="@+id/constraint_reply"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -137,7 +137,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/qa_et_reply"
+            android:id="@+id/et_reply"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_centerVertical="true"
@@ -157,12 +157,12 @@
             android:textColorHint="#5E5E5E"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/qa_btn_send"
-            app:layout_constraintStart_toEndOf="@+id/qa_iv_select_pic"
+            app:layout_constraintEnd_toStartOf="@+id/btn_send"
+            app:layout_constraintStart_toEndOf="@+id/iv_select_pic"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/qa_iv_select_pic"
+            android:id="@+id/iv_select_pic"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginStart="16dp"
@@ -174,7 +174,7 @@
             app:srcCompat="@drawable/ic_camera" />
 
         <Button
-            android:id="@+id/qa_btn_send"
+            android:id="@+id/btn_send"
             android:layout_width="55dp"
             android:layout_height="28dp"
             android:layout_marginEnd="16dp"
