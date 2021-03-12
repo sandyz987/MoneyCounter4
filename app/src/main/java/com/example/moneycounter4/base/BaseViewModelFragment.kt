@@ -2,10 +2,12 @@ package com.example.moneycounter4.base
 
 import android.app.ProgressDialog
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.example.moneycounter4.viewmodel.MainApplication
 import java.lang.reflect.ParameterizedType
 
 /**
@@ -28,10 +30,12 @@ abstract class BaseViewModelFragment<T : BaseViewModel> : BaseFragment() {
         @Suppress("UNCHECKED_CAST")
         viewModel = ViewModelProviders.of(this)
             .get((javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[0] as Class<T>)
-        viewModel.toastEvent.observeNotNull {
-            if (it.isNotBlank()) {
-                Toast.makeText(this.context, it, Toast.LENGTH_SHORT).show()
-            }
+        activity?.let {
+            viewModel.toastEvent.observe(it, Observer { toastString ->
+                if (toastString.isNotBlank()) {
+                    Toast.makeText(it, toastString, Toast.LENGTH_SHORT).show()
+                }
+            })
         }
         viewModel.progressDialogEvent.observeNotNull {
             progressDialog.setMessage(it)

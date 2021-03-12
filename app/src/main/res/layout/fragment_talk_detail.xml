@@ -7,9 +7,10 @@
     android:background="@color/prime_background_color"
     tools:context=".view.fragment.FragmentTalkDetail">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <com.example.moneycounter4.widgets.CoordinatorLayoutTouch
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:id="@+id/coordinatorlayout_touch"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/constraint_reply"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,7 +43,7 @@
                         android:layout_height="30dp"
                         android:layout_marginBottom="8dp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/textViewOptions"
                         app:layout_constraintStart_toEndOf="@+id/imageViewLikeView"
                         app:layout_constraintTop_toTopOf="@+id/imageViewLikeView" />
 
@@ -56,12 +57,12 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textViewDelTalk"
+                        android:id="@+id/textViewOptions"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:layout_marginBottom="16dp"
-                        android:text="删除"
+                        android:text="选项"
                         android:visibility="visible"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
@@ -124,7 +125,7 @@
 
 
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </com.example.moneycounter4.widgets.CoordinatorLayoutTouch>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_reply"

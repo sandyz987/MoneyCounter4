@@ -41,11 +41,11 @@ class CommunityViewModel : BaseViewModel() {
             .setSchedulers()
             .doOnError {
                 toastEvent.value = "发送帖子失败！"
-                toastEvent.value = "发送成功！"
             }.doFinally {
                 progressDialogEvent.value = ""
             }.safeSubscribeBy {
                 releaseDynamicStatus.postValue(true)
+                toastEvent.value = "发送成功！"
             }.lifeCycle()
     }
 
@@ -68,7 +68,6 @@ class CommunityViewModel : BaseViewModel() {
     }
 
     fun reply(text: String) {
-        toastEvent.value = text
         replyInfo.value?.let {
             if (it.replyId != -1 && it.which != -1 && text.isNotBlank()) {
                 reply(text, it.replyId, it.which)
@@ -76,6 +75,20 @@ class CommunityViewModel : BaseViewModel() {
                 toastEvent.value = "回复参数不合法"
             }
         }
+    }
+
+    fun deleteDynamic(dynamicId: Int) {
+        ApiGenerator.getApiService(Api::class.java).deleteDynamic(dynamicId)
+            .checkError()
+            .setSchedulers()
+            .doOnError {
+                toastEvent.value = "删除失败！"
+            }.doFinally {
+                progressDialogEvent.value = ""
+            }.safeSubscribeBy {
+                toastEvent.value = "删除成功！"
+                replyStatus.postValue(true)
+            }.lifeCycle()
     }
 
 }

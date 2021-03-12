@@ -66,4 +66,17 @@ interface Api {
         @Field("user_id") userId: String
     ): Observable<ApiWrapper<User>>
 
+    @FormUrlEncoded
+    @POST("Counter4Sql?action=deleteComment")
+    fun deleteComment(
+        @Field("id") id: Int,
+        @Field("which") which: Int
+    ): Observable<InfoWrapper>
+
+    @FormUrlEncoded
+    @POST("Counter4Sql?action=deleteDynamic")
+    fun deleteDynamic(
+        @Field("dynamic_id") dynamicId: Int
+    ): Observable<InfoWrapper>
+
 }

@@ -1,12 +1,9 @@
 package com.example.moneycounter4.view.fragment
 
-import android.app.Application
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,12 +14,16 @@ import com.example.moneycounter4.base.BaseFragment
 import com.example.moneycounter4.beannew.DynamicItem
 import com.example.moneycounter4.beannew.ReplyInfo
 import com.example.moneycounter4.extensions.dp2px
+import com.example.moneycounter4.model.Config
 import com.example.moneycounter4.utils.TimeUtil
 import com.example.moneycounter4.view.adapter.TalkCommentRecyclerViewAdapter
 import com.example.moneycounter4.viewmodel.CommunityViewModel
 import com.example.moneycounter4.viewmodel.MainApplication
+import com.example.moneycounter4.widgets.ClipboardController
 import com.example.moneycounter4.widgets.KeyboardController
+import com.example.moneycounter4.widgets.OptionalPopWindow
 import com.example.moneycounter4.widgets.ReplyPopWindow
+import com.mredrock.cyxbs.qa.ui.widget.OptionalDialog
 import kotlinx.android.synthetic.main.fragment_talk_detail.*
 import kotlinx.android.synthetic.main.item_talk_big.*
 
@@ -50,6 +51,25 @@ class FragmentTalkDetail : BaseFragment() {
 
         dynamic = findDynamic()
 
+
+        textViewOptions.setOnClickListener {
+            val optionPopWindow = OptionalPopWindow.Builder().with(requireContext())
+                .addOptionAndCallback("回复") {
+                    viewModel?.replyInfo?.value = ReplyInfo("", "", dynamic?.dynamicId?: -1, 0)
+                    KeyboardController.showInputKeyboard(requireContext(), et_reply)
+                }.addOptionAndCallback("复制") {
+                    ClipboardController.copyText(requireContext(), dynamic?.text?: "")
+                }
+            if (dynamic?.userId == Config.userId) {
+                optionPopWindow.addOptionAndCallback("删除") {
+                    OptionalDialog.show(requireContext(), "是否删除？", {}) {
+                        // TODO
+                    }
+                }
+            }
+            optionPopWindow.show(it, OptionalPopWindow.AlignMode.LEFT, 0)
+        }
+
         adapter = TalkCommentRecyclerViewAdapter(requireContext(),
             { commentItem, view ->
                 // 当一级评论被点击
@@ -62,10 +82,39 @@ class FragmentTalkDetail : BaseFragment() {
                 KeyboardController.showInputKeyboard(requireContext(), et_reply)
             }, { commentItem, view ->
                 // 当一级评论被长按
+                val optionPopWindow = OptionalPopWindow.Builder().with(requireContext())
+                    .addOptionAndCallback("回复") {
+                        viewModel?.replyInfo?.value = ReplyInfo(commentItem.nickname, commentItem.text, commentItem.id, 1)
+                        KeyboardController.showInputKeyboard(requireContext(), et_reply)
+                    }.addOptionAndCallback("复制") {
+                        ClipboardController.copyText(requireContext(), commentItem.text)
+                    }
+                if (commentItem.userId == Config.userId) {
+                    optionPopWindow.addOptionAndCallback("删除") {
+                        OptionalDialog.show(requireContext(), "是否删除？", {}) {
+                            // TODO
+                        }
+                    }
+                }
+                optionPopWindow.show(view, OptionalPopWindow.AlignMode.CENTER, 0)
 
             }, { commentItem, view ->
                 // 当二级评论被长按
-
+                val optionPopWindow = OptionalPopWindow.Builder().with(requireContext())
+                    .addOptionAndCallback("回复") {
+                        viewModel?.replyInfo?.value = ReplyInfo(commentItem.nickname, commentItem.text, commentItem.id, 2)
+                        KeyboardController.showInputKeyboard(requireContext(), et_reply)
+                    }.addOptionAndCallback("复制") {
+                        ClipboardController.copyText(requireContext(), commentItem.text)
+                    }
+                if (commentItem.userId == Config.userId) {
+                    optionPopWindow.addOptionAndCallback("删除") {
+                        OptionalDialog.show(requireContext(), "是否删除？", {}) {
+                            // TODO
+                        }
+                    }
+                }
+                optionPopWindow.show(view, OptionalPopWindow.AlignMode.CENTER, 0)
             })
 
         rv_talk.layoutManager = LinearLayoutManager(context)
@@ -89,10 +138,15 @@ class FragmentTalkDetail : BaseFragment() {
             swipeRefreshLayout.isRefreshing = false
         }
 
+        coordinatorlayout_touch.onReplyCancelEvent = {
+            viewModel?.replyInfo?.value = ReplyInfo("", "", dynamic?.dynamicId?: -1, 0)
+            KeyboardController.hideInputKeyboard(requireContext(), et_reply)
+        }
+
         viewModel?.replyInfo?.observe {
             it.let {
                 if (it.replyId != -1 && !(it.replyId == dynamicId && it.which == 0)) {
-        //                    qa_coordinatorlayout.isReplyEdit = true
+                    coordinatorlayout_touch.isReplyEdit = true
                     KeyboardController.showInputKeyboard(requireContext(), et_reply)
                     ReplyPopWindow.with(requireContext())
                     ReplyPopWindow.setReplyName(it.nickname, it.contentPreview)
@@ -116,6 +170,7 @@ class FragmentTalkDetail : BaseFragment() {
         viewModel?.replyStatus?.observe {
             et_reply.setText("")
             viewModel?.refreshDynamic()
+//            rv_talk.scrollToPosition(0)
             KeyboardController.hideInputKeyboard(requireContext(), et_reply)
         }
 
@@ -134,7 +189,7 @@ class FragmentTalkDetail : BaseFragment() {
 
     }
 
-    fun bindView() {
+    private fun bindView() {
 
 
         imageViewLike?.setSelect(false)
@@ -191,13 +246,24 @@ class FragmentTalkDetail : BaseFragment() {
         imageViewLike?.setOnClickListener(likeListener)
     }
 
-    fun findDynamic(): DynamicItem? {
+    private fun findDynamic(): DynamicItem? {
         viewModel?.dynamicList?.value?.forEach {
             if (it.dynamicId == dynamicId) {
                 return it
             }
         }
         return null
+    }
+
+    private fun findDynamic(dynamicId: Int): Int {
+        viewModel?.dynamicList?.value?.let {
+            for (i in 0 .. it.size) {
+                if (it[i].dynamicId == dynamicId) {
+                    return i
+                }
+            }
+        }
+        return 0
     }
 
 
