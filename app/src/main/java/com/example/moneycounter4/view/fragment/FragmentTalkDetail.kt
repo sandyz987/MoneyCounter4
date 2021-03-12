@@ -64,7 +64,7 @@ class FragmentTalkDetail : BaseFragment() {
             if (dynamic?.userId == Config.userId) {
                 optionPopWindow.addOptionAndCallback("删除") {
                     OptionalDialog.show(requireContext(), "是否删除？", {}) {
-                        // TODO
+                        viewModel?.deleteDynamic(dynamicId)
                     }
                 }
             }
@@ -93,7 +93,7 @@ class FragmentTalkDetail : BaseFragment() {
                 if (commentItem.userId == Config.userId) {
                     optionPopWindow.addOptionAndCallback("删除") {
                         OptionalDialog.show(requireContext(), "是否删除？", {}) {
-                            // TODO
+                            viewModel?.deleteComment(commentItem.id, 1)
                         }
                     }
                 }
@@ -111,7 +111,7 @@ class FragmentTalkDetail : BaseFragment() {
                 if (commentItem.userId == Config.userId) {
                     optionPopWindow.addOptionAndCallback("删除") {
                         OptionalDialog.show(requireContext(), "是否删除？", {}) {
-                            // TODO
+                            viewModel?.deleteComment(commentItem.id, 2)
                         }
                     }
                 }
@@ -171,8 +171,22 @@ class FragmentTalkDetail : BaseFragment() {
         viewModel?.replyStatus?.observe {
             et_reply.setText("")
             viewModel?.refreshDynamic()
+            swipeRefreshLayout.isRefreshing = true
+            viewModel?.replyInfo?.value = ReplyInfo("", "", dynamic?.dynamicId?: -1, 0)
 //            rv_talk.scrollToPosition(0)
             KeyboardController.hideInputKeyboard(requireContext(), et_reply)
+        }
+        viewModel?.deleteStatus?.observe {
+            when (it) {
+                1 -> {
+                    findNavController().popBackStack()
+                }
+                2 -> {
+                    rv_talk.scrollToPosition(0)
+                    viewModel?.refreshDynamic()
+                    swipeRefreshLayout.isRefreshing = true
+                }
+            }
         }
 
         btn_send.setOnClickListener {

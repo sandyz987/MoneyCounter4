@@ -145,7 +145,8 @@ class TalkCommentRecyclerViewAdapter(
     fun setList(list: List<CommentItem>) {
         mList.clear()
         mList.addAll(list)
-        notifyItemRangeChanged(0, mList.size)
+//        notifyItemRangeChanged(0, mList.size)
+        notifyDataSetChanged()
     }
 
 

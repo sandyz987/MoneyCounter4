@@ -14,6 +14,7 @@ class CommunityViewModel : BaseViewModel() {
 
     val releaseDynamicStatus: SingleLiveEvent<Boolean> = SingleLiveEvent()
     val replyStatus: SingleLiveEvent<Boolean> = SingleLiveEvent()
+    val deleteStatus: SingleLiveEvent<Int> = SingleLiveEvent() // 1为删除帖子 2为删除回复
 
     val replyInfo: MutableLiveData<ReplyInfo> = MutableLiveData()
 
@@ -87,7 +88,21 @@ class CommunityViewModel : BaseViewModel() {
                 progressDialogEvent.value = ""
             }.safeSubscribeBy {
                 toastEvent.value = "删除成功！"
-                replyStatus.postValue(true)
+                deleteStatus.postValue(1)
+            }.lifeCycle()
+    }
+
+    fun deleteComment(id: Int, which: Int) {
+        ApiGenerator.getApiService(Api::class.java).deleteComment(id, which)
+            .checkError()
+            .setSchedulers()
+            .doOnError {
+                toastEvent.value = "删除失败！"
+            }.doFinally {
+                progressDialogEvent.value = ""
+            }.safeSubscribeBy {
+                toastEvent.value = "删除成功！"
+                deleteStatus.postValue(2)
             }.lifeCycle()
     }
 
