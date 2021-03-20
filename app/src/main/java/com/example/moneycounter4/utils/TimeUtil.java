@@ -374,11 +374,8 @@ public class TimeUtil {
     }
 
     public static void main(String[] args) {
-        //TODO 当前时间
         System.out.println(sf.format(new Date()));
-        // TODO 字传入时间日期字符串转换群发使用时间输出
         System.out.println(formatDisplayTime("2017-06-30 10:34:00", null));
-        // TODO 先 转换成时间戳 转换成对应的时间输出格式
         long timeStamp = timeStamp("2017-06-29 10:34:00", null);
         System.out.println(multiSendTimeToStr(timeStamp));//群发使用时间
         System.out.println(getChatTimeStr(timeStamp));//时间转化为聊天界面显示字符串

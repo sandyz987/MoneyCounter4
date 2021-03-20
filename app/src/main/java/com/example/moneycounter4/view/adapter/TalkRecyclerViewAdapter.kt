@@ -1,7 +1,6 @@
 package com.example.moneycounter4.view.adapter
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
@@ -16,9 +15,9 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.moneycounter4.R
-import com.example.moneycounter4.bean.ItemAccount
-import com.example.moneycounter4.bean.TalkItem
 import com.example.moneycounter4.beannew.DynamicItem
+import com.example.moneycounter4.beannew.findEquals
+import com.example.moneycounter4.model.Config
 import com.example.moneycounter4.utils.TimeUtil
 import com.example.moneycounter4.view.costom.ImageViewInfoZ
 import com.example.moneycounter4.view.costom.ImageViewInfoZLike
@@ -69,8 +68,10 @@ class TalkRecyclerViewAdapter(
         if (position == mList.size) {
             return
         }
-        holder.imageViewLike?.setSelect(false)
-        holder.imageViewLike?.setHint("0")
+
+        val isPraise = mList[position].praise.findEquals { it.userId == Config.userId }
+        holder.imageViewLike?.setHint((mList[position].praise.size - if (isPraise) 1 else 0).toString())
+        holder.imageViewLike?.setSelect(isPraise)
 
         holder.textViewUsrName?.text = mList[position].userId
         holder.textViewContent?.text = mList[position].text.take(30)

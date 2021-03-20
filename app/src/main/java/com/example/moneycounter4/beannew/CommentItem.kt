@@ -28,3 +28,13 @@ data class CommentItem(
     @SerializedName("praise")
     val praise: List<User> = listOf()
 )
+
+fun <T> List<T>.findEquals(t: (T) -> Boolean): Boolean {
+    var b = false
+    this.forEach {
+        if (t.invoke(it)) {
+            b = true
+        }
+    }
+    return b
+}

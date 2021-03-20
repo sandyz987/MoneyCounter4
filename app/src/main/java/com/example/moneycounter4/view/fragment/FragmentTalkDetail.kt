@@ -13,6 +13,7 @@ import com.example.moneycounter4.R
 import com.example.moneycounter4.base.BaseFragment
 import com.example.moneycounter4.beannew.DynamicItem
 import com.example.moneycounter4.beannew.ReplyInfo
+import com.example.moneycounter4.beannew.findEquals
 import com.example.moneycounter4.extensions.dp2px
 import com.example.moneycounter4.model.Config
 import com.example.moneycounter4.utils.TimeUtil
@@ -192,8 +193,13 @@ class FragmentTalkDetail : BaseFragment() {
     private fun bindView() {
 
 
-        imageViewLike?.setSelect(false)
-        imageViewLike?.setHint("0")
+        val isPraise = dynamic?.praise?.findEquals { it.userId == Config.userId }
+        imageViewLike?.setHint(
+            (dynamic?.praise?.size ?: 0 - if (isPraise == true) 1 else 0).toString()
+        )
+        imageViewLike?.setSelect(isPraise ?: false)
+
+        Log.e("sandyzhang", "${dynamic?.praise?.size.toString()}")
 
         textViewUsrName?.text = dynamic?.userId
         textViewContent?.text = dynamic?.text?.take(30)
@@ -225,9 +231,6 @@ class FragmentTalkDetail : BaseFragment() {
             navController.navigate(R.id.action_global_fragmentMine, bundle)
         }
 
-        imageViewLike?.setOnClickListener {
-            // TODO 点赞
-        }
         imageViewTalk?.setOnClickListener {
             val navController = Navigation.findNavController(it)
             val bundle = Bundle()

@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.moneycounter4.R
 import com.example.moneycounter4.beannew.CommentItem
+import com.example.moneycounter4.beannew.findEquals
+import com.example.moneycounter4.model.Config
 import com.example.moneycounter4.utils.TimeUtil
 import com.example.moneycounter4.view.costom.ImageViewInfoZLike
 
@@ -68,8 +70,11 @@ class TalkCommentRecyclerViewAdapter(
         if (position == mList.size) {
             return
         }
-        holder.imageViewLike?.setSelect(false)
-        holder.imageViewLike?.setHint("0")
+
+        val isPraise = mList[position].praise.findEquals { it.userId == Config.userId }
+        holder.imageViewLike?.setHint((mList[position].praise.size - if (isPraise) 1 else 0).toString())
+        holder.imageViewLike?.setSelect(isPraise)
+
 
         holder.textViewUsrName?.text = mList[position].nickname
         holder.textViewContent?.text = mList[position].text
@@ -78,7 +83,9 @@ class TalkCommentRecyclerViewAdapter(
 
         holder.textViewTime?.text = TimeUtil.getChatTimeStr(mList[position].submitTime)
         // TODO 图片显示
-        holder.imageViewUsrPic?.let { Glide.with(mContext).load(mList[position].avatarUrl).into(it) }
+        holder.imageViewUsrPic?.let {
+            Glide.with(mContext).load(mList[position].avatarUrl).into(it)
+        }
 
 
 
@@ -92,9 +99,6 @@ class TalkCommentRecyclerViewAdapter(
             navController.navigate(R.id.action_global_fragmentMine, bundle)
         }
 
-        holder.imageViewLike?.setOnClickListener {
-            // TODO 点赞
-        }
         holder.itemView.setOnClickListener {
             onItemClick.invoke(mList[position], it)
 

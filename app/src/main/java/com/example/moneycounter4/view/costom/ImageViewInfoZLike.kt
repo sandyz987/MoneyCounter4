@@ -15,9 +15,9 @@ import kotlin.math.abs
 
 class ImageViewInfoZLike : androidx.appcompat.widget.AppCompatImageView {
 
-    private lateinit var paint : Paint
-    private lateinit var anim : ValueAnimator
-    private var s : String? = null
+    private lateinit var paint: Paint
+    private lateinit var anim: ValueAnimator
+    private var s: String? = null
     private var endSrcId = 0
     private var startSrcId = 0
     private var trX = 0f
@@ -25,75 +25,91 @@ class ImageViewInfoZLike : androidx.appcompat.widget.AppCompatImageView {
     private var startX = 0f
     private var startY = 0f
 
-    constructor(context: Context): super(context)
+    constructor(context: Context) : super(context)
 
-    constructor(context: Context, attributeSet: AttributeSet): super(context, attributeSet){
-        val typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.ImageViewInfoZLike)
+    constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
+        val typedArray =
+            context.obtainStyledAttributes(attributeSet, R.styleable.ImageViewInfoZLike)
 
         paint = Paint()
         paint.isAntiAlias = true
         paint.color = Color.GRAY
         s = typedArray.getString(R.styleable.ImageViewInfoZLike_like_count_text)
-        endSrcId = typedArray.getResourceId(R.styleable.ImageViewInfoZLike_liked_src,0)
-        startSrcId = typedArray.getResourceId(R.styleable.ImageViewInfoZLike_no_liked_src,0)
+        endSrcId = typedArray.getResourceId(R.styleable.ImageViewInfoZLike_liked_src, 0)
+        startSrcId = typedArray.getResourceId(R.styleable.ImageViewInfoZLike_no_liked_src, 0)
         typedArray.recycle()
-        setImageDrawable(ResourcesCompat.getDrawable(resources,startSrcId,null))
+        setImageDrawable(ResourcesCompat.getDrawable(resources, startSrcId, null))
     }
 
-    constructor(context: Context, attributeSet: AttributeSet, defStyleAttr: Int): super(context, attributeSet, defStyleAttr)
+    constructor(context: Context, attributeSet: AttributeSet, defStyleAttr: Int) : super(
+        context,
+        attributeSet,
+        defStyleAttr
+    )
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        setMeasuredDimension(measuredHeight + 200,measuredHeight)
+        setMeasuredDimension(measuredHeight + 200, measuredHeight)
 
     }
 
     override fun onDraw(canvas: Canvas?) {
 
 
-        canvas?.translate(trX - (measuredWidth/4),0f)
+        canvas?.translate(trX - (measuredWidth / 4), 0f)
         super.onDraw(canvas)
         paint.textSize = 40f
         val textHeight = 50f
-        canvas?.translate(width*4f/5f+trX,height/2f)
-        s?.let { canvas?.drawText((it.toInt() + (if(mSelected)1 else 0)).toString(),0f, 0f+textHeight/3,paint) }
+        canvas?.translate(width * 4f / 5f + trX, height / 2f)
+        s?.let {
+            canvas?.drawText(
+                (it.toInt() + (if (mSelected) 1 else 0)).toString(),
+                0f,
+                0f + textHeight / 3,
+                paint
+            )
+        }
     }
 
-    private fun onClick(){
+    private fun onClick() {
         startAnimation1()
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-        when(event?.action){
+        when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
                 startX = event.rawX
                 startY = event.rawX
             }
             MotionEvent.ACTION_UP -> {
-                if (abs(event.rawX-startX) <50f && abs(event.rawX-startY) <50f){
+                if (abs(event.rawX - startX) < 50f && abs(event.rawX - startY) < 50f) {
                     onClick()
                 }
             }
         }
+        performClick()
         return super.onTouchEvent(event)
-
     }
 
-    fun getSelect():Boolean{
+    override fun performClick(): Boolean {
+        return super.performClick()
+    }
+
+    fun getSelect(): Boolean {
         return mSelected
     }
 
-    fun setSelect(boolean: Boolean){
+    fun setSelect(boolean: Boolean) {
         mSelected = boolean
-        if (mSelected){
-            setImageDrawable(ResourcesCompat.getDrawable(resources,endSrcId,null))
-        }else{
-            setImageDrawable(ResourcesCompat.getDrawable(resources,startSrcId,null))
+        if (mSelected) {
+            setImageDrawable(ResourcesCompat.getDrawable(resources, endSrcId, null))
+        } else {
+            setImageDrawable(ResourcesCompat.getDrawable(resources, startSrcId, null))
         }
         invalidate()
     }
 
-    fun setHint(string:String){
+    fun setHint(string: String) {
         s = string
         invalidate()
     }

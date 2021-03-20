@@ -67,6 +67,13 @@ interface Api {
     ): Observable<ApiWrapper<User>>
 
     @FormUrlEncoded
+    @POST("Counter4Sql?action=reversePraise")
+    fun reversePraise(
+        @Field("id") id: Int,
+        @Field("which") which: Int
+    ): Observable<InfoWrapper>
+
+    @FormUrlEncoded
     @POST("Counter4Sql?action=deleteComment")
     fun deleteComment(
         @Field("id") id: Int,
