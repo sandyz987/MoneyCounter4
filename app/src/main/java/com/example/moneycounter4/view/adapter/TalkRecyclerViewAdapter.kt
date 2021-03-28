@@ -19,7 +19,8 @@ import com.example.moneycounter4.beannew.DynamicItem
 import com.example.moneycounter4.beannew.findEquals
 import com.example.moneycounter4.model.Config
 import com.example.moneycounter4.utils.TimeUtil
-import com.example.moneycounter4.view.costom.LikeView
+import com.example.moneycounter4.view.costom.CommentCountView
+import com.example.moneycounter4.view.costom.LikeViewSlim
 
 
 class TalkRecyclerViewAdapter(
@@ -67,10 +68,14 @@ class TalkRecyclerViewAdapter(
         if (position == mList.size) {
             return
         }
-
         val isPraise = mList[position].praise.findEquals { it.userId == Config.userId }
-        holder.imageViewLikeView?.setHint((mList[position].praise.size - if (isPraise) 1 else 0).toString())
-        holder.imageViewLikeView?.setSelect(isPraise)
+        holder.imageViewLikeView?.registerLikeView(
+            mList[position].dynamicId,
+            0,
+            isPraise,
+            mList[position].praise.size
+        )
+
 
         holder.textViewUsrName?.text = mList[position].userId
         holder.textViewContent?.text = mList[position].text.take(30)
@@ -102,9 +107,6 @@ class TalkRecyclerViewAdapter(
             navController.navigate(R.id.action_global_fragmentMine, bundle)
         }
 
-        holder.imageViewLikeView?.setOnClickListener {
-            // TODO 点赞
-        }
         holder.itemView.isClickable = true
         holder.itemView.setOnClickListener {
             onItemClick.invoke(mList[position], it)
@@ -116,14 +118,6 @@ class TalkRecyclerViewAdapter(
 
 
 
-        val likeListener = View.OnClickListener {
-            holder.imageViewLikeView?.let {
-                it.setSelect(!it.getSelect())
-            }
-
-
-        }
-        holder.imageViewLikeView?.setOnClickListener(likeListener)
 
 
     }
@@ -137,10 +131,10 @@ class TalkRecyclerViewAdapter(
         val imageViewPic: ImageView? = itemView.findViewById<ImageView>(R.id.imageViewPic)
         val imageViewSex: ImageView? = itemView.findViewById<ImageView>(R.id.imageViewSex)
         val buttonFollow: Button? = itemView.findViewById<Button>(R.id.buttonFollow)
-        val imageViewLikeView: LikeView? =
-            itemView.findViewById<LikeView>(R.id.imageViewLike)
-        val imageViewTalkView: LikeView? =
-            itemView.findViewById<LikeView>(R.id.imageViewTalk)
+        val imageViewLikeView: LikeViewSlim? =
+            itemView.findViewById<LikeViewSlim>(R.id.imageViewLike)
+        val imageViewTalkView: CommentCountView? =
+            itemView.findViewById<CommentCountView>(R.id.imageViewTalk)
         val textViewMore: TextView? = itemView.findViewById<TextView>(R.id.textViewMore)
 
     }

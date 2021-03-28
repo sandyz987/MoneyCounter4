@@ -19,7 +19,7 @@ import com.example.moneycounter4.beannew.CommentItem
 import com.example.moneycounter4.beannew.findEquals
 import com.example.moneycounter4.model.Config
 import com.example.moneycounter4.utils.TimeUtil
-import com.example.moneycounter4.view.costom.LikeView
+import com.example.moneycounter4.view.costom.LikeViewSlim
 
 
 class TalkCommentRecyclerViewAdapter(
@@ -72,8 +72,12 @@ class TalkCommentRecyclerViewAdapter(
         }
 
         val isPraise = mList[position].praise.findEquals { it.userId == Config.userId }
-        holder.imageViewLikeView?.setHint((mList[position].praise.size - if (isPraise) 1 else 0).toString())
-        holder.imageViewLikeView?.setSelect(isPraise)
+        holder.imageViewLikeView?.registerLikeView(
+            mList[position].id,
+            1,
+            isPraise,
+            mList[position].praise.size
+        )
 
 
         holder.textViewUsrName?.text = mList[position].nickname
@@ -118,15 +122,6 @@ class TalkCommentRecyclerViewAdapter(
 
 
 
-        val likeListener = View.OnClickListener {
-            holder.imageViewLikeView?.let {
-                it.setSelect(!it.getSelect())
-            }
-
-
-        }
-        holder.imageViewLikeView?.setOnClickListener(likeListener)
-
 
     }
 
@@ -136,7 +131,7 @@ class TalkCommentRecyclerViewAdapter(
         val textViewTime: TextView? = itemView.findViewById(R.id.textViewTime)//
         val textViewContent: TextView? = itemView.findViewById(R.id.textViewContent)//
         val imageViewUsrPic: ImageView? = itemView.findViewById(R.id.imageViewUsrPic)//
-        val imageViewLikeView: LikeView? =
+        val imageViewLikeView: LikeViewSlim? =
             itemView.findViewById(R.id.imageViewLike)
         val rvCommentInner: RecyclerView? = itemView.findViewById(R.id.rv_comment_inner)
 

@@ -209,10 +209,14 @@ class FragmentTalkDetail : BaseFragment() {
 
 
         val isPraise = dynamic?.praise?.findEquals { it.userId == Config.userId }
-        imageViewLike?.setHint(
-            (dynamic?.praise?.size ?: 0 - if (isPraise == true) 1 else 0).toString()
+        imageViewLike?.registerLikeView(
+            dynamic?.dynamicId ?: 0,
+            0,
+            isPraise ?: false,
+            dynamic?.praise?.size ?: 0
         )
-        imageViewLike?.setSelect(isPraise ?: false)
+
+
 
         Log.e("sandyzhang", "${dynamic?.praise?.size.toString()}")
 
@@ -253,15 +257,6 @@ class FragmentTalkDetail : BaseFragment() {
             navController.navigate(R.id.action_global_fragmentTalkDetails, bundle)
         }
 
-
-        val likeListener = View.OnClickListener {
-            imageViewLike?.let {
-                it.setSelect(!it.getSelect())
-            }
-
-
-        }
-        imageViewLike?.setOnClickListener(likeListener)
     }
 
     private fun findDynamic(): DynamicItem? {

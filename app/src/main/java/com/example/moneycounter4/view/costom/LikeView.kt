@@ -6,18 +6,18 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
-import android.view.MotionEvent
 import androidx.core.content.res.ResourcesCompat
 import com.example.moneycounter4.R
-import kotlin.math.abs
 
 //点赞按钮，左边是图标右边是文字，并且可以选中
 
-open class LikeView : androidx.appcompat.widget.AppCompatImageView {
+open class LikeView @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) : androidx.appcompat.widget.AppCompatImageView(context, attrs, defStyleAttr) {
 
     private lateinit var paint: Paint
     private lateinit var anim: ValueAnimator
-    private var s: String? = null
+    var s: String? = null
     private var endSrcId = 0
     private var startSrcId = 0
     private var trX = 0f
@@ -25,11 +25,10 @@ open class LikeView : androidx.appcompat.widget.AppCompatImageView {
     private var startX = 0f
     private var startY = 0f
 
-    constructor(context: Context) : super(context)
 
-    constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
+    init {
         val typedArray =
-            context.obtainStyledAttributes(attributeSet, R.styleable.LikeView)
+            context.obtainStyledAttributes(attrs, R.styleable.LikeView)
 
         paint = Paint()
         paint.isAntiAlias = true
@@ -40,12 +39,6 @@ open class LikeView : androidx.appcompat.widget.AppCompatImageView {
         typedArray.recycle()
         setImageDrawable(ResourcesCompat.getDrawable(resources, startSrcId, null))
     }
-
-    constructor(context: Context, attributeSet: AttributeSet?, defStyleAttr: Int) : super(
-        context,
-        attributeSet,
-        defStyleAttr
-    )
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
@@ -63,7 +56,7 @@ open class LikeView : androidx.appcompat.widget.AppCompatImageView {
         canvas?.translate(width * 4f / 5f + trX, height / 2f)
         s?.let {
             canvas?.drawText(
-                (it.toInt() + (if (mSelected) 1 else 0)).toString(),
+                it,
                 0f,
                 0f + textHeight / 3,
                 paint
@@ -71,29 +64,6 @@ open class LikeView : androidx.appcompat.widget.AppCompatImageView {
         }
     }
 
-    private fun onClick() {
-        startAnimation1()
-    }
-
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        when (event?.action) {
-            MotionEvent.ACTION_DOWN -> {
-                startX = event.rawX
-                startY = event.rawX
-            }
-            MotionEvent.ACTION_UP -> {
-                if (abs(event.rawX - startX) < 50f && abs(event.rawX - startY) < 50f) {
-                    onClick()
-                }
-            }
-        }
-        performClick()
-        return super.onTouchEvent(event)
-    }
-
-    override fun performClick(): Boolean {
-        return super.performClick()
-    }
 
     fun getSelect(): Boolean {
         return mSelected
@@ -115,7 +85,7 @@ open class LikeView : androidx.appcompat.widget.AppCompatImageView {
     }
 
 
-    private fun startAnimation1() {
+    fun startAnimation1() {
         anim = ValueAnimator.ofFloat(0f, 10f, 0f, -10f, 0f, 10f, 0f)
         anim.repeatCount = 0
         anim.repeatMode = ValueAnimator.REVERSE

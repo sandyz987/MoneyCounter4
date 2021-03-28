@@ -2,7 +2,6 @@ package com.example.moneycounter4.view.adapter
 
 import android.app.Activity
 import android.content.Context
-import android.icu.util.Calendar
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,13 +13,10 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moneycounter4.R
 import com.example.moneycounter4.bean.DataItem
-import com.example.moneycounter4.bean.LogItem
 import com.example.moneycounter4.databinding.ItemCounterDataBinding
-import com.example.moneycounter4.databinding.ItemCounterTimeBinding
 import com.example.moneycounter4.utils.TimeUtil
 import com.example.moneycounter4.viewmodel.MainViewModel
 import com.example.moneycounter4.widgets.FirstItemDecoration
-import java.lang.Exception
 
 //记账记录的adapter
 @RequiresApi(Build.VERSION_CODES.N)
@@ -35,7 +31,7 @@ class LogRecyclerViewAdapter(
 
     init {
         itemDecoration = FirstItemDecoration(rv, {
-            return@FirstItemDecoration if (it == 0) {
+            return@FirstItemDecoration if (it <= 0) {
                 true
             } else {
                 TimeUtil.monthStr(mList[it - 1].time) != TimeUtil.monthStr(mList[it].time)

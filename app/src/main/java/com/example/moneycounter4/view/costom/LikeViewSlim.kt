@@ -2,7 +2,7 @@ package com.example.moneycounter4.view.costom
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.MotionEvent
+import android.util.Log
 import com.example.moneycounter4.network.*
 import java.lang.ref.WeakReference
 
@@ -27,6 +27,11 @@ class LikeViewSlim @JvmOverloads constructor(
 
     private var isLoading = false
     private var praiseCount = 0
+        set(value) {
+            s = value.toString()
+            Log.e("sandyzhang", s)
+            field = value
+        }
     private var mId = 0
     private var model = 0
     private var isPraised = false
@@ -34,6 +39,10 @@ class LikeViewSlim @JvmOverloads constructor(
     // 对View的持有为弱引用，防止内存泄漏
     private var weakP: WeakReference<LikeViewSlim>? = null
 
+
+    init {
+        setOnClickListener { click() }
+    }
 
 
     // 改变默认尺寸方便画点赞数
@@ -44,7 +53,6 @@ class LikeViewSlim @JvmOverloads constructor(
         val w = MeasureSpec.makeMeasureSpec(width, mode)
         super.onMeasure(w, heightMeasureSpec)
     }
-
 
 
     /**
@@ -71,7 +79,8 @@ class LikeViewSlim @JvmOverloads constructor(
 
             this.isPraised = likeMap["$id-$model"]?.second ?: false
             // 如果map中有记录是否点赞。则根据外部传来的真实点赞值（除了自己），加上自己是否点赞
-            this.praiseCount = praiseCount + (if (isPraised) -1 else 0) + (if (this.isPraised) 1 else 0) // likeMap["$id-$model"]?.first ?: 0
+            this.praiseCount =
+                praiseCount + (if (isPraised) -1 else 0) + (if (this.isPraised) 1 else 0) // likeMap["$id-$model"]?.first ?: 0
 
             likeMap["$id-$model"] = Pair(this.praiseCount, this.isPraised)
         }
@@ -116,17 +125,9 @@ class LikeViewSlim @JvmOverloads constructor(
         }
     }
 
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        performClick()
-        return super.onTouchEvent(event)
-    }
 
-    override fun performClick(): Boolean {
-        click()
-        return super.performClick()
-    }
-
-    fun click() {
+    private fun click() {
+        super.startAnimation1()
         val tmpId = this.mId
         val tmpModel = this.model
         val originIsPraised = isPraised
@@ -145,6 +146,7 @@ class LikeViewSlim @JvmOverloads constructor(
             praiseCount += 1
         }
         setSelect(isPraised)
+        s = praiseCount.toString()
         likeMap["$tmpId-$tmpModel"] = Pair(praiseCount, isPraised)
         invalidate()
         ApiGenerator.getApiService(Api::class.java)
