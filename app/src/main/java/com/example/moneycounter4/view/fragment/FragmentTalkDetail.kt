@@ -18,6 +18,7 @@ import com.example.moneycounter4.beannew.findEquals
 import com.example.moneycounter4.extensions.dp2px
 import com.example.moneycounter4.model.Config
 import com.example.moneycounter4.utils.TimeUtil
+import com.example.moneycounter4.view.adapter.LikeRecyclerViewAdapter
 import com.example.moneycounter4.view.adapter.TalkCommentRecyclerViewAdapter
 import com.example.moneycounter4.viewmodel.CommunityViewModel
 import com.example.moneycounter4.viewmodel.MainApplication
@@ -26,6 +27,7 @@ import com.example.moneycounter4.widgets.KeyboardController
 import com.example.moneycounter4.widgets.OptionalPopWindow
 import com.example.moneycounter4.widgets.ReplyPopWindow
 import com.mredrock.cyxbs.qa.ui.widget.OptionalDialog
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_talk_detail.*
 import kotlinx.android.synthetic.main.item_talk_big.*
 
@@ -35,6 +37,7 @@ class FragmentTalkDetail : BaseFragment() {
 
     lateinit var adapter: TalkCommentRecyclerViewAdapter
     private var dynamicId: Int = -1
+    lateinit var listener: SwipeRefreshLayout.OnRefreshListener
 
     companion object {
         var viewModel: CommunityViewModel? = null
@@ -126,18 +129,25 @@ class FragmentTalkDetail : BaseFragment() {
 
         bindView()
 
-        val listener = SwipeRefreshLayout.OnRefreshListener {
+        listener = SwipeRefreshLayout.OnRefreshListener {
             viewModel?.refreshDynamic()
         }
         swipeRefreshLayout.setOnRefreshListener(listener)
         listener.onRefresh()
         swipeRefreshLayout.isRefreshing = true
 
+
+
         viewModel?.dynamicList?.observe{
             bindView()
             dynamic = findDynamic()
             adapter.setList(dynamic?.commentList ?: listOf())
             swipeRefreshLayout.isRefreshing = false
+            recyclerViewLikeAccount.adapter =
+                LikeRecyclerViewAdapter(this, dynamic!!.praise.reversed())
+            recyclerViewLikeAccount.layoutManager = LinearLayoutManager(fragment.context).apply {
+                orientation = LinearLayoutManager.HORIZONTAL
+            }
         }
 
         coordinatorlayout_touch.onReplyCancelEvent = {
@@ -215,6 +225,10 @@ class FragmentTalkDetail : BaseFragment() {
             isPraise ?: false,
             dynamic?.praise?.size ?: 0
         )
+        imageViewLike?.callback = {
+            listener.onRefresh()
+//            swipeRefreshLayout.isRefreshing = true
+        }
 
 
 
@@ -257,6 +271,15 @@ class FragmentTalkDetail : BaseFragment() {
             navController.navigate(R.id.action_global_fragmentTalkDetails, bundle)
         }
 
+
+        val likeListener = View.OnClickListener {
+            imageViewLike?.let {
+                it.setSelect(!it.getSelect())
+            }
+
+
+        }
+        imageViewLike?.setOnClickListener(likeListener)
     }
 
     private fun findDynamic(): DynamicItem? {

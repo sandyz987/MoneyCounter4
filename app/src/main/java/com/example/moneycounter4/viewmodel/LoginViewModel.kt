@@ -36,10 +36,14 @@ class LoginViewModel : BaseViewModel() {
 
     fun checkLogin(activity: Activity, onSuccess: () -> Unit, onFailed: () -> Unit) {
         Thread {
-            val t = ApiGenerator.getCommonApiService(LoginApi::class.java).getToken(
-                Config.userId,
-                Config.password
-            ).execute().body()?.data?.token ?: 0
+            val t = try {
+                ApiGenerator.getCommonApiService(LoginApi::class.java).getToken(
+                    Config.userId,
+                    Config.password
+                ).execute().body()?.data?.token ?: 0
+            } catch (e: Exception) {
+                0
+            }
 
             // callback
             activity.runOnUiThread {

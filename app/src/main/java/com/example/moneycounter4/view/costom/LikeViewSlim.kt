@@ -23,7 +23,7 @@ class LikeViewSlim @JvmOverloads constructor(
         private val likeMap = HashMap<String, Pair<Int, Boolean>?>()
         private val observer = HashMap<String, ArrayList<WeakReference<LikeViewSlim>>?>()
     }
-
+    var callback: (() -> Unit)? = null
 
     private var isLoading = false
     private var praiseCount = 0
@@ -159,6 +159,7 @@ class LikeViewSlim @JvmOverloads constructor(
                 sendBroadcast("$tmpId-$tmpModel")
             }.doFinally {
                 isLoading = false
+                callback?.invoke()
             }.safeSubscribeBy {
                 // 如果成功，则保持
                 sendBroadcast("$tmpId-$tmpModel")
