@@ -13,7 +13,7 @@ import kotlin.math.abs
 
 //点赞按钮，左边是图标右边是文字，并且可以选中
 
-class ImageViewInfoZLike : androidx.appcompat.widget.AppCompatImageView {
+open class LikeView : androidx.appcompat.widget.AppCompatImageView {
 
     private lateinit var paint: Paint
     private lateinit var anim: ValueAnimator
@@ -29,19 +29,19 @@ class ImageViewInfoZLike : androidx.appcompat.widget.AppCompatImageView {
 
     constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
         val typedArray =
-            context.obtainStyledAttributes(attributeSet, R.styleable.ImageViewInfoZLike)
+            context.obtainStyledAttributes(attributeSet, R.styleable.LikeView)
 
         paint = Paint()
         paint.isAntiAlias = true
         paint.color = Color.GRAY
-        s = typedArray.getString(R.styleable.ImageViewInfoZLike_like_count_text)
-        endSrcId = typedArray.getResourceId(R.styleable.ImageViewInfoZLike_liked_src, 0)
-        startSrcId = typedArray.getResourceId(R.styleable.ImageViewInfoZLike_no_liked_src, 0)
+        s = typedArray.getString(R.styleable.LikeView_like_count_text)
+        endSrcId = typedArray.getResourceId(R.styleable.LikeView_liked_src, 0)
+        startSrcId = typedArray.getResourceId(R.styleable.LikeView_no_liked_src, 0)
         typedArray.recycle()
         setImageDrawable(ResourcesCompat.getDrawable(resources, startSrcId, null))
     }
 
-    constructor(context: Context, attributeSet: AttributeSet, defStyleAttr: Int) : super(
+    constructor(context: Context, attributeSet: AttributeSet?, defStyleAttr: Int) : super(
         context,
         attributeSet,
         defStyleAttr

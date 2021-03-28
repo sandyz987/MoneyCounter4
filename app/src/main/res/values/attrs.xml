@@ -11,11 +11,11 @@
         <attr name="month_text" format="string"/>
         <attr name="month_pic_src" format="reference"/>
     </declare-styleable>
-    <declare-styleable name="ImageViewInfoZ">
+    <declare-styleable name="CommentCountView">
         <attr name="reply_count_text" format="string"/>
         <attr name="reply_pic_src" format="reference"/>
     </declare-styleable>
-    <declare-styleable name="ImageViewInfoZLike">
+    <declare-styleable name="LikeView">
         <attr name="like_count_text" format="string"/>
         <attr name="liked_src" format="reference"/>
         <attr name="no_liked_src" format="reference"/>

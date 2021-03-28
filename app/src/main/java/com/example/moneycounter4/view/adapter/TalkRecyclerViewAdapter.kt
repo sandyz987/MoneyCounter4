@@ -19,8 +19,7 @@ import com.example.moneycounter4.beannew.DynamicItem
 import com.example.moneycounter4.beannew.findEquals
 import com.example.moneycounter4.model.Config
 import com.example.moneycounter4.utils.TimeUtil
-import com.example.moneycounter4.view.costom.ImageViewInfoZ
-import com.example.moneycounter4.view.costom.ImageViewInfoZLike
+import com.example.moneycounter4.view.costom.LikeView
 
 
 class TalkRecyclerViewAdapter(
@@ -70,8 +69,8 @@ class TalkRecyclerViewAdapter(
         }
 
         val isPraise = mList[position].praise.findEquals { it.userId == Config.userId }
-        holder.imageViewLike?.setHint((mList[position].praise.size - if (isPraise) 1 else 0).toString())
-        holder.imageViewLike?.setSelect(isPraise)
+        holder.imageViewLikeView?.setHint((mList[position].praise.size - if (isPraise) 1 else 0).toString())
+        holder.imageViewLikeView?.setSelect(isPraise)
 
         holder.textViewUsrName?.text = mList[position].userId
         holder.textViewContent?.text = mList[position].text.take(30)
@@ -92,7 +91,7 @@ class TalkRecyclerViewAdapter(
 
 
 
-        holder.imageViewTalk?.setHint(mList[position].commentList.size.toString())
+        holder.imageViewTalkView?.setHint(mList[position].commentList.size.toString())
 
 
         holder.imageViewUsrPic?.setOnClickListener {
@@ -103,7 +102,7 @@ class TalkRecyclerViewAdapter(
             navController.navigate(R.id.action_global_fragmentMine, bundle)
         }
 
-        holder.imageViewLike?.setOnClickListener {
+        holder.imageViewLikeView?.setOnClickListener {
             // TODO 点赞
         }
         holder.itemView.isClickable = true
@@ -111,20 +110,20 @@ class TalkRecyclerViewAdapter(
             onItemClick.invoke(mList[position], it)
 
         }
-        holder.imageViewTalk?.setOnClickListener {
+        holder.imageViewTalkView?.setOnClickListener {
             onItemClick.invoke(mList[position], it)
         }
 
 
 
         val likeListener = View.OnClickListener {
-            holder.imageViewLike?.let {
+            holder.imageViewLikeView?.let {
                 it.setSelect(!it.getSelect())
             }
 
 
         }
-        holder.imageViewLike?.setOnClickListener(likeListener)
+        holder.imageViewLikeView?.setOnClickListener(likeListener)
 
 
     }
@@ -138,10 +137,10 @@ class TalkRecyclerViewAdapter(
         val imageViewPic: ImageView? = itemView.findViewById<ImageView>(R.id.imageViewPic)
         val imageViewSex: ImageView? = itemView.findViewById<ImageView>(R.id.imageViewSex)
         val buttonFollow: Button? = itemView.findViewById<Button>(R.id.buttonFollow)
-        val imageViewLike: ImageViewInfoZLike? =
-            itemView.findViewById<ImageViewInfoZLike>(R.id.imageViewLike)
-        val imageViewTalk: ImageViewInfoZ? =
-            itemView.findViewById<ImageViewInfoZ>(R.id.imageViewTalk)
+        val imageViewLikeView: LikeView? =
+            itemView.findViewById<LikeView>(R.id.imageViewLike)
+        val imageViewTalkView: LikeView? =
+            itemView.findViewById<LikeView>(R.id.imageViewTalk)
         val textViewMore: TextView? = itemView.findViewById<TextView>(R.id.textViewMore)
 
     }

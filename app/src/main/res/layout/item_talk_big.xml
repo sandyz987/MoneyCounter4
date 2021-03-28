@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:background="?selectableItemBackground">
 
-    <com.example.moneycounter4.view.costom.ImageViewInfoZ
+    <com.example.moneycounter4.view.costom.CommentCountView
         android:id="@+id/imageViewTalk"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
@@ -106,7 +106,7 @@
         app:layout_constraintStart_toEndOf="@+id/textViewUsrName"
         app:layout_constraintTop_toTopOf="@+id/textViewUsrName" />
 
-    <com.example.moneycounter4.view.costom.ImageViewInfoZLike
+    <com.example.moneycounter4.view.costom.LikeViewSlim
         android:id="@+id/imageViewLike"
         android:layout_width="wrap_content"
         android:layout_height="30dp"

@@ -14,7 +14,9 @@ import kotlin.math.abs
 
 //评论/回复按钮，左边是可晃动的图标，右边是文字
 
-class ImageViewInfoZ : androidx.appcompat.widget.AppCompatImageView {
+class CommentCountView @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) : androidx.appcompat.widget.AppCompatImageView(context, attrs, defStyleAttr) {
 
     private lateinit var paint : Paint
     private lateinit var anim : ValueAnimator
@@ -22,24 +24,20 @@ class ImageViewInfoZ : androidx.appcompat.widget.AppCompatImageView {
     private var startSrcId = 0
     private var trX = 0f
     private var mSelected = false
-    private var startX = 0f
-    private var startY = 0f
 
-    constructor(context: Context): super(context)
-
-    constructor(context: Context, attributeSet: AttributeSet): super(context, attributeSet){
-        val typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.ImageViewInfoZ)
+    init {
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.CommentCountView)
 
         paint = Paint()
         paint.isAntiAlias = true
         paint.color = Color.GRAY
-        s = typedArray.getString(R.styleable.ImageViewInfoZ_reply_count_text)
-        startSrcId = typedArray.getResourceId(R.styleable.ImageViewInfoZ_reply_pic_src,0)
+        s = typedArray.getString(R.styleable.CommentCountView_reply_count_text)
+        startSrcId = typedArray.getResourceId(R.styleable.CommentCountView_reply_pic_src,0)
         typedArray.recycle()
         setImageDrawable(ResourcesCompat.getDrawable(resources,startSrcId,null))
+        setOnClickListener { onClick() }
     }
 
-    constructor(context: Context, attributeSet: AttributeSet, defStyleAttr: Int): super(context, attributeSet, defStyleAttr)
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
@@ -62,22 +60,6 @@ class ImageViewInfoZ : androidx.appcompat.widget.AppCompatImageView {
 
     private fun onClick(){
         startAnimation1()
-    }
-
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        when(event?.action){
-            MotionEvent.ACTION_DOWN -> {
-                startX = event.rawX
-                startY = event.rawX
-            }
-            MotionEvent.ACTION_UP -> {
-                if (abs(event.rawX-startX) <50f && abs(event.rawX-startY) <50f){
-                    onClick()
-                }
-            }
-        }
-        return super.onTouchEvent(event)
-
     }
 
     fun setHint(string:String){

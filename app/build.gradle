@@ -95,4 +95,7 @@ dependencies {
     // gson
     implementation 'com.google.code.gson:gson:2.8.6'
 
+    // rxPermissions
+    implementation('com.github.tbruyelle:rxpermissions:0.10.2')
+
 }
