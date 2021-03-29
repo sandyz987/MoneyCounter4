@@ -21,5 +21,6 @@
     <color name="light_button_color">#fbca53</color>
     <color name="yellow_button_color">#fff98c</color>
     <color name="edit_text_hint_color">#94969E</color>
+    <color name="color_white">#FFFFFF</color>
 
 </resources>

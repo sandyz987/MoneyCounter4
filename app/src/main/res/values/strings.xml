@@ -5,9 +5,9 @@
     <string name="welcome_text">慧记账</string>
     <string name="welcome_text_details">让您的生活更加计划化</string>
     <string name="register_text_detail">欢迎加入我们~</string>
-    <string name="register_text_main">注册</string>
+    <string name="register_text_main">赶快加入我们吧！</string>
     <string name="login_text_detail">您好，欢迎来到慧记账</string>
-    <string name="login_text_main">登录</string>
+    <string name="login_text_main">您的记账管家</string>
     <string name="register_connection_error">注册失败！服务器君打盹了？！</string>
     <string name="register_denied_error">注册失败！服务器君不同意呀，换个用户名呗</string>
     <string name="register_success">注册成功！快登录鸭~</string>

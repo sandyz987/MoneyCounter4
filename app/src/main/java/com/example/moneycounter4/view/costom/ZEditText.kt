@@ -22,7 +22,11 @@ import com.example.moneycounter4.extensions.dp2px
  */
 
 @SuppressLint("UseCompatLoadingForDrawables")
-class ZEditText : androidx.appcompat.widget.AppCompatEditText {
+class ZEditText @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = R.attr.editTextStyle
+) : androidx.appcompat.widget.AppCompatEditText(context, attrs, defStyleAttr) {
+
+
 
     private val clearBitmap: Bitmap by lazy {
         resources.getDrawable(R.drawable.ic_edittext_clear, null).toBitmap()
@@ -63,27 +67,18 @@ class ZEditText : androidx.appcompat.widget.AppCompatEditText {
             hintWidth = paint.measureText(field)
         }
 
-    private lateinit var paint: Paint
+    private var paint: Paint = Paint()
+
+    init {
+        val fontScale = context.resources.displayMetrics.scaledDensity
+        paint.textSize = fontScale * 18 + 0.5f //设置字号为14sp
+        paint.color = ContextCompat.getColor(context, R.color.edit_text_hint_color)
+        paint.isAntiAlias = true
+        hintString = ""
 
 
-    constructor(context: Context) : super(context) {
-        init()
-    }
-
-    constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
-        init()
-        val array = context.theme.obtainStyledAttributes(attributeSet, R.styleable.ZEditText, 0, 0)
-        hintString = array.getString(R.styleable.ZEditText_hintText).toString()
-    }
-
-    constructor(context: Context, attributeSet: AttributeSet, defStyleAttr: Int) : super(
-        context,
-        attributeSet,
-        defStyleAttr
-    ) {
-        init()
         val array = context.theme.obtainStyledAttributes(
-            attributeSet,
+            attrs,
             R.styleable.ZEditText,
             defStyleAttr,
             0
@@ -91,15 +86,7 @@ class ZEditText : androidx.appcompat.widget.AppCompatEditText {
         hintString = array.getString(R.styleable.ZEditText_hintText).toString()
     }
 
-    private fun init() {
-        paint = Paint()
-        val fontScale = context.resources.displayMetrics.scaledDensity
-        paint.textSize = fontScale * 14 + 0.5f //设置字号为14sp
-        paint.color = ContextCompat.getColor(context, R.color.edit_text_hint_color)
-        paint.isAntiAlias = true
-        hintString = ""
 
-    }
 
     override fun onTextChanged(
         text: CharSequence?,

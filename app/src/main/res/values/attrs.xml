@@ -32,4 +32,10 @@
         <attr name="refreshed_ic" format="reference" />
         <attr name="before_ic" format="reference" />
     </declare-styleable>
+    <declare-styleable name="RoundedImageView">
+        <attr name="left_bottom_corner" format="dimension"/>
+        <attr name="left_top_corner" format="dimension"/>
+        <attr name="right_top_corner" format="dimension"/>
+        <attr name="right_bottom_corner" format="dimension"/>
+    </declare-styleable>
 </resources>

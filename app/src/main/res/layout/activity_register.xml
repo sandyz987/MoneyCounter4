@@ -4,55 +4,65 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/prime_background_color"
+    android:background="@color/color_white"
     tools:context=".view.activity.ActivityLogin">
 
-    <ImageView
+    <com.example.moneycounter4.view.costom.RoundedImageView
         android:id="@+id/imageView11"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="16dp"
         android:transitionName="logo"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_home_background_pic" />
+        app:left_bottom_corner="10dp"
+        app:left_top_corner="10dp"
+        app:right_bottom_corner="10dp"
+        app:right_top_corner="10dp"
+        app:srcCompat="@mipmap/ic_launcher" />
 
     <com.example.moneycounter4.view.costom.ZEditText
         android:id="@+id/edittextRegisterUserId"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_width="310dp"
+        android:layout_height="45dp"
         android:layout_marginTop="32dp"
-        android:transitionName="et1"
-        android:background="@drawable/shape_show_status_layout"
+        android:background="@drawable/shape_et_shape"
         android:inputType="textVisiblePassword"
-        app:hintText="请输入账号"
+        android:textSize="24sp"
+        android:transitionName="et1"
+        app:hintText="请输入手机号"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/floatRegisterBack"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
 
     <com.example.moneycounter4.view.costom.ZEditText
         android:id="@+id/edittextRegisterPassword"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
         android:layout_marginTop="16dp"
-        android:transitionName="et2"
-        android:background="@drawable/shape_show_status_layout"
+        android:background="@drawable/shape_et_shape"
         android:inputType="textPassword"
+        android:textSize="24sp"
+        android:transitionName="et2"
         app:hintText="请输入密码"
         app:layout_constraintEnd_toEndOf="@+id/edittextRegisterUserId"
+        app:layout_constraintStart_toStartOf="@+id/edittextRegisterUserId"
         app:layout_constraintTop_toBottomOf="@+id/edittextRegisterUserId" />
+
+
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:text="@string/register_text_main"
-        android:textColor="#000000"
-        android:textSize="30sp"
+        android:textColor="@color/appbar_color"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -65,35 +75,31 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/register_text_detail"
         app:layout_constraintEnd_toEndOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+
+    <Button
         android:id="@+id/floatRegisterRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:transitionName="ok"
-        android:clickable="true"
-        android:focusable="true"
-        app:backgroundTint="@color/light_button_color"
+        android:background="@drawable/shape_yellow_button2"
+        android:elevation="29dp"
+        android:text="注 册"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edittextRegisterPassword"
-        app:srcCompat="@drawable/ic_arrow_forward" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edittextRegisterPassword" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <TextView
         android:id="@+id/floatRegisterBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
-        app:backgroundTint="@color/light_button_color"
-        app:layout_constraintBottom_toBottomOf="@+id/edittextRegisterPassword"
-        app:layout_constraintEnd_toStartOf="@+id/edittextRegisterUserId"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/edittextRegisterUserId"
-        app:srcCompat="@drawable/abc_vector_test" />
+        android:layout_marginTop="24dp"
+        android:text="返回登录"
+        app:layout_constraintStart_toStartOf="@+id/edittextRegisterPassword"
+        app:layout_constraintTop_toBottomOf="@+id/floatRegisterRegister" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
