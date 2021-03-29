@@ -2,8 +2,12 @@ package com.example.moneycounter4.view.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -58,7 +62,6 @@ class TalkReplyRecyclerViewAdapter(
 
 
         holder.textViewUsrName?.text = mList[position].nickname
-        holder.textViewContent?.text = mList[position].text
 
 
 
@@ -85,6 +88,24 @@ class TalkReplyRecyclerViewAdapter(
         holder.itemView.setOnLongClickListener {
             onInnerLongClick.invoke(mList[position], it)
             true
+        }
+
+        if (mList[position].replyUserNickname .isEmpty()) {
+            holder.textViewContent?.text = mList[position].text
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                // 回复时，被回复人名称显示颜色
+                val span = SpannableString("回复 @${mList[position].replyUserNickname} : ${mList[position].text}").apply {
+                    setSpan(
+                        ForegroundColorSpan(Color.BLUE),
+                        3, 3 + mList[position].replyUserNickname.length + 1,
+                        Spannable.SPAN_INCLUSIVE_EXCLUSIVE
+                    )
+                }
+                holder.textViewContent?.text = span
+            } else {
+                holder.textViewContent?.text = "回复 @${mList[position].replyUserNickname} : "
+            }
         }
 
 
