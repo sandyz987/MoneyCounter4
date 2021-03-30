@@ -12,7 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moneycounter4.R
-import com.example.moneycounter4.bean.DataItem
+import com.example.moneycounter4.beannew.CounterDataItem
 import com.example.moneycounter4.databinding.ItemCounterDataBinding
 import com.example.moneycounter4.utils.TimeUtil
 import com.example.moneycounter4.viewmodel.MainViewModel
@@ -22,7 +22,7 @@ import com.example.moneycounter4.widgets.FirstItemDecoration
 @RequiresApi(Build.VERSION_CODES.N)
 class LogRecyclerViewAdapter(
     private val mActivity: Activity, private val vm: MainViewModel,
-    mContext: Context, private val mList: ArrayList<DataItem>, rv: RecyclerView
+    mContext: Context, private val mList: ArrayList<CounterDataItem>, rv: RecyclerView
 ) :
     RecyclerView.Adapter<LogRecyclerViewAdapter.ViewHolder>() {
 
@@ -34,10 +34,10 @@ class LogRecyclerViewAdapter(
             return@FirstItemDecoration if (it <= 0) {
                 true
             } else {
-                TimeUtil.monthStr(mList[it - 1].time) != TimeUtil.monthStr(mList[it].time)
+                TimeUtil.monthStr(mList[it - 1].time!!) != TimeUtil.monthStr(mList[it].time!!)
             }
         }, {
-            TimeUtil.monthStr(mList[it].time)
+            TimeUtil.monthStr(mList[it].time!!)
         })
         rv.addItemDecoration(itemDecoration!!)
     }

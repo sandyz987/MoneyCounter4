@@ -11,15 +11,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableList
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moneycounter4.R
-import com.example.moneycounter4.bean.DataItem
 import com.example.moneycounter4.bean.TypeItem
 import com.example.moneycounter4.databinding.FragmentTypeBinding
 import com.example.moneycounter4.view.adapter.TypeEditRecyclerViewAdapter
 import com.example.moneycounter4.viewmodel.MainViewModel
-import com.example.moneycounter4.widgets.LogW
 import kotlinx.android.synthetic.main.fragment_type.*
 
 //conf表明显示支出列表还是收入列表

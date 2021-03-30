@@ -9,7 +9,7 @@
             type="com.example.moneycounter4.viewmodel.MainViewModel" />
         <variable
             name="dataItem"
-            type="com.example.moneycounter4.bean.DataItem" />
+            type="com.example.moneycounter4.beannew.CounterDataItem" />
         <import type="com.example.moneycounter4.model.TypeFinder"/>
     </data>
 

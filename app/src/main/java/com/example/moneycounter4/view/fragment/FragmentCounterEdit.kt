@@ -13,9 +13,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.moneycounter4.R
-import com.example.moneycounter4.bean.DataItem
 import com.example.moneycounter4.bean.TranData
 import com.example.moneycounter4.bean.TypeItem
+import com.example.moneycounter4.beannew.CounterDataItem
 import com.example.moneycounter4.databinding.FragmentCounterEditBinding
 import com.example.moneycounter4.view.adapter.TypeFragmentPagerAdapter
 import com.example.moneycounter4.view.costom.BaseFullBottomSheetFragment
@@ -72,7 +72,7 @@ class FragmentCounterEdit : Fragment() {
                         msg: Message,
                         weakReference: WeakReference<FragmentCounterEdit>
                     ) {
-                        val dataItem = DataItem()
+                        val dataItem = CounterDataItem()
                         dataItem.time = (msg.obj as TranData).time
                         if (weakReference.get()?.tabLayout?.selectedTabPosition == 0) {
                             dataItem.money = -(msg.obj as TranData).money

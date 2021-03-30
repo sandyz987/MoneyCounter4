@@ -3,32 +3,38 @@ package com.example.moneycounter4.model
 import android.content.Context
 import android.icu.util.Calendar
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.databinding.ObservableArrayList
+import androidx.room.Room
 import com.example.moneycounter4.bean.CounterData
-import com.example.moneycounter4.bean.DataItem
 import com.example.moneycounter4.bean.TypeItem
+import com.example.moneycounter4.beannew.CounterDataItem
+import com.example.moneycounter4.model.database.CounterDatabase
 import com.example.moneycounter4.viewmodel.MainApplication
-import com.example.moneycounter4.widgets.LogW
 import com.google.gson.Gson
-import kotlin.collections.ArrayList
+import java.util.ArrayList
 
-class DataReader {
-
-    companion object{
-        lateinit var counterData: CounterData
-        const val OPTION_BY_YEAR = 0
-        const val OPTION_BY_MONTH = 1
-        const val OPTION_BY_DAY = 2
-        const val OPTION_INCOME = 3
-        const val OPTION_EXPEND = 4
-        const val OPTION_LAST = 5
-        const val OPTION_IN = 6
-        const val OPTION_OUT = 7
-
-    }
+object DataReader {
+    var counterData: CounterData
+    const val OPTION_BY_YEAR = 0
+    const val OPTION_BY_MONTH = 1
+    const val OPTION_BY_DAY = 2
+    const val OPTION_INCOME = 3
+    const val OPTION_EXPEND = 4
+    const val OPTION_LAST = 5
+    const val OPTION_IN = 6
+    const val OPTION_OUT = 7
+    var db: CounterDatabase? = null
 
     init {
+
+
+        db = Room.databaseBuilder(MainApplication.context,
+            CounterDatabase::class.java, "data_list")
+            .allowMainThreadQueries() //允许在主线程中查询
+            .build()
+
         var s = ""
         val sharedPreferences = MainApplication.app.getSharedPreferences("counterData", Context.MODE_PRIVATE)
         sharedPreferences.getString("counterData",null)?.let { s = it }
@@ -39,6 +45,10 @@ class DataReader {
         }else{
             CounterData()
         }
+
+        counterData.list = db?.userDao()?.all?.let { java.util.ArrayList(it) }
+
+
         if(counterData.typeListIn == null){
             counterData.typeListIn = ArrayList()//============init============
         }
@@ -57,17 +67,20 @@ class DataReader {
         val gson = Gson()
         editor.putString("counterData",gson.toJson(counterData))
         editor.apply()
+        db?.userDao()?.deleteAllCounterDataItem()
+        db?.userDao()?.insertAll(counterData.list)
+        Log.e("sandyzhang", "save")
     }
 
 
-    fun addItem(dataItem: DataItem){
+    fun addItem(dataItem: CounterDataItem){
         counterData.list.add(dataItem)
-        counterData.list.sortBy { -it.time }
+        counterData.list.sortBy { -it.time!! }
         save()
     }
 
-    fun findItem(id: Long):DataItem?{
-        for(item:DataItem in counterData.list){
+    fun findItem(id: Long):CounterDataItem?{
+        for(item:CounterDataItem in counterData.list){
             if(item.time == id){
                 return item
             }
@@ -75,7 +88,7 @@ class DataReader {
         return null
     }
 
-    fun replaceItem(id:Long,dataItem: DataItem){
+    fun replaceItem(id:Long,dataItem: CounterDataItem){
         val d = findItem(id)
         d?.let {
             d.money = dataItem.money
@@ -118,13 +131,13 @@ class DataReader {
 
     @RequiresApi(Build.VERSION_CODES.N)
     fun getItems(year:Int, month:Int, day: Int, option : Int):
-            ArrayList<DataItem>{
+            ArrayList<CounterDataItem>{
 
-        val list = ArrayList<DataItem>()
+        val list = ArrayList<CounterDataItem>()
         val calendar = Calendar.getInstance()
 
-        for(item:DataItem in counterData.list){
-            calendar.timeInMillis = item.time
+        for(item:CounterDataItem in counterData.list){
+            calendar.timeInMillis = item.time!!
             when(option){
                 OPTION_BY_YEAR->{
                     if(calendar.get(Calendar.YEAR) == year){
@@ -147,22 +160,22 @@ class DataReader {
         return list
     }
 
-    fun count(list : ArrayList<DataItem>,option: Int):Double{
+    fun count(list : ArrayList<CounterDataItem>,option: Int):Double{
         var ans = 0.0
 
-        for(item : DataItem in list){
+        for(item : CounterDataItem in list){
             when(option){
                 OPTION_EXPEND->{
-                    if(item.money < 0){
-                        ans -= item.money
+                    if(item.money!! < 0){
+                        ans -= item.money!!
                     }
                 }
                 OPTION_LAST->{
-                    ans += item.money
+                    ans += item.money!!
                 }
                 OPTION_INCOME->{
-                    if(item.money > 0){
-                        ans += item.money
+                    if(item.money!! > 0){
+                        ans += item.money!!
                     }
                 }
             }

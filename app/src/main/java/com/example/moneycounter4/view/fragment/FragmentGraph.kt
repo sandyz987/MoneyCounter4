@@ -190,8 +190,8 @@ class FragmentGraph : Fragment() {
         LogW.d("$year $month")
         for (day in 1..dayOfMonth) {
 
-            val list = DataReader().getItems(year,month,day,DataReader.OPTION_BY_DAY)
-            val money = DataReader().count(list,option)
+            val list = DataReader.getItems(year,month,day,DataReader.OPTION_BY_DAY)
+            val money = DataReader.count(list,option)
             if (money!= 0.0){
                 b = true
             }

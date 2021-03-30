@@ -7,8 +7,8 @@ import androidx.annotation.RequiresApi
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableField
 import com.example.moneycounter4.base.BaseViewModel
-import com.example.moneycounter4.bean.DataItem
 import com.example.moneycounter4.bean.TypeItem
+import com.example.moneycounter4.beannew.CounterDataItem
 import com.example.moneycounter4.model.DataReader
 import com.example.moneycounter4.model.TypeIndex
 import com.example.moneycounter4.widgets.LogW
@@ -26,7 +26,7 @@ class MainViewModel : BaseViewModel() {
 
     var handlerAddType: Handler? = null
 
-    var list = ObservableArrayList<DataItem>()
+    var list = ObservableArrayList<CounterDataItem>()
     var typeListOut = ObservableArrayList<TypeItem>()
     var typeListIn = ObservableArrayList<TypeItem>()
 
@@ -39,7 +39,7 @@ class MainViewModel : BaseViewModel() {
         val calendar = java.util.Calendar.getInstance()
         selectedYear = calendar.get(java.util.Calendar.YEAR)
         //初始化记账记录列表
-        val tmpList = DataReader().getItems(
+        val tmpList = DataReader.getItems(
             Calendar.getInstance().get(Calendar.YEAR),
             Calendar.getInstance().get(Calendar.MONTH) + 1,
             Calendar.getInstance().get(Calendar.DATE),
@@ -47,14 +47,14 @@ class MainViewModel : BaseViewModel() {
         )
         tmpList.forEach { list.add(it) }
         //初始化收入图标种类列表
-        val tmpList2 = DataReader().getType(DataReader.OPTION_IN)
+        val tmpList2 = DataReader.getType(DataReader.OPTION_IN)
         if (tmpList2.size == 0) {
             TypeIndex.getInTypeInit().forEach { typeListIn.add(it) }
         } else {
             tmpList2.forEach { typeListIn.add(it) }
         }
         //初始化支出图标种类列表
-        val tmpList3 = DataReader().getType(DataReader.OPTION_OUT)
+        val tmpList3 = DataReader.getType(DataReader.OPTION_OUT)
         if (tmpList3.size == 0) {
             TypeIndex.getOutTypeInit().forEach { typeListOut.add(it) }
         } else {
@@ -66,32 +66,32 @@ class MainViewModel : BaseViewModel() {
     fun refreshList() {
         list.clear()
         list.addAll(
-            DataReader().getItems(
+            DataReader.getItems(
                 year.get()!!,
                 month.get()!!,
                 0,
                 DataReader.OPTION_BY_MONTH
             )
         )
-        income.set(DataReader().count(list, DataReader.OPTION_INCOME))
-        expend.set(DataReader().count(list, DataReader.OPTION_EXPEND))
-        list.sortBy { -it.time }
-        income.set(DataReader().count(list, DataReader.OPTION_INCOME))
-        expend.set(DataReader().count(list, DataReader.OPTION_EXPEND))
+        income.set(DataReader.count(list, DataReader.OPTION_INCOME))
+        expend.set(DataReader.count(list, DataReader.OPTION_EXPEND))
+        list.sortBy { -it.time!! }
+        income.set(DataReader.count(list, DataReader.OPTION_INCOME))
+        expend.set(DataReader.count(list, DataReader.OPTION_EXPEND))
     }
 
-    fun addItem(d: DataItem) {
-        DataReader().addItem(d)
+    fun addItem(d: CounterDataItem) {
+        DataReader.addItem(d)
         refreshList()
     }
 
 //    fun delItem(d : DataItem){
-//        DataReader().delItem(d.time)
+//        CounterDataItem().delItem(d.time)
 //        refreshList()
 //    }
 
     fun delItemByTime(t: Long) {
-        DataReader().delItem(t)
+        DataReader.delItem(t)
 
         refreshList()
     }
@@ -101,11 +101,11 @@ class MainViewModel : BaseViewModel() {
         when (option) {
             DataReader.OPTION_IN -> {
                 typeListIn.add(typeItem)
-                DataReader().saveType(typeListIn, option)
+                DataReader.saveType(typeListIn, option)
             }
             DataReader.OPTION_OUT -> {
                 typeListOut.add(typeItem)
-                DataReader().saveType(typeListOut, option)
+                DataReader.saveType(typeListOut, option)
             }
         }
 
@@ -114,8 +114,8 @@ class MainViewModel : BaseViewModel() {
     fun delType(typeItem: TypeItem) {
         typeListOut.remove(typeItem)
         typeListIn.remove(typeItem)
-        DataReader().saveType(typeListOut, DataReader.OPTION_OUT)
-        DataReader().saveType(typeListIn, DataReader.OPTION_IN)
+        DataReader.saveType(typeListOut, DataReader.OPTION_OUT)
+        DataReader.saveType(typeListIn, DataReader.OPTION_IN)
     }
 
 
