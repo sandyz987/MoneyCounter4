@@ -9,10 +9,10 @@ import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableList
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.moneycounter4.R
+import com.example.moneycounter4.base.BaseFragment
 import com.example.moneycounter4.bean.TypeItem
 import com.example.moneycounter4.databinding.FragmentTypeBinding
 import com.example.moneycounter4.view.adapter.TypeRecyclerViewAdapter
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_type.*
 
 //conf表明显示支出列表还是收入列表
 
-class InsideFragmentType : Fragment() {
+class InsideFragmentType : BaseFragment() {
 
     companion object {
         const val CONF_IN = 0//表明这个fragment显示收入类型列表

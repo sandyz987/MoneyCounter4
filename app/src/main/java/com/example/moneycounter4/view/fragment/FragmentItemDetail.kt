@@ -2,7 +2,6 @@ package com.example.moneycounter4.view.fragment
 
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,13 +10,14 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.moneycounter4.R
+import com.example.moneycounter4.base.BaseFragment
 import com.example.moneycounter4.beannew.CounterDataItem
 import com.example.moneycounter4.model.TypeFinder
 import com.example.moneycounter4.utils.TimeUtil
 import com.example.moneycounter4.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_item_detail.*
 
-class FragmentItemDetail : Fragment() {
+class FragmentItemDetail : BaseFragment() {
 
     lateinit var viewModel: MainViewModel
 

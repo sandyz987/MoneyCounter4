@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.builder.TimePickerBuilder
@@ -20,6 +19,7 @@ import com.bigkoo.pickerview.listener.OnOptionsSelectListener
 import com.bigkoo.pickerview.listener.OnTimeSelectListener
 import com.bigkoo.pickerview.view.OptionsPickerView
 import com.example.moneycounter4.R
+import com.example.moneycounter4.base.BaseFragment
 import com.example.moneycounter4.model.DataReader
 import com.example.moneycounter4.viewmodel.MainViewModel
 import com.example.moneycounter4.widgets.LogW
@@ -34,16 +34,19 @@ import com.github.mikephil.charting.utils.ColorTemplate
 import kotlinx.android.synthetic.main.fragment_graph.*
 import java.util.*
 
-class FragmentGraph : Fragment() {
-    lateinit var viewModel : MainViewModel
-    companion object{
-        lateinit var tfLight : Typeface
+class FragmentGraph : BaseFragment() {
+    lateinit var viewModel: MainViewModel
+
+    companion object {
+        lateinit var tfLight: Typeface
     }
+
     private var year = 0
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
         viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
         tfLight = Typeface.createFromAsset(requireContext().assets, "alibaba_light.ttf")
         val calendar = Calendar.getInstance()

@@ -6,12 +6,14 @@ import android.content.Intent
 import android.database.Cursor
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.navigation.fragment.findNavController
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.view.OptionsPickerView
 import com.bumptech.glide.Glide
@@ -19,7 +21,7 @@ import com.example.moneycounter4.R
 import com.example.moneycounter4.base.BaseViewModelFragment
 import com.example.moneycounter4.beannew.User
 import com.example.moneycounter4.model.Config
-import com.example.moneycounter4.network.PicUploadUtils
+import com.example.moneycounter4.network.UploadFileUtil
 import com.example.moneycounter4.view.activity.ActivityLogin
 import com.example.moneycounter4.viewmodel.SettingViewModel
 import com.example.moneycounter4.widgets.ProgressDialogW
@@ -44,6 +46,10 @@ class FragmentSetting : BaseViewModelFragment<SettingViewModel>() {
         super.onActivityCreated(savedInstanceState)
         ProgressDialogW.show(requireContext(), "提示", "从服务器读取信息中，请稍后", false)
         viewModel.getUser(Config.userId)
+
+        viewModel.change.observeNotNull {
+            findNavController().navigate(R.id.action_fragmentSetting_pop)
+        }
 
         viewModel.user.observeNotNull { user ->
             textViewUsrName.text = user.nickname
@@ -211,19 +217,19 @@ class FragmentSetting : BaseViewModelFragment<SettingViewModel>() {
             upLoading = true
             ProgressDialogW.show(requireContext(), "提示", "正在上传~", false)
             imgPath?.let {
-                PicUploadUtils.uploadPicture(listOf(it), { v ->
-                    Toast.makeText(context, "上传成功", Toast.LENGTH_SHORT).show()
-                    if (v.isNotEmpty()) {
-                        Glide.with(this).load(v[0]).into(imageViewUsrPic)
+                UploadFileUtil.uploadMultiFile(listOf(it)) { uploadPicInfo ->
+                    activity?.runOnUiThread {
+
+                        Toast.makeText(context, "上传成功", Toast.LENGTH_SHORT).show()
+                        if (uploadPicInfo.picUrls[0].isNotEmpty()) {
+                            Glide.with(this).load(uploadPicInfo.picUrls[0]).into(imageViewUsrPic)
+                            Log.e("sandyzhang", uploadPicInfo.picUrls[0])
+                        }
+                        ProgressDialogW.hide()
+                        picUrl = uploadPicInfo.picUrls[0]
+                        upLoading = false
                     }
-                    ProgressDialogW.hide()
-                    picUrl = v[0]
-                    upLoading = false
-                }, {
-                    Toast.makeText(context, "上传失败", Toast.LENGTH_SHORT).show()
-                    ProgressDialogW.hide()
-                    upLoading = false
-                })
+                }
             }
 
 

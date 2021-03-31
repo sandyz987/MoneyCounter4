@@ -1,5 +1,6 @@
 package com.example.moneycounter4.network
 
+import android.util.Log
 import com.example.moneycounter4.BuildConfig
 import com.example.moneycounter4.beannew.ApiWrapper
 import com.example.moneycounter4.beannew.UploadPicInfo
@@ -22,7 +23,7 @@ import java.util.concurrent.TimeUnit
 /**
  *@author zhangzhe
  *@date 2021/3/31
- *@description
+ *@description 有点问题待解决，无法上传，无响应
  */
 
 object PicUploadUtils {
@@ -45,9 +46,11 @@ object PicUploadUtils {
         for (i in fileList.indices) {
             val file = fileList[i]
             val requestFile: RequestBody =
-                RequestBody.create("image/jpeg".toMediaTypeOrNull(), file)
-            builder.addFormDataPart("file", file.name, requestFile)
+                RequestBody.create("application/octet-stream".toMediaTypeOrNull(), file)
+            Log.e("sandyzhang", file.toString() + ": $i")
+            builder.addFormDataPart("file", System.currentTimeMillis().toString() + "", requestFile)
         }
+        builder.setType(MultipartBody.FORM)
 
         val retrofit = Retrofit.Builder().apply {
             baseUrl(Config.PicUploadUrl)
@@ -69,9 +72,12 @@ object PicUploadUtils {
             .setSchedulers()
             .doOnError {
                 onFailed.invoke()
+                Log.e("sandyzhang", "e")
             }
             .safeSubscribeBy {
                 onSuccess.invoke(it.picUrls)
+                Log.e("sandyzhang", "suc")
+
             }.dispose()
 
     }

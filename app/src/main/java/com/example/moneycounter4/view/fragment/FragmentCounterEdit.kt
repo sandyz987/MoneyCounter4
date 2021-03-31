@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.moneycounter4.R
+import com.example.moneycounter4.base.BaseFragment
 import com.example.moneycounter4.bean.TranData
 import com.example.moneycounter4.bean.TypeItem
 import com.example.moneycounter4.beannew.CounterDataItem
@@ -28,7 +29,7 @@ import kotlinx.android.synthetic.main.dialog_input.*
 import kotlinx.android.synthetic.main.fragment_counter_edit.*
 import java.lang.ref.WeakReference
 
-class FragmentCounterEdit : Fragment() {
+class FragmentCounterEdit : BaseFragment() {
 
     lateinit var adapter: TypeFragmentPagerAdapter
     lateinit var viewModel: MainViewModel

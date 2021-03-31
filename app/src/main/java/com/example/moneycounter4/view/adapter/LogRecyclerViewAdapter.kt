@@ -37,7 +37,8 @@ class LogRecyclerViewAdapter(
                 TimeUtil.monthStr(mList[it - 1].time!!) != TimeUtil.monthStr(mList[it].time!!)
             }
         }, {
-            TimeUtil.monthStr(mList[it].time!!)
+            return@FirstItemDecoration if (mList.size == 0) ""
+            else TimeUtil.monthStr(mList[it].time!!)
         })
         rv.addItemDecoration(itemDecoration!!)
     }

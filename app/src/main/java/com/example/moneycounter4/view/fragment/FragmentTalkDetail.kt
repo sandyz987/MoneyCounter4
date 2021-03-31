@@ -271,15 +271,6 @@ class FragmentTalkDetail : BaseFragment() {
             navController.navigate(R.id.action_global_fragmentTalkDetails, bundle)
         }
 
-
-        val likeListener = View.OnClickListener {
-            imageViewLike?.let {
-                it.setSelect(!it.getSelect())
-            }
-
-
-        }
-        imageViewLike?.setOnClickListener(likeListener)
     }
 
     private fun findDynamic(): DynamicItem? {

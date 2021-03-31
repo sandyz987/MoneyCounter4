@@ -10,11 +10,11 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableArrayList
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.moneycounter4.R
+import com.example.moneycounter4.base.BaseFragment
 import com.example.moneycounter4.bean.TypeItem
 import com.example.moneycounter4.databinding.FragmentTypeBinding
 import com.example.moneycounter4.model.DataReader
@@ -29,11 +29,20 @@ import kotlinx.android.synthetic.main.fragment_type.*
 
 //conf表明显示支出列表还是收入列表
 
-class FragmentAddType : Fragment() {
+class FragmentAddType : BaseFragment() {
 
-    lateinit var viewModel : MainViewModel
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val fragmentTypeBinding = DataBindingUtil.inflate<FragmentTypeBinding>(LayoutInflater.from(requireContext()),R.layout.fragment_type,null,false)
+    lateinit var viewModel: MainViewModel
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val fragmentTypeBinding = DataBindingUtil.inflate<FragmentTypeBinding>(
+            LayoutInflater.from(requireContext()),
+            R.layout.fragment_type,
+            null,
+            false
+        )
         viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
         fragmentTypeBinding.vm = viewModel
         fragmentTypeBinding.lifecycleOwner = this

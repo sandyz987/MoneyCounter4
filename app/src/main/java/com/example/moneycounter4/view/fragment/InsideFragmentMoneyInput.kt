@@ -11,10 +11,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.fragment.app.Fragment
 import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.bigkoo.pickerview.listener.OnTimeSelectListener
 import com.example.moneycounter4.R
+import com.example.moneycounter4.base.BaseFragment
 import com.example.moneycounter4.bean.TranData
 import com.example.moneycounter4.utils.Calculater
 import com.example.moneycounter4.utils.TimeUtil
@@ -22,10 +22,10 @@ import com.example.moneycounter4.view.activity.ActivityMain
 import kotlinx.android.synthetic.main.activity_welcome.*
 import kotlinx.android.synthetic.main.fragment_money_input.*
 
-class InsideFragmentMoneyInput : Fragment(), View.OnClickListener {
+class InsideFragmentMoneyInput : BaseFragment(), View.OnClickListener {
 
-    lateinit var listener : View.OnClickListener
-    var time : Long? =null
+    lateinit var listener: View.OnClickListener
+    var time: Long? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
