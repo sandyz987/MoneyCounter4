@@ -6,15 +6,15 @@ data class User(
     @SerializedName("user_id")
     val userId: String = "",
     @SerializedName("nickname")
-    val nickname: String = "",
+    var nickname: String = "",
     @SerializedName("password")
     val password: String = "",
     @SerializedName("register_date")
     val registerDate: Long = 0L,
     @SerializedName("sex")
-    val sex: String = "",
+    var sex: String = "",
     @SerializedName("text")
-    val text: String = "",
+    var text: String = "",
     @SerializedName("avatar_url")
-    val avatarUrl: String = ""
+    var avatarUrl: String = ""
 )

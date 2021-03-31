@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fragmentMine"
-        android:name="com.example.moneycounter4.view.fragment.FragmentMine"
+        android:name="com.example.moneycounter4.view.fragment.FragmentIndividual"
         android:label="fragment_mine"
         tools:layout="@layout/fragment_mine" >
     </fragment>

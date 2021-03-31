@@ -111,4 +111,7 @@ dependencies {
     implementation "androidx.room:room-runtime:2.0.0-alpha1"
     kapt "androidx.room:room-compiler:2.0.0-alpha1"
 
+    // rxPermissions
+    implementation('com.github.tbruyelle:rxpermissions:0.10.2')
+
 }

@@ -1,14 +1,9 @@
 package com.example.moneycounter4.network
 
-import com.example.moneycounter4.beannew.ApiWrapper
-import com.example.moneycounter4.beannew.DynamicItem
-import com.example.moneycounter4.beannew.InfoWrapper
-import com.example.moneycounter4.beannew.User
+import com.example.moneycounter4.beannew.*
 import io.reactivex.Observable
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
-import retrofit2.http.Url
+import okhttp3.MultipartBody
+import retrofit2.http.*
 
 /**
  *@author zhangzhe
@@ -85,5 +80,18 @@ interface Api {
     fun deleteDynamic(
         @Field("dynamic_id") dynamicId: Int
     ): Observable<InfoWrapper>
+
+    @Multipart
+    @POST("PicUpload?action=uploadPic")
+    fun uploadPicture(
+        @Body photo: MultipartBody
+    ): Observable<ApiWrapper<UploadPicInfo>>
+
+    @FormUrlEncoded
+    @POST("Counter4Sql?action=changeUserInfo")
+    fun changeUserInfo(
+        @Field("user_info") userInfo: String
+    ): Observable<InfoWrapper>
+
 
 }
