@@ -81,11 +81,6 @@ interface Api {
         @Field("dynamic_id") dynamicId: Int
     ): Observable<InfoWrapper>
 
-    @Multipart
-    @POST("PicUpload?action=uploadPic")
-    fun uploadPicture(
-        @Body photo: MultipartBody
-    ): Observable<ApiWrapper<UploadPicInfo>>
 
     @FormUrlEncoded
     @POST("Counter4Sql?action=changeUserInfo")

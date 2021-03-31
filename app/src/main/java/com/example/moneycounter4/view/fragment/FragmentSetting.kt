@@ -50,6 +50,7 @@ class FragmentSetting : BaseViewModelFragment<SettingViewModel>() {
             textViewUid.text = user.userId
             textViewText.text = user.text
             textViewSex.text = user.sex
+            picUrl = user.avatarUrl
             context?.let { Glide.with(it).load(user.avatarUrl).into(imageViewUsrPic) }
             ProgressDialogW.hide()
 
@@ -216,6 +217,7 @@ class FragmentSetting : BaseViewModelFragment<SettingViewModel>() {
                         Glide.with(this).load(v[0]).into(imageViewUsrPic)
                     }
                     ProgressDialogW.hide()
+                    picUrl = v[0]
                     upLoading = false
                 }, {
                     Toast.makeText(context, "上传失败", Toast.LENGTH_SHORT).show()

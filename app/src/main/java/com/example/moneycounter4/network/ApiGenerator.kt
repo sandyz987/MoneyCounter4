@@ -126,6 +126,11 @@ object ApiGenerator {
         retrofitCommon = Retrofit.Builder().apply {
             baseUrl(Config.MainUrl)
             client(OkHttpClient().newBuilder().apply {
+                if (BuildConfig.DEBUG) {
+                    val logging = HttpLoggingInterceptor()
+                    logging.level = HttpLoggingInterceptor.Level.BODY
+                    addInterceptor(logging)
+                }
                 addConverterFactory(GsonConverterFactory.create())
                 addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 connectTimeout(10, TimeUnit.SECONDS)
