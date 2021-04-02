@@ -36,7 +36,7 @@ class InsideFragmentType : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val fragmentTypeBinding = DataBindingUtil.inflate<FragmentTypeBinding>(
             LayoutInflater.from(requireContext()),
             R.layout.fragment_type,

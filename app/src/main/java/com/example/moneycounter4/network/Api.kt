@@ -1,9 +1,13 @@
 package com.example.moneycounter4.network
 
-import com.example.moneycounter4.beannew.*
+import com.example.moneycounter4.beannew.ApiWrapper
+import com.example.moneycounter4.beannew.DynamicItem
+import com.example.moneycounter4.beannew.InfoWrapper
+import com.example.moneycounter4.beannew.User
 import io.reactivex.Observable
-import okhttp3.MultipartBody
-import retrofit2.http.*
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
+import retrofit2.http.POST
 
 /**
  *@author zhangzhe
@@ -39,7 +43,7 @@ interface Api {
     // 发布有图片的帖子，图片url用逗号分割
     @FormUrlEncoded
     @POST("Counter4Sql?action=releaseDynamic")
-    fun releaseDynamicPic(
+    fun releaseDynamic(
         @Field("text") text: String,
         @Field("topic") topic: String,
         @Field("pic_url") picUrl: String

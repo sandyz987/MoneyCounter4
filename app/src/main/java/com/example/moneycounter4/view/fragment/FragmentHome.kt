@@ -39,14 +39,16 @@ class FragmentHome : BaseFragment() {
         return fragmentHomeBinding.root
     }
 
+
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        viewModel.refreshList()
+
         val adapter = LogRecyclerViewAdapter(
             requireActivity(),
             viewModel,
-            requireContext(),
             viewModel.list,
             recyclerViewLog
         )
@@ -71,6 +73,7 @@ class FragmentHome : BaseFragment() {
         recyclerViewLog.layoutManager = LinearLayoutManager(requireContext())
         pullRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_WATER_DROP)
         pullRefreshLayout.setOnRefreshListener {
+            viewModel.refreshList()
             adapter.notifyDataSetChanged()
             pullRefreshLayout.setRefreshing(false)
         }

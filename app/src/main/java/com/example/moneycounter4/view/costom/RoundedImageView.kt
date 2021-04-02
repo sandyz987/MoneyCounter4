@@ -17,8 +17,8 @@ class RoundedImageView @JvmOverloads constructor(
     private val drawFilter: PaintFlagsDrawFilter
     private var rect: RectF? = null
 
-    var mWidth = 0f
-    var mHeight = 0f
+    private var mWidth = 0f
+    private var mHeight = 0f
 
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {

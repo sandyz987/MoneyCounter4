@@ -49,7 +49,6 @@ class FragmentGraph : BaseFragment() {
     ): View? {
         viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
         tfLight = Typeface.createFromAsset(requireContext().assets, "alibaba_light.ttf")
-        val calendar = Calendar.getInstance()
         year = viewModel.selectedYear
         return inflater.inflate(R.layout.fragment_graph, container, false)
     }

@@ -4,7 +4,6 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.database.Cursor
 import android.graphics.PorterDuff
 import android.os.Build
@@ -15,14 +14,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.moneycounter4.R
 import com.example.moneycounter4.base.BaseFragment
+import com.example.moneycounter4.network.FileUploadUtil
 import com.example.moneycounter4.viewmodel.CommunityViewModel
 import com.example.moneycounter4.widgets.KeyboardController
+import com.example.moneycounter4.widgets.ProgressDialogW
+import com.tbruyelle.rxpermissions2.RxPermissions
 import kotlinx.android.synthetic.main.fragment_mine.*
 import kotlinx.android.synthetic.main.fragment_talk_edit.*
 
@@ -33,7 +33,8 @@ class FragmentTalkEdit : BaseFragment() {
     }
 
     private var imgPath: String? = null
-    var upLoading = false
+    private var upLoading = false
+    private var imgUrl: String? = null
 
 
     override fun onCreateView(
@@ -64,18 +65,9 @@ class FragmentTalkEdit : BaseFragment() {
         )
 
         imageViewPic.setOnClickListener {
-            context?.let {
-                if (ContextCompat.checkSelfPermission(
-                        it,
-                        Manifest.permission.READ_EXTERNAL_STORAGE
-                    ) != PackageManager.PERMISSION_GRANTED
-                ) {
-                    ActivityCompat.requestPermissions(
-                        requireActivity(),
-                        arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                        1
-                    )
-                } else {
+
+            RxPermissions(this).request(Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe {
+                if (it) {
                     selectPic()
                 }
             }
@@ -86,26 +78,33 @@ class FragmentTalkEdit : BaseFragment() {
 
         textViewSend.setOnClickListener {
             KeyboardController.hideInputKeyboard(requireContext(), it)
+
             if (upLoading) {
                 Toast.makeText(requireContext(), "图片还没上传好鸭~", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-
+            activity?.let { it1 -> ProgressDialogW.show(it1, "请稍后", "正在上传~", false) }
             if ((viewModel?.replyInfo?.value?.replyId ?: -1) == -1) {
                 // 发帖
-                viewModel?.releaseDynamic(editTextTalk.text.toString(), "广场")
+                if (imgUrl.isNullOrBlank()) {
+                    viewModel?.releaseDynamic(editTextTalk.text.toString(), "广场")
+                } else {
+                    viewModel?.releaseDynamic(editTextTalk.text.toString(), "广场", listOf(imgUrl!!))
+                }
             } else {
                 // 回复
                 viewModel?.reply(editTextTalk.text.toString())
             }
         }
         viewModel?.replyStatus?.observe {
+            ProgressDialogW.hide()
             if (it) {
                 viewModel?.refreshDynamic()
                 findNavController().popBackStack()
             }
         }
         viewModel?.releaseDynamicStatus?.observe {
+            ProgressDialogW.hide()
             if (it) {
                 val navController = findNavController()
                 while (navController.backStack.size >= 1) {
@@ -126,41 +125,6 @@ class FragmentTalkEdit : BaseFragment() {
         startActivityForResult(galleryIntent, 11)
     }
 
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String?>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == 1) {
-            if (ContextCompat.checkSelfPermission(
-                    requireContext(),
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                ActivityCompat.requestPermissions(
-                    requireActivity(),
-                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                    1
-                )
-//                    ActivityCompat.requestPermissions(
-//                        requireActivity(),
-//                        arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-//                        2
-//                    )
-            }
-
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                selectPic()
-            } else {
-                Toast.makeText(requireContext(), "读取图库需要权限哦~请在设置中给一下吧~", Toast.LENGTH_SHORT).show()
-            }
-        }
-        if (requestCode == 2) {
-            selectPic()
-        }
-    }
 
     override fun onActivityResult(
         requestCode: Int,
@@ -196,6 +160,20 @@ class FragmentTalkEdit : BaseFragment() {
             upLoading = true
 
             // TODO imgPath
+            if (imgPath.isNullOrEmpty()) {
+                return
+            }
+            FileUploadUtil.uploadMultiFile(listOf(imgPath!!)) {
+                activity?.runOnUiThread {
+                    if (it.picUrls.isNotEmpty()) {
+                        imgUrl = it.picUrls[0]
+                        progressBar.visibility = View.GONE
+                        imageViewPic.visibility = View.VISIBLE
+                        Glide.with(this).load(it.picUrls[0]).into(imageViewPic)
+                        upLoading = false
+                    }
+                }
+            }
 
 
         }

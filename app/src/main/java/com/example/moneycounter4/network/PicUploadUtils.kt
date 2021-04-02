@@ -26,6 +26,7 @@ import java.util.concurrent.TimeUnit
  *@description 有点问题待解决，无法上传，无响应
  */
 
+@Deprecated(message = "use FileUploadUtil", replaceWith = ReplaceWith("FileUploadUtil"))
 object PicUploadUtils {
 
     interface Api {

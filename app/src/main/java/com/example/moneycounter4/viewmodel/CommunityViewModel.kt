@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import com.example.moneycounter4.base.BaseViewModel
 import com.example.moneycounter4.beannew.DynamicItem
 import com.example.moneycounter4.beannew.ReplyInfo
-import com.example.moneycounter4.model.Config
 import com.example.moneycounter4.network.*
 import com.example.moneycounter4.widgets.SingleLiveEvent
 
@@ -38,6 +37,26 @@ class CommunityViewModel : BaseViewModel() {
     fun releaseDynamic(text: String, topic: String) {
         progressDialogEvent.value = "正在上传中..."
         ApiGenerator.getApiService(Api::class.java).releaseDynamic(text, topic)
+            .checkError()
+            .setSchedulers()
+            .doOnError {
+                toastEvent.value = "发送帖子失败！"
+            }.doFinally {
+                progressDialogEvent.value = ""
+            }.safeSubscribeBy {
+                releaseDynamicStatus.postValue(true)
+                toastEvent.value = "发送成功！"
+            }.lifeCycle()
+    }
+
+    fun releaseDynamic(text: String, topic: String, picUrl: List<String>) {
+        progressDialogEvent.value = "正在上传中..."
+        val s = StringBuilder()
+        picUrl.forEach {
+            s.append("$it,")
+        }
+        s.deleteCharAt(s.lastIndex)
+        ApiGenerator.getApiService(Api::class.java).releaseDynamic(text, topic, s.toString())
             .checkError()
             .setSchedulers()
             .doOnError {

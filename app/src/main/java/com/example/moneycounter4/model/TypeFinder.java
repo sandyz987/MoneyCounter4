@@ -5,18 +5,19 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 
 import com.example.moneycounter4.bean.TypeItem;
-import com.example.moneycounter4.viewmodel.MainViewModel;
+
+import java.util.ArrayList;
 
 public class TypeFinder {
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public static int findTypePicIdByName(MainViewModel vm, String s){
-        for(TypeItem e : vm.getTypeListIn()){
-            if(s.equals(e.getName())){
+    public static int findTypePicIdByName(ArrayList<TypeItem> listIn, ArrayList<TypeItem> listOut, String s) {
+        for (TypeItem e : listIn) {
+            if (s.equals(e.getName())) {
                 return e.getResId();
             }
         }
-        for(TypeItem e : vm.getTypeListOut()){
-            if(s.equals(e.getName())){
+        for (TypeItem e : listOut) {
+            if (s.equals(e.getName())) {
                 return e.getResId();
             }
         }

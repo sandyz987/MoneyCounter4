@@ -2,7 +2,6 @@ package com.example.moneycounter4.viewmodel
 
 import android.icu.util.Calendar
 import android.os.Build
-import android.os.Handler
 import androidx.annotation.RequiresApi
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableField
@@ -24,7 +23,6 @@ class MainViewModel : BaseViewModel() {
 
     var selectedYear = 0
 
-    var handlerAddType: Handler? = null
 
     var list = ObservableArrayList<CounterDataItem>()
     var typeListOut = ObservableArrayList<TypeItem>()

@@ -1,10 +1,7 @@
 package com.example.moneycounter4.model
 
-import android.app.Application
 import com.example.moneycounter4.bean.TypeItem
 import com.example.moneycounter4.utils.ResourceGetter
-import com.example.moneycounter4.viewmodel.MainApplication
-import com.example.moneycounter4.viewmodel.MainViewModel
 
 class TypeIndex {
 
@@ -37,28 +34,28 @@ class TypeIndex {
         fun getOutTypeInit():ArrayList<TypeItem>{
             val a = ArrayList<TypeItem>()
             val list = typeOut.split("\n")
-            for (i in list.indices step 2){
-                val id = ResourceGetter.getResourceId(list[i].replace(".png",""))
-                if(id != 0){
-                    a.add((TypeItem(list[i+1],id)))
+            for (i in list.indices step 2) {
+                val id = ResourceGetter.getResourceId(list[i].replace(".png", ""))
+                if (id != 0) {
+                    a.add((TypeItem(list[i + 1], id)))
                 }
             }
             return a
         }
-        @JvmStatic
-        fun findTypePicIdByName(vm:MainViewModel,s : String):Int{
-            for(e:TypeItem in vm.typeListIn){
-                if(s == e.name){
-                    return e.resId
-                }
-            }
-            for(e:TypeItem in vm.typeListOut){
-                if(s == e.name){
-                    return e.resId
-                }
-            }
-            return 0
-        }
+//        @JvmStatic
+//        fun findTypePicIdByName(vm:MainViewModel,s : String):Int{
+//            for(e:TypeItem in vm.typeListIn){
+//                if(s == e.name){
+//                    return e.resId
+//                }
+//            }
+//            for(e:TypeItem in vm.typeListOut){
+//                if(s == e.name){
+//                    return e.resId
+//                }
+//            }
+//            return 0
+//        }
 
         val typeOut = "category_e_beauty_normal.png\n" +
                 "美容\n" +

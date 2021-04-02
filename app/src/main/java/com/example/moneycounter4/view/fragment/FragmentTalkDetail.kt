@@ -52,7 +52,7 @@ class FragmentTalkDetail : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         textViewMore.visibility = View.GONE
-        dynamicId = arguments?.getInt("dynamic_id")?: -1
+        dynamicId = arguments?.getInt("dynamic_id") ?: -1
 
         dynamic = findDynamic()
 
@@ -60,10 +60,10 @@ class FragmentTalkDetail : BaseFragment() {
         textViewOptions.setOnClickListener {
             val optionPopWindow = OptionalPopWindow.Builder().with(requireContext())
                 .addOptionAndCallback("回复") {
-                    viewModel?.replyInfo?.value = ReplyInfo("", "", dynamic?.dynamicId?: -1, 0)
+                    viewModel?.replyInfo?.value = ReplyInfo("", "", dynamic?.dynamicId ?: -1, 0)
                     KeyboardController.showInputKeyboard(requireContext(), et_reply)
                 }.addOptionAndCallback("复制") {
-                    ClipboardController.copyText(requireContext(), dynamic?.text?: "")
+                    ClipboardController.copyText(requireContext(), dynamic?.text ?: "")
                 }
             if (dynamic?.userId == Config.userId) {
                 optionPopWindow.addOptionAndCallback("删除") {
@@ -78,18 +78,21 @@ class FragmentTalkDetail : BaseFragment() {
         adapter = TalkCommentRecyclerViewAdapter(requireContext(),
             { commentItem, view ->
                 // 当一级评论被点击
-                viewModel?.replyInfo?.value = ReplyInfo(commentItem.nickname, commentItem.text, commentItem.id, 1)
+                viewModel?.replyInfo?.value =
+                    ReplyInfo(commentItem.nickname, commentItem.text, commentItem.id, 1)
                 KeyboardController.showInputKeyboard(requireContext(), et_reply)
 
             }, { commentItem, view ->
                 // 当二级评论被点击
-                viewModel?.replyInfo?.value = ReplyInfo(commentItem.nickname, commentItem.text, commentItem.id, 2)
+                viewModel?.replyInfo?.value =
+                    ReplyInfo(commentItem.nickname, commentItem.text, commentItem.id, 2)
                 KeyboardController.showInputKeyboard(requireContext(), et_reply)
             }, { commentItem, view ->
                 // 当一级评论被长按
                 val optionPopWindow = OptionalPopWindow.Builder().with(requireContext())
                     .addOptionAndCallback("回复") {
-                        viewModel?.replyInfo?.value = ReplyInfo(commentItem.nickname, commentItem.text, commentItem.id, 1)
+                        viewModel?.replyInfo?.value =
+                            ReplyInfo(commentItem.nickname, commentItem.text, commentItem.id, 1)
                         KeyboardController.showInputKeyboard(requireContext(), et_reply)
                     }.addOptionAndCallback("复制") {
                         ClipboardController.copyText(requireContext(), commentItem.text)
@@ -107,7 +110,8 @@ class FragmentTalkDetail : BaseFragment() {
                 // 当二级评论被长按
                 val optionPopWindow = OptionalPopWindow.Builder().with(requireContext())
                     .addOptionAndCallback("回复") {
-                        viewModel?.replyInfo?.value = ReplyInfo(commentItem.nickname, commentItem.text, commentItem.id, 2)
+                        viewModel?.replyInfo?.value =
+                            ReplyInfo(commentItem.nickname, commentItem.text, commentItem.id, 2)
                         KeyboardController.showInputKeyboard(requireContext(), et_reply)
                     }.addOptionAndCallback("复制") {
                         ClipboardController.copyText(requireContext(), commentItem.text)
@@ -138,7 +142,7 @@ class FragmentTalkDetail : BaseFragment() {
 
 
 
-        viewModel?.dynamicList?.observe{
+        viewModel?.dynamicList?.observe {
             bindView()
             dynamic = findDynamic()
             adapter.setList(dynamic?.commentList ?: listOf())
@@ -151,7 +155,7 @@ class FragmentTalkDetail : BaseFragment() {
         }
 
         coordinatorlayout_touch.onReplyCancelEvent = {
-            viewModel?.replyInfo?.value = ReplyInfo("", "", dynamic?.dynamicId?: -1, 0)
+            viewModel?.replyInfo?.value = ReplyInfo("", "", dynamic?.dynamicId ?: -1, 0)
             KeyboardController.hideInputKeyboard(requireContext(), et_reply)
         }
 
@@ -163,7 +167,7 @@ class FragmentTalkDetail : BaseFragment() {
                     ReplyPopWindow.with(requireContext())
                     ReplyPopWindow.setReplyName(it.nickname, it.contentPreview)
                     ReplyPopWindow.setOnClickEvent {
-                        viewModel?.replyInfo?.value = ReplyInfo("", "", dynamic?.dynamicId?: -1, 0)
+                        viewModel?.replyInfo?.value = ReplyInfo("", "", dynamic?.dynamicId ?: -1, 0)
                     }
                     ReplyPopWindow.show(
                         et_reply,
@@ -183,7 +187,7 @@ class FragmentTalkDetail : BaseFragment() {
             et_reply.setText("")
             viewModel?.refreshDynamic()
             swipeRefreshLayout.isRefreshing = true
-            viewModel?.replyInfo?.value = ReplyInfo("", "", dynamic?.dynamicId?: -1, 0)
+            viewModel?.replyInfo?.value = ReplyInfo("", "", dynamic?.dynamicId ?: -1, 0)
 //            rv_talk.scrollToPosition(0)
             KeyboardController.hideInputKeyboard(requireContext(), et_reply)
         }
@@ -204,7 +208,7 @@ class FragmentTalkDetail : BaseFragment() {
             viewModel?.reply(et_reply.text.toString())
         }
 
-        viewModel?.replyInfo?.value = ReplyInfo("", "", dynamic?.dynamicId?: -1, 0)
+        viewModel?.replyInfo?.value = ReplyInfo("", "", dynamic?.dynamicId ?: -1, 0)
 
         findNavController().addOnDestinationChangedListener { controller, destination, arguments ->
             if (ReplyPopWindow.isShowing()) {
@@ -247,7 +251,14 @@ class FragmentTalkDetail : BaseFragment() {
         }
 
         textViewTime?.text = TimeUtil.getChatTimeStr(dynamic?.submitTime ?: 0L)
-        // TODO 图片显示
+        if (dynamic?.picUrl?.isNotEmpty() == true) {
+            imageViewPic.visibility = View.VISIBLE
+            dynamic?.picUrl?.let {
+                Glide.with(this).load(it[0]).into(imageViewPic)
+            }
+        } else {
+            imageViewPic.visibility = View.GONE
+        }
         textViewUsrName?.text = dynamic?.nickname
         imageViewUsrPic?.let { Glide.with(requireActivity()).load(dynamic?.avatarUrl).into(it) }
 
@@ -284,7 +295,7 @@ class FragmentTalkDetail : BaseFragment() {
 
     private fun findDynamic(dynamicId: Int): Int {
         viewModel?.dynamicList?.value?.let {
-            for (i in 0 .. it.size) {
+            for (i in 0..it.size) {
                 if (it[i].dynamicId == dynamicId) {
                     return i
                 }

@@ -21,7 +21,7 @@ import com.example.moneycounter4.R
 import com.example.moneycounter4.base.BaseViewModelFragment
 import com.example.moneycounter4.beannew.User
 import com.example.moneycounter4.model.Config
-import com.example.moneycounter4.network.UploadFileUtil
+import com.example.moneycounter4.network.FileUploadUtil
 import com.example.moneycounter4.view.activity.ActivityLogin
 import com.example.moneycounter4.viewmodel.SettingViewModel
 import com.example.moneycounter4.widgets.ProgressDialogW
@@ -95,7 +95,9 @@ class FragmentSetting : BaseViewModelFragment<SettingViewModel>() {
                     Manifest.permission.READ_EXTERNAL_STORAGE,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE
                 ).subscribe {
-                    selectPic()
+                    if (it) {
+                        selectPic()
+                    }
                 }
             }
         }
@@ -217,7 +219,7 @@ class FragmentSetting : BaseViewModelFragment<SettingViewModel>() {
             upLoading = true
             ProgressDialogW.show(requireContext(), "提示", "正在上传~", false)
             imgPath?.let {
-                UploadFileUtil.uploadMultiFile(listOf(it)) { uploadPicInfo ->
+                FileUploadUtil.uploadMultiFile(listOf(it)) { uploadPicInfo ->
                     activity?.runOnUiThread {
 
                         Toast.makeText(context, "上传成功", Toast.LENGTH_SHORT).show()

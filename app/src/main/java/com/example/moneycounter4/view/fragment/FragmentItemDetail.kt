@@ -43,7 +43,7 @@ class FragmentItemDetail : BaseFragment() {
         textViewTips.text = if (dataItem.tips!!.isEmpty()) "无" else dataItem.tips
         imageViewTypeImage.setImageResource(
             TypeFinder.findTypePicIdByName(
-                viewModel,
+                viewModel.typeListIn, viewModel.typeListOut,
                 dataItem.type
             )
         )

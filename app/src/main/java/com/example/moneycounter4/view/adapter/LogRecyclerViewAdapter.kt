@@ -1,7 +1,6 @@
 package com.example.moneycounter4.view.adapter
 
 import android.app.Activity
-import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -22,11 +21,11 @@ import com.example.moneycounter4.widgets.FirstItemDecoration
 @RequiresApi(Build.VERSION_CODES.N)
 class LogRecyclerViewAdapter(
     private val mActivity: Activity, private val vm: MainViewModel,
-    mContext: Context, private val mList: ArrayList<CounterDataItem>, rv: RecyclerView
+    private val mList: ArrayList<CounterDataItem>, rv: RecyclerView
 ) :
     RecyclerView.Adapter<LogRecyclerViewAdapter.ViewHolder>() {
 
-    private var mLayoutInflater = LayoutInflater.from(mContext)
+    private var mLayoutInflater = LayoutInflater.from(mActivity)
     private var itemDecoration: FirstItemDecoration? = null
 
     init {

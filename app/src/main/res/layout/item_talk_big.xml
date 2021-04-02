@@ -122,13 +122,16 @@
         app:liked_src="@drawable/ic_like_checked"
         app:no_liked_src="@drawable/ic_like_img" />
 
-    <ImageView
+    <com.example.moneycounter4.view.costom.RoundedImageView
         android:id="@+id/imageViewPic"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginTop="16dp"
-
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/textViewMore"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMore" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewMore"
+        app:left_bottom_corner="10dp"
+        app:left_top_corner="10dp"
+        app:right_bottom_corner="10dp"
+        app:right_top_corner="10dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

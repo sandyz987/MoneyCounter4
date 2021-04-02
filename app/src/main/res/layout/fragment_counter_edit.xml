@@ -4,9 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable
-            name="vm"
-            type="com.example.moneycounter4.viewmodel.MainViewModel" />
     </data>
 
     <FrameLayout

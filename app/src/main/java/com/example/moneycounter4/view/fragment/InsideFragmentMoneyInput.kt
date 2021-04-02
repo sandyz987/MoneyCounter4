@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.icu.util.Calendar
 import android.os.Build
 import android.os.Bundle
-import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,18 +13,21 @@ import androidx.annotation.RequiresApi
 import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.bigkoo.pickerview.listener.OnTimeSelectListener
 import com.example.moneycounter4.R
-import com.example.moneycounter4.base.BaseFragment
+import com.example.moneycounter4.base.BaseViewModelFragment
 import com.example.moneycounter4.bean.TranData
 import com.example.moneycounter4.utils.Calculater
 import com.example.moneycounter4.utils.TimeUtil
-import com.example.moneycounter4.view.activity.ActivityMain
+import com.example.moneycounter4.viewmodel.MoneyEditViewModel
 import kotlinx.android.synthetic.main.activity_welcome.*
 import kotlinx.android.synthetic.main.fragment_money_input.*
 
-class InsideFragmentMoneyInput : BaseFragment(), View.OnClickListener {
+class InsideFragmentMoneyInput : BaseViewModelFragment<MoneyEditViewModel>(), View.OnClickListener {
 
     lateinit var listener: View.OnClickListener
     var time: Long? = null
+
+    override fun useActivityViewModel() = true
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -82,13 +84,16 @@ class InsideFragmentMoneyInput : BaseFragment(), View.OnClickListener {
         }
 
         listener = View.OnClickListener {
-            if (Calculater.calculate(textViewMoneyNum.text.toString()).equals(0.0f)){
-            Toast.makeText(requireContext(),"请输入非零数值哦~",Toast.LENGTH_SHORT).show()
+            if (Calculater.calculate(textViewMoneyNum.text.toString()).equals(0.0f)) {
+                Toast.makeText(requireContext(), "请输入非零数值哦~", Toast.LENGTH_SHORT).show()
                 return@OnClickListener
             }
-            val msg= Message()
-            msg.obj = TranData(time?:0L,editTextTip.text.toString(),textViewMoneyNum.text.toString().toDouble())
-            (requireActivity() as ActivityMain).viewModel.handlerAddType?.sendMessage(msg)
+            viewModel.tranData.value = TranData(
+                time ?: 0L,
+                editTextTip.text.toString(),
+                textViewMoneyNum.text.toString().toDouble()
+            )
+
         }
 
         textViewOk.text = "="

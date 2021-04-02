@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit
  *@description
  */
 
-object UploadFileUtil {
+object FileUploadUtil {
     fun uploadMultiFile(path: List<String>, callback: (UploadPicInfo) -> Unit) {
         val multipartBodyBuilder = MultipartBody.Builder()
             .setType(MultipartBody.FORM)

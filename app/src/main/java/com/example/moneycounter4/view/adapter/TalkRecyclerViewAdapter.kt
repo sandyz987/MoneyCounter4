@@ -90,9 +90,16 @@ class TalkRecyclerViewAdapter(
         }
 
         holder.textViewTime?.text = TimeUtil.getChatTimeStr(mList[position].submitTime)
-        // TODO 图片显示
+        if (mList[position].picUrl.isNotEmpty()) {
+            holder.imageViewPic?.visibility = View.VISIBLE
+            Glide.with(mContext).load(mList[position].picUrl[0]).into(holder.imageViewPic!!)
+        } else {
+            holder.imageViewPic?.visibility = View.GONE
+        }
         holder.textViewUsrName?.text = mList[position].nickname
-        holder.imageViewUsrPic?.let { Glide.with(mContext).load(mList[position].avatarUrl).into(it) }
+        holder.imageViewUsrPic?.let {
+            Glide.with(mContext).load(mList[position].avatarUrl).into(it)
+        }
 
 
 

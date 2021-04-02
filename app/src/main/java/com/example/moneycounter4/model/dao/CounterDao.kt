@@ -1,9 +1,6 @@
 package com.example.moneycounter4.model.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.example.moneycounter4.beannew.CounterDataItem
 
 @Dao
@@ -21,7 +18,7 @@ interface CounterDao {
     @Query("SELECT * FROM data_list WHERE 'id'=:id LIMIT 1")
     fun findCounterDataItem(id: Int): CounterDataItem?
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(c: List<CounterDataItem>?)
 
     @Delete
