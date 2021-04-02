@@ -114,4 +114,7 @@ dependencies {
     // rxPermissions
     implementation('com.github.tbruyelle:rxpermissions:0.10.2')
 
+    // Calculator
+    implementation 'com.github.sandyz987:CalculatorJNI:1.1.1'
+
 }

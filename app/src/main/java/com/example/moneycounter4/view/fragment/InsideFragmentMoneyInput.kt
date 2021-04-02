@@ -12,10 +12,10 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.bigkoo.pickerview.listener.OnTimeSelectListener
+import com.example.calculatorjni.jni.Calculator
 import com.example.moneycounter4.R
 import com.example.moneycounter4.base.BaseViewModelFragment
 import com.example.moneycounter4.bean.TranData
-import com.example.moneycounter4.utils.Calculater
 import com.example.moneycounter4.utils.TimeUtil
 import com.example.moneycounter4.viewmodel.MoneyEditViewModel
 import kotlinx.android.synthetic.main.activity_welcome.*
@@ -84,7 +84,7 @@ class InsideFragmentMoneyInput : BaseViewModelFragment<MoneyEditViewModel>(), Vi
         }
 
         listener = View.OnClickListener {
-            if (Calculater.calculate(textViewMoneyNum.text.toString()).equals(0.0f)) {
+            if (getValue(textViewMoneyNum.text.toString()).equals(0.0)) {
                 Toast.makeText(requireContext(), "请输入非零数值哦~", Toast.LENGTH_SHORT).show()
                 return@OnClickListener
             }
@@ -99,7 +99,7 @@ class InsideFragmentMoneyInput : BaseViewModelFragment<MoneyEditViewModel>(), Vi
         textViewOk.text = "="
         textViewOk.setOnClickListener {
             textViewMoneyNum.text =
-                Calculater.calculate(textViewMoneyNum.text.toString()).toString()
+                getValue(textViewMoneyNum.text.toString()).toString()
             textViewOk.text = "完成"
             textViewOk.setOnClickListener (listener)
         }
@@ -116,11 +116,17 @@ class InsideFragmentMoneyInput : BaseViewModelFragment<MoneyEditViewModel>(), Vi
         textViewOk.text = "="
         textViewOk.setOnClickListener {
             textViewMoneyNum.text =
-                Calculater.calculate(textViewMoneyNum.text.toString()).toString()
+                getValue(textViewMoneyNum.text.toString()).toString()
             textViewOk.text = "完成"
-            textViewOk.setOnClickListener (listener)
+            textViewOk.setOnClickListener(listener)
 
         }
+    }
+
+    fun getValue(exp: String): Double {
+        val c = Calculator()
+        c.setExpression(exp)
+        return c.getAns().also { c.destroy() }
     }
 
     fun del() {
