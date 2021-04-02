@@ -11,7 +11,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.bigkoo.pickerview.builder.TimePickerBuilder
-import com.bigkoo.pickerview.listener.OnTimeSelectListener
 import com.example.calculatorjni.jni.Calculator
 import com.example.moneycounter4.R
 import com.example.moneycounter4.base.BaseViewModelFragment
@@ -59,21 +58,22 @@ class InsideFragmentMoneyInput : BaseViewModelFragment<MoneyEditViewModel>(), Vi
         textViewDot.setOnClickListener(this)
         textViewDate.setOnClickListener {
             val pvTime =
-                TimePickerBuilder(requireContext(),
-                    OnTimeSelectListener { date, _ ->
-                        val calendar = Calendar.getInstance()
-                        val calendar2 = java.util.Calendar.getInstance()
-                        calendar.time = date
-                        time = calendar.timeInMillis
+                TimePickerBuilder(
+                    requireContext()
+                ) { date, _ ->
+                    val calendar1 = Calendar.getInstance()
+                    val calendar2 = java.util.Calendar.getInstance()
+                    calendar1.time = date
+                    time = calendar1.timeInMillis
+                    textViewDate.text = TimeUtil.monthStr(time!!)
+                    if (TimeUtil.monthStr(calendar1.timeInMillis) == TimeUtil.monthStr(calendar2.timeInMillis)) {
+                        textViewDate.text = "今天"
+                        textViewDate.textSize = 30f
+                    } else {
                         textViewDate.text = TimeUtil.monthStr(time!!)
-                        if(TimeUtil.monthStr(calendar.timeInMillis) == TimeUtil.monthStr(calendar2.timeInMillis)){
-                            textViewDate.text = "今天"
-                            textViewDate.textSize = 30f
-                        }else{
-                            textViewDate.text = TimeUtil.monthStr(time!!)
-                            textViewDate.textSize = 15f
-                        }
-                    })
+                        textViewDate.textSize = 15f
+                    }
+                }
                     .setType(booleanArrayOf(true, true, true, true, true, false))
                     .isDialog(true)
                     .build()
@@ -101,14 +101,14 @@ class InsideFragmentMoneyInput : BaseViewModelFragment<MoneyEditViewModel>(), Vi
             textViewMoneyNum.text =
                 getValue(textViewMoneyNum.text.toString()).toString()
             textViewOk.text = "完成"
-            textViewOk.setOnClickListener (listener)
+            textViewOk.setOnClickListener(listener)
         }
 
     }
 
     @SuppressLint("SetTextI18n")
     fun addChar(s: String) {
-        if (textViewMoneyNum.text.toString().length >=7) {
+        if (textViewMoneyNum.text.toString().length >= 7) {
             return
         }
         textViewMoneyNum.text = textViewMoneyNum.text.toString() + s
