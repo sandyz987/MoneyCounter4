@@ -1,11 +1,16 @@
 package com.example.moneycounter4.utils;
 
+import android.annotation.SuppressLint;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+
+@SuppressLint("SimpleDateFormat")
 public class TimeUtil {
+
     static SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 

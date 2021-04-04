@@ -122,8 +122,8 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
-        <ListView
-            android:id="@+id/listView"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_graph"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"

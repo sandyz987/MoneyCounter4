@@ -37,7 +37,7 @@ class MainViewModel : BaseViewModel() {
         val calendar = java.util.Calendar.getInstance()
         selectedYear = calendar.get(java.util.Calendar.YEAR)
         //初始化记账记录列表
-        val tmpList = DataReader.getItems(
+        val tmpList = DataReader.getCounterItems(
             Calendar.getInstance().get(Calendar.YEAR),
             Calendar.getInstance().get(Calendar.MONTH) + 1,
             Calendar.getInstance().get(Calendar.DATE),
@@ -64,7 +64,7 @@ class MainViewModel : BaseViewModel() {
     fun refreshList() {
         list.clear()
         list.addAll(
-            DataReader.getItems(
+            DataReader.getCounterItems(
                 year.get()!!,
                 month.get()!!,
                 0,

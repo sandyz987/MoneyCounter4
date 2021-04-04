@@ -48,7 +48,6 @@ object PicUploadUtils {
             val file = fileList[i]
             val requestFile: RequestBody =
                 RequestBody.create("application/octet-stream".toMediaTypeOrNull(), file)
-            Log.e("sandyzhang", file.toString() + ": $i")
             builder.addFormDataPart("file", System.currentTimeMillis().toString() + "", requestFile)
         }
         builder.setType(MultipartBody.FORM)
@@ -73,11 +72,9 @@ object PicUploadUtils {
             .setSchedulers()
             .doOnError {
                 onFailed.invoke()
-                Log.e("sandyzhang", "e")
             }
             .safeSubscribeBy {
                 onSuccess.invoke(it.picUrls)
-                Log.e("sandyzhang", "suc")
 
             }.dispose()
 

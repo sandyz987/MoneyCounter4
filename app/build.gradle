@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
+    ndkVersion "23.0.7196353-beta2"
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
     sourceSets{

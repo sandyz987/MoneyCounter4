@@ -125,7 +125,12 @@ class InsideFragmentMoneyInput : BaseViewModelFragment<MoneyEditViewModel>(), Vi
 
     fun getValue(exp: String): Double {
         val c = Calculator()
-        c.setExpression(exp)
+        if (exp.isEmpty()) {
+            c.setExpression("0")
+        } else {
+            c.setExpression(exp)
+        }
+
         return c.getAns().also { c.destroy() }
     }
 

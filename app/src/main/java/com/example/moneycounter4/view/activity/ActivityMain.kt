@@ -1,21 +1,28 @@
 package com.example.moneycounter4.view.activity
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import com.example.moneycounter4.R
 import com.example.moneycounter4.base.BaseViewModelActivity
 import com.example.moneycounter4.model.Config
+import com.example.moneycounter4.model.DataReader
 import com.example.moneycounter4.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 
 //所有fragment都在这个activity中运行
 
 class ActivityMain : BaseViewModelActivity<MainViewModel>() {
 
+    @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +43,8 @@ class ActivityMain : BaseViewModelActivity<MainViewModel>() {
             bundle.putBoolean("isMine", true)
             bundle.putString("userId", Config.userId)
             navTo(R.id.action_global_fragmentMine, bundle)
+
+            startActivity(Intent(this, TestActivity::class.java))
 
         }
         bottomViewCommunity.setOnClickListener {

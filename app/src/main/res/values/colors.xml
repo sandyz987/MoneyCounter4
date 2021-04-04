@@ -23,4 +23,7 @@
     <color name="edit_text_hint_color">#94969E</color>
     <color name="color_white">#FFFFFF</color>
 
+    <color name="graph_data_color">#FFC146</color>
+    <color name="graph_background_color">#7A95A9</color>
+
 </resources>

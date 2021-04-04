@@ -29,7 +29,6 @@ class LikeViewSlim @JvmOverloads constructor(
     private var praiseCount = 0
         set(value) {
             s = value.toString()
-            Log.e("sandyzhang", s)
             field = value
         }
     private var mId = 0

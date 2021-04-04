@@ -1,5 +1,6 @@
 package com.example.moneycounter4.view.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -219,6 +220,7 @@ class FragmentTalkDetail : BaseFragment() {
 
     }
 
+    @SuppressLint("SetTextI18n")
     private fun bindView() {
 
 
@@ -236,7 +238,6 @@ class FragmentTalkDetail : BaseFragment() {
 
 
 
-        Log.e("sandyzhang", "${dynamic?.praise?.size.toString()}")
 
         textViewUsrName?.text = dynamic?.userId
         textViewContent?.text = dynamic?.text?.take(30)

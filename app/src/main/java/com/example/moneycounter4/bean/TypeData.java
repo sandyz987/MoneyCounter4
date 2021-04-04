@@ -1,13 +1,9 @@
 package com.example.moneycounter4.bean;
 
-import com.example.moneycounter4.beannew.CounterDataItem;
-import com.google.gson.annotations.Expose;
 
 import java.util.ArrayList;
 
-public class CounterData {
-    @Expose
-    ArrayList<CounterDataItem> list = new ArrayList<>();
+public class TypeData {
     ArrayList<TypeItem> typeListIn = new ArrayList<>();
     ArrayList<TypeItem> typeListOut = new ArrayList<>();
 
@@ -25,13 +21,5 @@ public class CounterData {
 
     public void setTypeListOut(ArrayList<TypeItem> typeListOut) {
         this.typeListOut = typeListOut;
-    }
-
-    public ArrayList<CounterDataItem> getList() {
-        return list;
-    }
-
-    public void setList(ArrayList<CounterDataItem> mList) {
-        this.list = mList;
     }
 }

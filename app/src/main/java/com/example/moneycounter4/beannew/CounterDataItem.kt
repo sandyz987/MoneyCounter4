@@ -19,6 +19,6 @@ data class CounterDataItem(
     @ColumnInfo(name = "type")
     var type: String? = "" // 种类
 ): Serializable {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     var id: Int = 0
 }
