@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.builder.TimePickerBuilder
-import com.bigkoo.pickerview.listener.OnOptionsSelectListener
-import com.bigkoo.pickerview.listener.OnTimeSelectListener
 import com.bigkoo.pickerview.view.OptionsPickerView
 import com.example.moneycounter4.R
 import com.example.moneycounter4.base.BaseViewModelFragment
@@ -28,7 +25,6 @@ import com.example.moneycounter4.view.costom.DataItem
 import com.example.moneycounter4.viewmodel.MainViewModel
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_graph.*
-import kotlin.collections.ArrayList
 import kotlin.math.abs
 
 class FragmentGraph : BaseViewModelFragment<MainViewModel>() {
@@ -58,15 +54,15 @@ class FragmentGraph : BaseViewModelFragment<MainViewModel>() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         textViewTimeYear.text = "${year}年"
-        refresh()
         constraintDate.setOnClickListener {
             val pvTime =
-                TimePickerBuilder(requireContext(),
-                    OnTimeSelectListener { date, _ ->
-                        year = date.year + 1900
-                        viewModel.selectedYear = year
-                        refresh()
-                    })
+                TimePickerBuilder(
+                    requireContext()
+                ) { date, _ ->
+                    year = date.year + 1900
+                    viewModel.selectedYear = year
+                    drag_head_view.refresh()
+                }
                     .setType(booleanArrayOf(true, false, false, false, false, false))
                     .build()
             pvTime.show()
@@ -76,12 +72,13 @@ class FragmentGraph : BaseViewModelFragment<MainViewModel>() {
         constraintInOrOut.setOnClickListener {
             val options1Items = listOf("支出", "收入", "结余")
             val pvOptions: OptionsPickerView<String> =
-                OptionsPickerBuilder(requireContext(),
-                    OnOptionsSelectListener { options1, _, _, _ ->
-                        val tx: String = options1Items[options1]
-                        textViewExpend.text = tx
-                        refresh()
-                    }).build()
+                OptionsPickerBuilder(
+                    requireContext()
+                ) { options1, _, _, _ ->
+                    val tx: String = options1Items[options1]
+                    textViewExpend.text = tx
+                    drag_head_view.refresh()
+                }.build()
             pvOptions.setPicker(options1Items)
             pvOptions.setSelectOptions(
                 when (textViewExpend.text.toString()) {
@@ -96,8 +93,12 @@ class FragmentGraph : BaseViewModelFragment<MainViewModel>() {
 
         rv_graph.adapter = adapter
         rv_graph.layoutManager = LinearLayoutManager(requireContext())
+        val listener = {
+            refresh()
+        }
 
-        refresh()
+        drag_head_view.onRefreshAction = listener
+        drag_head_view.refresh()
 
     }
 
@@ -150,6 +151,7 @@ class FragmentGraph : BaseViewModelFragment<MainViewModel>() {
             it.onNext(list)
         }.setSchedulers().subscribe {
             adapter.submitList(it)
+            drag_head_view?.finishRefresh()
         }
 
 

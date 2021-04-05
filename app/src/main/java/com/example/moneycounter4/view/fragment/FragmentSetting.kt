@@ -54,7 +54,7 @@ class FragmentSetting : BaseViewModelFragment<SettingViewModel>() {
         viewModel.user.observeNotNull { user ->
             textViewUsrName.text = user.nickname
             textViewUid.text = user.userId
-            textViewText.text = user.text
+            tv_text.text = user.text
             textViewSex.text = user.sex
             picUrl = user.avatarUrl
             context?.let { Glide.with(it).load(user.avatarUrl).into(imageViewUsrPic) }
@@ -78,7 +78,7 @@ class FragmentSetting : BaseViewModelFragment<SettingViewModel>() {
             val user = User()
             user.nickname = textViewUsrName.text.toString()
             user.sex = textViewSex.text.toString()
-            user.text = textViewText.text.toString()
+            user.text = tv_text.text.toString()
             user.avatarUrl = picUrl
 
             viewModel.changeUserInfo(Gson().toJson(user))
@@ -124,7 +124,7 @@ class FragmentSetting : BaseViewModelFragment<SettingViewModel>() {
 
         constraintText1.setOnClickListener {
             val inputServer = EditText(requireContext())
-            inputServer.setText(textViewText.text.toString())
+            inputServer.setText(tv_text.text.toString())
             val builder = AlertDialog.Builder(requireContext())
             builder.setTitle("请输入个性签名：").setView(inputServer)
                 .setNegativeButton("取消", null)
@@ -132,7 +132,7 @@ class FragmentSetting : BaseViewModelFragment<SettingViewModel>() {
                 "确定"
             ) { _, _ ->
                 if (inputServer.text.toString().length in 1..40) {
-                    textViewText.text = inputServer.text.toString()
+                    tv_text.text = inputServer.text.toString()
                 } else {
                     Toast.makeText(requireContext(), "个性签名长度要在1至40", Toast.LENGTH_SHORT).show()
                 }
@@ -159,7 +159,7 @@ class FragmentSetting : BaseViewModelFragment<SettingViewModel>() {
             val pvOptions: OptionsPickerView<String> =
                 OptionsPickerBuilder(
                     requireContext()
-                ) { options1, _, _, _ -> //返回的分别是三个级别的选中位置
+                ) { options1, _, _, _ ->
                     val tx: String = options1Items[options1]
                     textViewSex.text = tx
                 }.build()

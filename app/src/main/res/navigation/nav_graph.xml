@@ -9,20 +9,18 @@
         android:id="@+id/fragmentMine"
         android:name="com.example.moneycounter4.view.fragment.FragmentIndividual"
         android:label="fragment_mine"
-        tools:layout="@layout/fragment_mine" >
-    </fragment>
+        tools:layout="@layout/fragment_mine"></fragment>
     <fragment
         android:id="@+id/fragmentHome"
         android:name="com.example.moneycounter4.view.fragment.FragmentHome"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_my_home" >
-    </fragment>
+        tools:layout="@layout/fragment_my_home"></fragment>
     <action
         android:id="@+id/action_global_fragmentMine"
         app:destination="@id/fragmentMine"
+        app:enterAnim="@anim/fragment_open_enter"
         app:launchSingleTop="true"
-        app:popEnterAnim="@anim/fragment_open_enter"
-        app:enterAnim="@anim/fragment_open_enter" />
+        app:popEnterAnim="@anim/fragment_open_enter" />
     <fragment
         android:id="@+id/fragmentCommunity"
         android:name="com.example.moneycounter4.view.fragment.FragmentCommunity"
@@ -69,13 +67,14 @@
         android:id="@+id/action_global_fragmentTalkEdit"
         app:destination="@id/fragmentTalkEdit"
         app:enterAnim="@anim/slide_in_bottom"
-        app:popExitAnim="@anim/slide_out_bottom"
         app:exitAnim="@anim/alpha_hide"
-        app:popEnterAnim="@anim/alpha_show" />
+        app:popEnterAnim="@anim/alpha_show"
+        app:popExitAnim="@anim/slide_out_bottom" />
     <fragment
         android:id="@+id/fragmentCounterEdit"
         android:name="com.example.moneycounter4.view.fragment.FragmentCounterEdit"
-        android:label="FragmentCounterEdit" >
+        android:label="FragmentCounterEdit"
+        tools:layout="@layout/fragment_counter_edit">
         <action
             android:id="@+id/action_fragmentCounterEdit_pop"
             app:enterAnim="@anim/alpha_hide"
@@ -95,7 +94,8 @@
     <fragment
         android:id="@+id/fragmentTypeEdit"
         android:name="com.example.moneycounter4.view.fragment.FragmentTypeEdit"
-        android:label="FragmentTypeEdit" >
+        android:label="FragmentTypeEdit"
+        tools:layout="@layout/fragment_type_edit">
         <action
             android:id="@+id/action_fragmentTypeEdit_pop"
             app:enterAnim="@anim/alpha_hide"
@@ -115,7 +115,8 @@
     <fragment
         android:id="@+id/fragmentAddType"
         android:name="com.example.moneycounter4.view.fragment.FragmentAddType"
-        android:label="FragmentAddType" >
+        android:label="FragmentAddType"
+        tools:layout="@layout/fragment_type">
         <action
             android:id="@+id/action_fragmentAddType_pop"
             app:enterAnim="@anim/alpha_hide"
@@ -136,15 +137,15 @@
         android:id="@+id/fragmentSetting"
         android:name="com.example.moneycounter4.view.fragment.FragmentSetting"
         android:label="fragment_setting"
-        tools:layout="@layout/fragment_setting" >
+        tools:layout="@layout/fragment_setting">
         <action
             android:id="@+id/action_fragmentSetting_pop"
             app:enterAnim="@anim/alpha_hide"
             app:exitAnim="@anim/slide_in_bottom"
-            app:popUpTo="@id/fragmentSetting"
-            app:popUpToInclusive="true"
             app:popEnterAnim="@anim/slide_out_bottom"
-            app:popExitAnim="@anim/alpha_show" />
+            app:popExitAnim="@anim/alpha_show"
+            app:popUpTo="@id/fragmentSetting"
+            app:popUpToInclusive="true" />
     </fragment>
     <action
         android:id="@+id/action_global_fragmentSetting"
@@ -156,7 +157,8 @@
     <fragment
         android:id="@+id/fragmentItemDetail"
         android:name="com.example.moneycounter4.view.fragment.FragmentItemDetail"
-        android:label="FragmentItemDetail" />
+        android:label="FragmentItemDetail"
+        tools:layout="@layout/fragment_item_detail" />
     <action
         android:id="@+id/action_global_fragmentItemDetail"
         app:destination="@id/fragmentItemDetail"
@@ -174,4 +176,27 @@
         app:destination="@id/fragmentMain"
         app:enterAnim="@anim/fragment_open_enter"
         app:popEnterAnim="@anim/fragment_open_enter" />
+    <fragment
+        android:id="@+id/fragmentCounterSetting"
+        android:name="com.example.moneycounter4.view.fragment.FragmentCounterSetting"
+        android:label="fragment_counter_setting"
+        tools:layout="@layout/fragment_counter_setting">
+        <action
+            android:id="@+id/action_fragmentCounterSetting_pop"
+            app:enterAnim="@anim/alpha_hide"
+            app:exitAnim="@anim/slide_in_bottom"
+            app:popEnterAnim="@anim/slide_out_bottom"
+            app:popExitAnim="@anim/alpha_show"
+            app:popUpTo="@id/fragmentCounterSetting"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_fragmentCounterSetting"
+        app:destination="@id/fragmentCounterSetting"
+        app:enterAnim="@anim/slide_in_bottom"
+        app:exitAnim="@anim/alpha_hide"
+        app:popEnterAnim="@anim/alpha_show"
+        app:popExitAnim="@anim/slide_out_bottom" />
+
+
 </navigation>

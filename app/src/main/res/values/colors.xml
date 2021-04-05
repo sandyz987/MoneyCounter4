@@ -23,7 +23,11 @@
     <color name="edit_text_hint_color">#94969E</color>
     <color name="color_white">#FFFFFF</color>
 
-    <color name="graph_data_color">#FFC146</color>
-    <color name="graph_background_color">#7A95A9</color>
+    <color name="graph_data_color">#FFC759</color>
+    <color name="graph_background_color">#93B6CF</color>
+
+    <color name="progress_background_color">#B3E7C1</color>
+    <color name="progress_foreground_color">#93C598</color>
+
 
 </resources>

@@ -30,11 +30,11 @@
 
             <EditText
                 android:id="@+id/editTextTip"
-                android:layout_width="200dp"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
-                android:hint="备注"
+                android:hint="(+) 备注"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,10 +42,13 @@
                 android:id="@+id/textViewMoneyNum"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:background="?selectableItemBackground"
+                android:background="@color/progress_background_color"
                 android:fontFamily="@font/alibaba_light"
                 android:gravity="right|center_vertical"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
                 android:textColor="#000000"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="@+id/editTextTip"

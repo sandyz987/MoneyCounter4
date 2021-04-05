@@ -6,7 +6,6 @@ import android.content.Context
 import android.graphics.*
 import android.os.Build
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
 import com.example.moneycounter4.R
@@ -23,7 +22,7 @@ import kotlin.math.max
 
 data class DataItem(
     val text: String = "",
-    val data: Double = 0.0
+    var data: Double = 0.0
 )
 
 @RequiresApi(Build.VERSION_CODES.M)
@@ -44,7 +43,12 @@ class CounterGraphView @JvmOverloads constructor(
     }
 
     private var dataBlank = 0.0
-    private var maxData = 0.0
+    private val maxData: Double
+        get() {
+            var d = 0.0
+            data.forEach { d = max(d, it.data) }
+            return d
+        }
     private var rect: RectF? = null
 
     private val dataPaint = Paint().apply {
@@ -59,15 +63,23 @@ class CounterGraphView @JvmOverloads constructor(
         style = Paint.Style.FILL
         color = Color.WHITE
         strokeCap = Paint.Cap.ROUND
-        textSize = context.sp(18).toFloat()
+        textSize = context.sp(14).toFloat()
+    }
+    private val moneyPaint = Paint().apply {
+        isAntiAlias = true
+        style = Paint.Style.FILL
+        color = Color.BLUE
+        strokeCap = Paint.Cap.ROUND
+        textSize = context.sp(10).toFloat()
     }
     private val titlePaint = Paint().apply {
         isAntiAlias = true
         style = Paint.Style.FILL
         color = Color.WHITE
         strokeCap = Paint.Cap.ROUND
-        textSize = context.sp(24).toFloat()
+        textSize = context.sp(18).toFloat()
     }
+
     private val backgroundPaint = Paint().apply {
         isAntiAlias = true
         style = Paint.Style.FILL
@@ -85,9 +97,9 @@ class CounterGraphView @JvmOverloads constructor(
 
     var data = listOf<DataItem>()
         set(value) {
+            value.forEach { if (it.data < 0.0) it.data = 0.0 }
             field = value
             dataBlank = mWidth / (value.size + 1.0)
-            value.forEach { maxData = max(maxData, it.data) }
             startAnim()
             invalidate()
         }
@@ -132,11 +144,21 @@ class CounterGraphView @JvmOverloads constructor(
                 yBottom.toFloat() - yOffset.toFloat() * animValue,
                 dataPaint
             )
-            val textWidth = textPaint.measureText(data[i].text)
+            var textWidth = textPaint.measureText(data[i].text)
             canvas?.drawText(
                 data[i].text, xOffset.toFloat() - textWidth / 2,
                 (yBottom + context.dp2px(34f).toFloat()).toFloat(), textPaint
             )
+            if (data[i].data != 0.0) {
+                val moneyText = String.format("%.2f", data[i].data)
+                textWidth = moneyPaint.measureText(moneyText)
+                canvas?.drawText(
+                    String.format("%.2f", data[i].data * animValue),
+                    xOffset.toFloat() - textWidth / 2,
+                    (yBottom.toFloat() - yOffset.toFloat() * animValue),
+                    moneyPaint
+                )
+            }
         }
         super.onDraw(canvas)
     }

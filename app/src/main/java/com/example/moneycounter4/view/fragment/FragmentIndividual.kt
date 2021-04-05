@@ -1,5 +1,6 @@
 package com.example.moneycounter4.view.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +27,7 @@ class FragmentIndividual : BaseViewModelFragment<IndividualViewModel>() {
         return inflater.inflate(R.layout.fragment_mine, container, false)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val isMine = arguments?.getBoolean("isMine")
@@ -54,7 +56,12 @@ class FragmentIndividual : BaseViewModelFragment<IndividualViewModel>() {
         viewModel.user.observeNotNull { user ->
             textViewUsrName.text = user.nickname
             textViewUserId.text = user.userId
-            textViewText.text = user.text
+            if (user.text.isBlank()) {
+                tv_text.text = "TA还没有写个性签名~"
+            } else {
+                tv_text.text = user.text
+            }
+
             when (user.sex) {
                 "男" -> imageViewSex.setImageResource(R.drawable.ic_man)
                 "女" -> imageViewSex.setImageResource(R.drawable.ic_woman)

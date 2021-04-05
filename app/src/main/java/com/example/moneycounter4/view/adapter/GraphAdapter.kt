@@ -1,7 +1,6 @@
 package com.example.moneycounter4.view.adapter
 
 import android.os.Build
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,7 +28,6 @@ class GraphAdapter: ListAdapter<WeekItemData, GraphAdapter.GraphViewHolder>(Week
         val counterGraphView = holder.itemView.findViewById<CounterGraphView>(R.id.counter_graph_view_item)
         counterGraphView.title = getItem(position).title
         counterGraphView.data = getItem(position).data
-        counterGraphView.startAnim()
     }
 
 

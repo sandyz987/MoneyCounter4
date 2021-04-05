@@ -16,17 +16,14 @@ import com.example.moneycounter4.widgets.LogW
 class MainViewModel : BaseViewModel() {
 
 
-    var year = ObservableField<Int>()
-    var month = ObservableField<Int>()
-    var income = ObservableField<Double>()
-    var expend = ObservableField<Double>()
-
+    val year = ObservableField<Int>()
+    val month = ObservableField<Int>()
+    val income = ObservableField<Double>()
+    val expend = ObservableField<Double>()
     var selectedYear = 0
-
-
-    var list = ObservableArrayList<CounterDataItem>()
-    var typeListOut = ObservableArrayList<TypeItem>()
-    var typeListIn = ObservableArrayList<TypeItem>()
+    val list = ObservableArrayList<CounterDataItem>()
+    val typeListOut = ObservableArrayList<TypeItem>()
+    val typeListIn = ObservableArrayList<TypeItem>()
 
 
     init {
@@ -74,19 +71,9 @@ class MainViewModel : BaseViewModel() {
         income.set(DataReader.count(list, DataReader.OPTION_INCOME))
         expend.set(DataReader.count(list, DataReader.OPTION_EXPEND))
         list.sortBy { -it.time!! }
-        income.set(DataReader.count(list, DataReader.OPTION_INCOME))
-        expend.set(DataReader.count(list, DataReader.OPTION_EXPEND))
     }
 
-    fun addItem(d: CounterDataItem) {
-        DataReader.addItem(d)
-        refreshList()
-    }
 
-//    fun delItem(d : DataItem){
-//        CounterDataItem().delItem(d.time)
-//        refreshList()
-//    }
 
     fun delItemByTime(t: Long) {
         DataReader.delItem(t)

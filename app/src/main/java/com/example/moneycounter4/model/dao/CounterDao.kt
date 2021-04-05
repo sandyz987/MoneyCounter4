@@ -1,9 +1,13 @@
 package com.example.moneycounter4.model.dao
 
-import android.util.Log
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.Query
 import com.example.moneycounter4.beannew.CounterDataItem
 import com.example.moneycounter4.model.DataReader
+import com.example.moneycounter4.utils.CalendarUtil
+import com.example.moneycounter4.utils.setDefaultTime
 import java.util.*
 
 @Dao
@@ -57,7 +61,10 @@ interface CounterDao {
 
 }
 
-fun CounterDao.getByTime(y: Int, m: Int, d: Int): List<CounterDataItem> {
+fun CounterDao.getByTime(
+    y: Int, m: Int, d: Int,
+    option: Int
+): List<CounterDataItem> {
     val cal = Calendar.getInstance()
     cal.set(y, m - 1, d)
     val mutableList = mutableListOf<CounterDataItem>()
@@ -68,11 +75,17 @@ fun CounterDao.getByTime(y: Int, m: Int, d: Int): List<CounterDataItem> {
             )
         }
     }
-    return mutableList
+    return mutableList.filter {
+        when (option) {
+            DataReader.OPTION_EXPEND -> it.money!! < 0.0
+            DataReader.OPTION_INCOME -> it.money!! > 0.0
+            else -> true
+        }
+    }
 }
 
 data class DateItem(
-    val year: Int = 0, val month: Int = 0, val day: Int = 0
+    var year: Int = 0, var month: Int = 0, var day: Int = 0
 )
 
 fun CounterDao.getByDuration(
@@ -81,8 +94,7 @@ fun CounterDao.getByDuration(
     durationR: Long,
     option: Int
 ): List<CounterDataItem> {
-    val cal = Calendar.getInstance()
-    cal.set(dateItem.year, dateItem.month - 1, dateItem.day)
+    val cal = CalendarUtil.getCalendar(dateItem)
     val mutableList = mutableListOf<CounterDataItem>()
     getByTime(
         cal.timeInMillis + durationL,
@@ -98,14 +110,15 @@ fun CounterDao.getByDuration(
 }
 
 
-fun CounterDao.getByTime(y: Int, m: Int): List<CounterDataItem> {
+fun CounterDao.getByTime(
+    y: Int, m: Int,
+    option: Int
+): List<CounterDataItem> {
     val cal = Calendar.getInstance()
     cal.set(Calendar.YEAR, y)
     cal.set(Calendar.MONTH, m - 1)
     cal.set(Calendar.DATE, 1)
-    cal.set(Calendar.HOUR_OF_DAY, 0)
-    cal.set(Calendar.MINUTE, 0)
-    cal.set(Calendar.SECOND, 0)
+    cal.setDefaultTime()
 
 
     val mutableList = mutableListOf<CounterDataItem>()
@@ -113,10 +126,19 @@ fun CounterDao.getByTime(y: Int, m: Int): List<CounterDataItem> {
         cal.timeInMillis,
         cal.timeInMillis + 86400000L * cal.getActualMaximum(Calendar.DAY_OF_MONTH)
     )?.forEach { it?.let { mutableList.add(it) } }
-    return mutableList
+    return mutableList.filter {
+        when (option) {
+            DataReader.OPTION_EXPEND -> it.money!! < 0.0
+            DataReader.OPTION_INCOME -> it.money!! > 0.0
+            else -> true
+        }
+    }
 }
 
-fun CounterDao.getByTime(y: Int): List<CounterDataItem> {
+fun CounterDao.getByTime(
+    y: Int,
+    option: Int
+): List<CounterDataItem> {
     val cal = Calendar.getInstance()
     cal.set(Calendar.YEAR, y)
     val mutableList = mutableListOf<CounterDataItem>()
@@ -124,5 +146,11 @@ fun CounterDao.getByTime(y: Int): List<CounterDataItem> {
         cal.timeInMillis,
         cal.timeInMillis + 86400000L * cal.get(Calendar.DAY_OF_YEAR)
     )?.forEach { it?.let { mutableList.add(it) } }
-    return mutableList
+    return mutableList.filter {
+        when (option) {
+            DataReader.OPTION_EXPEND -> it.money!! < 0.0
+            DataReader.OPTION_INCOME -> it.money!! > 0.0
+            else -> true
+        }
+    }
 }

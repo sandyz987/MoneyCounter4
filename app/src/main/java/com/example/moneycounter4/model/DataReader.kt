@@ -2,7 +2,6 @@ package com.example.moneycounter4.model
 
 import android.content.Context
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.databinding.ObservableArrayList
 import androidx.room.Room
@@ -13,7 +12,7 @@ import com.example.moneycounter4.model.dao.getByTime
 import com.example.moneycounter4.model.database.CounterDatabase
 import com.example.moneycounter4.viewmodel.MainApplication
 import com.google.gson.Gson
-import java.util.ArrayList
+import java.util.*
 
 object DataReader {
     var typeData: TypeData
@@ -159,17 +158,17 @@ object DataReader {
 
         when (option) {
             OPTION_BY_YEAR -> {
-                db?.userDao()?.getByTime(year)?.let {
+                db?.userDao()?.getByTime(year, -1)?.let {
                     list.addAll(it)
                 }
             }
             OPTION_BY_MONTH -> {
-                db?.userDao()?.getByTime(year, month)?.let {
+                db?.userDao()?.getByTime(year, month, -1)?.let {
                     list.addAll(it)
                 }
             }
             OPTION_BY_DAY -> {
-                db?.userDao()?.getByTime(year, month, day)?.let {
+                db?.userDao()?.getByTime(year, month, day, -1)?.let {
                     list.addAll(it)
                 }
             }
@@ -178,7 +177,7 @@ object DataReader {
         return list
     }
 
-    fun count(list: ArrayList<CounterDataItem>, option: Int): Double {
+    fun count(list: List<CounterDataItem>, option: Int): Double {
         var ans = 0.0
 
         for (item: CounterDataItem in list) {

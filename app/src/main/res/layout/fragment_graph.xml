@@ -122,13 +122,31 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_graph"
+        <com.example.moneycounter4.widgets.DragHeadView
+            android:id="@+id/drag_head_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:orientation="vertical"
+            app:before_ic="@drawable/ic_down_arrow"
+            app:before_refresh_text="下拉刷新"
+            app:can_refresh_text="释放立即刷新"
+            app:head_view="@layout/layout_head_view"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout12" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout12"
+            app:refreshed_ic="@drawable/ic_positive"
+            app:refreshed_text="加载完成！"
+            app:refreshing_text="玩命加载中...">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_graph"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout12" />
+        </com.example.moneycounter4.widgets.DragHeadView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

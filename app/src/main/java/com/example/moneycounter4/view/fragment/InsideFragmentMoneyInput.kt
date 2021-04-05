@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.MutableLiveData
 import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.example.calculatorjni.jni.Calculator
 import com.example.moneycounter4.R
@@ -23,7 +24,9 @@ import kotlinx.android.synthetic.main.fragment_money_input.*
 class InsideFragmentMoneyInput : BaseViewModelFragment<MoneyEditViewModel>(), View.OnClickListener {
 
     lateinit var listener: View.OnClickListener
-    var time: Long? = null
+    private var time: Long? = null
+
+    private val inputMoney = MutableLiveData<String>("")
 
     override fun useActivityViewModel() = true
 
@@ -35,6 +38,7 @@ class InsideFragmentMoneyInput : BaseViewModelFragment<MoneyEditViewModel>(), Vi
 
     }
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -42,6 +46,10 @@ class InsideFragmentMoneyInput : BaseViewModelFragment<MoneyEditViewModel>(), Vi
         time = calendar.timeInMillis
 
         textViewDate.textSize = 30f
+
+        inputMoney.observeNotNull {
+            textViewMoneyNum.text = "￥$it"
+        }
 
         textViewAdd.setOnClickListener(this)
         textViewSub.setOnClickListener(this)
@@ -84,22 +92,22 @@ class InsideFragmentMoneyInput : BaseViewModelFragment<MoneyEditViewModel>(), Vi
         }
 
         listener = View.OnClickListener {
-            if (getValue(textViewMoneyNum.text.toString()).equals(0.0)) {
+            if (getValue(inputMoney.value!!).equals(0.0)) {
                 Toast.makeText(requireContext(), "请输入非零数值哦~", Toast.LENGTH_SHORT).show()
                 return@OnClickListener
             }
             viewModel.tranData.value = TranData(
                 time ?: 0L,
                 editTextTip.text.toString(),
-                textViewMoneyNum.text.toString().toDouble()
+                (inputMoney.value ?: "0").toDouble()
             )
 
         }
 
         textViewOk.text = "="
         textViewOk.setOnClickListener {
-            textViewMoneyNum.text =
-                getValue(textViewMoneyNum.text.toString()).toString()
+            inputMoney.value =
+                String.format("%.2f", getValue(inputMoney.value!!))
             textViewOk.text = "完成"
             textViewOk.setOnClickListener(listener)
         }
@@ -108,15 +116,15 @@ class InsideFragmentMoneyInput : BaseViewModelFragment<MoneyEditViewModel>(), Vi
 
     @SuppressLint("SetTextI18n")
     fun addChar(s: String) {
-        if (textViewMoneyNum.text.toString().length >= 7) {
+        if (inputMoney.value!!.length >= 15) {
             return
         }
-        textViewMoneyNum.text = textViewMoneyNum.text.toString() + s
+        inputMoney.value = inputMoney.value!! + s
 
         textViewOk.text = "="
         textViewOk.setOnClickListener {
-            textViewMoneyNum.text =
-                getValue(textViewMoneyNum.text.toString()).toString()
+            inputMoney.value =
+                String.format("%.2f", getValue(inputMoney.value!!))
             textViewOk.text = "完成"
             textViewOk.setOnClickListener(listener)
 
@@ -135,9 +143,9 @@ class InsideFragmentMoneyInput : BaseViewModelFragment<MoneyEditViewModel>(), Vi
     }
 
     fun del() {
-        if (textViewMoneyNum.text.toString().isNotEmpty())
-            textViewMoneyNum.text =
-                textViewMoneyNum.text.toString().take(textViewMoneyNum.text.toString().length - 1)
+        if (inputMoney.value!!.isNotEmpty())
+            inputMoney.value =
+                inputMoney.value!!.take(inputMoney.value!!.length - 1)
     }
 
     override fun onClick(v: View?) {

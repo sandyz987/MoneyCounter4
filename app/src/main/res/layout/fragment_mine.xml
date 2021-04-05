@@ -61,10 +61,10 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/linearLayout"
-                        app:layout_constraintTop_toBottomOf="@+id/textViewText">
+                        app:layout_constraintTop_toBottomOf="@+id/tv_text">
 
                         <TextView
-                            android:id="@+id/textViewTalkCount"
+                            android:id="@+id/tv_fun"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal|center_vertical"
@@ -77,7 +77,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal|center_vertical"
-                            android:text="发帖数"
+                            android:text="粉丝"
                             android:textColor="#ebebeb" />
                     </LinearLayout>
 
@@ -86,7 +86,7 @@
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_marginStart="16dp"
-                        app:layout_constraintBottom_toTopOf="@id/textViewText"
+                        app:layout_constraintBottom_toTopOf="@id/tv_text"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:riv_oval="true"
@@ -123,10 +123,10 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textViewText">
+                        app:layout_constraintTop_toBottomOf="@+id/tv_text">
 
                         <TextView
-                            android:id="@+id/textViewLikes"
+                            android:id="@+id/tv_follow"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal|center_vertical"
@@ -139,18 +139,17 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal|center_vertical"
-                            android:text="获赞数"
+                            android:text="关注数"
                             android:textColor="#ebebeb" />
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/textViewText"
+                        android:id="@+id/tv_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
                         android:layout_marginEnd="24dp"
                         android:maxWidth="350dp"
-                        android:text="个性签名"
                         android:textColor="#ebebeb"
                         app:layout_constraintBottom_toTopOf="@id/linearLayout"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -172,10 +171,10 @@
                         android:layout_height="30dp"
                         android:layout_marginEnd="16dp"
                         android:src="@drawable/ic_settings"
-                        android:tint="@color/colorWhite"
                         app:layout_constraintBottom_toBottomOf="@+id/imageViewUsrPic"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/imageViewUsrPic" />
+                        app:layout_constraintTop_toTopOf="@+id/imageViewUsrPic"
+                        app:tint="@color/colorWhite" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout

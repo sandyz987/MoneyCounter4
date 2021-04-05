@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
@@ -122,9 +123,9 @@ class TalkRecyclerViewAdapter(
         holder.imageViewTalkView?.setOnClickListener {
             onItemClick.invoke(mList[position], it)
         }
-
-
-
+        holder.buttonFollow?.setOnClickListener {
+            Toast.makeText(mContext, "暂不支持，期待后续更新~", Toast.LENGTH_SHORT).show()
+        }
 
 
     }
