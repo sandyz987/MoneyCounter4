@@ -181,7 +181,7 @@
                     android:id="@+id/layoutCondition"
                     android:layout_width="0dp"
                     android:layout_height="120dp"
-                    android:background="@color/appbar_color"
+                    android:background="@drawable/shape_my_home_appbar"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraintLayout">

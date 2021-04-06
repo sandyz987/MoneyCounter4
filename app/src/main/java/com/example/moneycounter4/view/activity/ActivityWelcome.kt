@@ -23,7 +23,7 @@ class ActivityWelcome : BaseViewModelActivity<LoginViewModel>() {
 
 
         Thread {
-//            Thread.sleep(1000)
+            Thread.sleep(1000)
             viewModel.checkLogin(this, {
                 toast("登录成功！欢迎回来~")
                 startMainActivity()

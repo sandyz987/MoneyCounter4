@@ -27,7 +27,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/appbar_color">
+                    android:background="@drawable/shape_my_home_appbar">
 
                     <com.google.android.material.tabs.TabLayout
                         android:id="@+id/tabLayout"

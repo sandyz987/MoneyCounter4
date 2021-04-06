@@ -23,7 +23,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/appbar_color">
+                android:background="@drawable/shape_my_home_appbar">
 
                 <LinearLayout
                     android:id="@+id/linearLayout14"

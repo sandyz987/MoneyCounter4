@@ -24,4 +24,9 @@ public class BindingAdapter {
         view.setImageResource(resId);
     }
 
+    @androidx.databinding.BindingAdapter("srcCompat")
+    public static void setRes(ImageView view, int resId) {
+        view.setImageResource(resId);
+    }
+
 }
