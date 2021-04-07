@@ -21,6 +21,7 @@ import com.example.moneycounter4.utils.getYear
 import com.example.moneycounter4.view.adapter.WeekItemData
 import com.example.moneycounter4.view.costom.DataItem
 import com.example.moneycounter4.viewmodel.MainViewModel
+import com.google.gson.Gson
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_main.*
 import java.util.*
@@ -39,6 +40,10 @@ class FragmentMain : BaseViewModelFragment<MainViewModel>() {
     @SuppressLint("SetTextI18n")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        iv_welfare.setOnClickListener {
+            findNavController().navigate(R.id.action_global_fragmentWelfare)
+        }
 
         val o = Observable.create<WeekItemData> {
             val chara = listOf("一", "二", "三", "四", "五", "六", "日")
@@ -70,6 +75,22 @@ class FragmentMain : BaseViewModelFragment<MainViewModel>() {
         }.setSchedulers().subscribe {
             graph_view_main.title = it.title
             graph_view_main.data = it.data
+            graph_view_main.setOnClickListener {
+                val week = CalendarUtil.getWeek()
+                val option = DataReader.OPTION_EXPEND
+                val list = DataReader.db?.userDao()
+                    ?.getByDuration(
+                        CalendarUtil.getFirstDayOfWeek(week),
+                        0L,
+                        86400000L * 7,
+                        option
+                    )
+
+                findNavController().navigate(R.id.action_global_fragmentDistribution, Bundle().apply {
+                    putString("data", Gson().toJson(list))
+                    putString("label", "支出分布图")
+                })
+            }
         }
 
         val c = Observable.create<List<Double>> {

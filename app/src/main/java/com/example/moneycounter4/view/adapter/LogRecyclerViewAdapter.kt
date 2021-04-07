@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moneycounter4.R
 import com.example.moneycounter4.beannew.CounterDataItem
@@ -20,12 +22,11 @@ import com.example.moneycounter4.widgets.FirstItemDecoration
 //记账记录的adapter
 @RequiresApi(Build.VERSION_CODES.N)
 class LogRecyclerViewAdapter(
-    private val mActivity: Activity, private val vm: MainViewModel,
+    private val fragment: Fragment, private val vm: MainViewModel,
     private val mList: ArrayList<CounterDataItem>, rv: RecyclerView
 ) :
     RecyclerView.Adapter<LogRecyclerViewAdapter.ViewHolder>() {
 
-    private var mLayoutInflater = LayoutInflater.from(mActivity)
     private var itemDecoration: FirstItemDecoration? = null
 
     init {
@@ -33,22 +34,29 @@ class LogRecyclerViewAdapter(
             return@FirstItemDecoration if (it <= 0) {
                 true
             } else {
-                TimeUtil.monthStr(mList[it - 1].time!!) != TimeUtil.monthStr(mList[it].time!!)
+                if (it < mList.size) {
+                    TimeUtil.monthStr(mList[it - 1].time!!) != TimeUtil.monthStr(mList[it].time!!)
+                } else {
+                    false
+                }
+
             }
         }, {
             return@FirstItemDecoration if (mList.size == 0) ""
-            else TimeUtil.monthStr(mList[it].time!!)
+            else if (it < mList.size) {
+                TimeUtil.monthStr(mList[it].time!!)
+            } else {
+                ""
+            }
         })
         rv.addItemDecoration(itemDecoration!!)
     }
 
 
-
-
     override fun onCreateViewHolder(container: ViewGroup, viewType: Int): ViewHolder {
 
         val itemCounterDataBinding = DataBindingUtil.inflate<ItemCounterDataBinding>(
-            mLayoutInflater,
+            LayoutInflater.from(container.context),
             R.layout.item_counter_data,
             container,
             false
@@ -71,7 +79,7 @@ class LogRecyclerViewAdapter(
         holder.itemView.setOnClickListener {
             val bundle = Bundle()
             bundle.putSerializable("dataItem", mList[position])
-            mActivity.findNavController(R.id.fragment)
+            fragment.findNavController()
                 .navigate(R.id.action_global_fragmentItemDetail, bundle)
         }
     }

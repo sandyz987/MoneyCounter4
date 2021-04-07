@@ -5,13 +5,20 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
 import android.os.Build
+import android.os.Bundle
 import android.util.AttributeSet
 import android.view.View
 import androidx.annotation.RequiresApi
+import androidx.navigation.findNavController
 import com.example.moneycounter4.R
+import com.example.moneycounter4.beannew.CounterDataItem
 import com.example.moneycounter4.extensions.dp2px
 import com.example.moneycounter4.extensions.sp
+import com.example.moneycounter4.model.DataReader
+import com.example.moneycounter4.model.dao.DateItem
+import com.example.moneycounter4.model.dao.getByDuration
 import com.example.moneycounter4.viewmodel.MainApplication
+import com.google.gson.Gson
 import kotlin.math.max
 
 /**
@@ -22,7 +29,9 @@ import kotlin.math.max
 
 data class DataItem(
     val text: String = "",
-    var data: Double = 0.0
+    var data: Double = 0.0,
+    val dateItem: DateItem = DateItem(),
+    val duration: Long = 0L
 )
 
 @RequiresApi(Build.VERSION_CODES.M)
@@ -32,6 +41,18 @@ class CounterGraphView @JvmOverloads constructor(
 
     private var mWidth = 0f
     private var mHeight = 0f
+
+    init {
+        setOnClickListener {
+            if (data.isNotEmpty() && data[0].duration != 0L) {
+                val list = DataReader.db?.userDao()
+                    ?.getByDuration(data[0].dateItem, 0L, data[0].duration, -1)
+                findNavController().navigate(R.id.action_global_fragmentDistribution, Bundle().apply {
+                    putString("data", Gson().toJson(list))
+                })
+            }
+        }
+    }
 
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -130,6 +151,11 @@ class CounterGraphView @JvmOverloads constructor(
         rect?.let { canvas?.drawRect(it, backgroundPaint) }
 
         canvas?.drawText(title, context.dp2px(20f).toFloat(), (0.2 * mHeight).toFloat(), titlePaint)
+
+        if (data.isNotEmpty() && data[0].duration != 0L) {
+            val startDateString = "周${data[0].text}：${data[0].dateItem.month}日${data[0].dateItem.day}日"
+            canvas?.drawText(startDateString, (0.4 * mWidth).toFloat(), (0.2 * mHeight).toFloat(), titlePaint)
+        }
 
         for (i in data.indices) {
             val xOffset = (i + 1) * dataBlank

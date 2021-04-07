@@ -47,7 +47,7 @@ class FragmentHome : BaseFragment() {
         viewModel.refreshList()
 
         val adapter = LogRecyclerViewAdapter(
-            requireActivity(),
+            this,
             viewModel,
             viewModel.list,
             recyclerViewLog

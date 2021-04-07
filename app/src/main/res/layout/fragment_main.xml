@@ -15,7 +15,7 @@
         android:layout_marginBottom="24dp"
         android:background="@drawable/shape_budget_background"
         android:elevation="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintBottom_toTopOf="@+id/iv_welfare"
         app:layout_constraintStart_toStartOf="@+id/graph_view_main"
         app:layout_constraintTop_toBottomOf="@+id/graph_view_main" />
 
@@ -82,7 +82,7 @@
 
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/iv_welfare"
         android:layout_width="336dp"
         android:layout_height="126dp"
         android:src="@drawable/ic_cat"
@@ -111,7 +111,7 @@
         app:layout_constraintEnd_toStartOf="@+id/imageView3"
         app:layout_constraintHorizontal_bias="0.86"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        app:layout_constraintTop_toTopOf="@+id/iv_welfare" />
 
     <TextView
         android:id="@+id/textView21"

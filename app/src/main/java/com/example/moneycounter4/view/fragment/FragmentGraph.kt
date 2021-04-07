@@ -131,7 +131,6 @@ class FragmentGraph : BaseViewModelFragment<MainViewModel>() {
                         ?.forEach { cit ->
                             cit.money?.let { money ->
                                 m += money
-
                             }
 
                         }
@@ -139,7 +138,7 @@ class FragmentGraph : BaseViewModelFragment<MainViewModel>() {
                         m = 0.0
                     }
                     weekMoney += m
-                    t.add(DataItem(chara[i - 1], abs(m)))
+                    t.add(DataItem(chara[i - 1], abs(m), it, 86400000L * 7))
                 }
                 if (weekMoney != 0.0) {
                     list.add(WeekItemData("第${week}周", t))

@@ -9,12 +9,12 @@
         android:id="@+id/fragmentMine"
         android:name="com.example.moneycounter4.view.fragment.FragmentIndividual"
         android:label="fragment_mine"
-        tools:layout="@layout/fragment_mine"></fragment>
+        tools:layout="@layout/fragment_mine"/>
     <fragment
         android:id="@+id/fragmentHome"
         android:name="com.example.moneycounter4.view.fragment.FragmentHome"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_my_home"></fragment>
+        tools:layout="@layout/fragment_my_home"/>
     <action
         android:id="@+id/action_global_fragmentMine"
         app:destination="@id/fragmentMine"
@@ -193,6 +193,73 @@
     <action
         android:id="@+id/action_global_fragmentCounterSetting"
         app:destination="@id/fragmentCounterSetting"
+        app:enterAnim="@anim/slide_in_bottom"
+        app:exitAnim="@anim/alpha_hide"
+        app:popEnterAnim="@anim/alpha_show"
+        app:popExitAnim="@anim/slide_out_bottom" />
+
+    <fragment
+        android:id="@+id/fragmentWelfare"
+        android:name="com.example.moneycounter4.view.fragment.FragmentWelfare"
+        android:label="fragment_welfare"
+        tools:layout="@layout/fragment_welfare">
+        <action
+            android:id="@+id/action_fragmentWelfare_pop"
+            app:enterAnim="@anim/alpha_hide"
+            app:exitAnim="@anim/slide_in_bottom"
+            app:popEnterAnim="@anim/slide_out_bottom"
+            app:popExitAnim="@anim/alpha_show"
+            app:popUpTo="@id/fragmentWelfare"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_fragmentWelfare"
+        app:destination="@id/fragmentWelfare"
+        app:enterAnim="@anim/slide_in_bottom"
+        app:exitAnim="@anim/alpha_hide"
+        app:popEnterAnim="@anim/alpha_show"
+        app:popExitAnim="@anim/slide_out_bottom" />
+
+    <fragment
+        android:id="@+id/fragmentEnergy"
+        android:name="com.example.moneycounter4.view.fragment.FragmentEnergy"
+        android:label="fragment_energy"
+        tools:layout="@layout/fragment_energy">
+        <action
+            android:id="@+id/action_fragmentEnergy_pop"
+            app:enterAnim="@anim/alpha_hide"
+            app:exitAnim="@anim/slide_in_bottom"
+            app:popEnterAnim="@anim/slide_out_bottom"
+            app:popExitAnim="@anim/alpha_show"
+            app:popUpTo="@id/fragmentEnergy"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_fragmentEnergy"
+        app:destination="@id/fragmentEnergy"
+        app:enterAnim="@anim/slide_in_bottom"
+        app:exitAnim="@anim/alpha_hide"
+        app:popEnterAnim="@anim/alpha_show"
+        app:popExitAnim="@anim/slide_out_bottom" />
+
+
+    <fragment
+        android:id="@+id/fragmentDistribution"
+        android:name="com.example.moneycounter4.view.fragment.FragmentDistribution"
+        android:label="fragment_distribution"
+        tools:layout="@layout/fragment_distribution">
+        <action
+            android:id="@+id/action_fragmentDistribution_pop"
+            app:enterAnim="@anim/alpha_hide"
+            app:exitAnim="@anim/slide_in_bottom"
+            app:popEnterAnim="@anim/slide_out_bottom"
+            app:popExitAnim="@anim/alpha_show"
+            app:popUpTo="@id/fragmentDistribution"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_fragmentDistribution"
+        app:destination="@id/fragmentDistribution"
         app:enterAnim="@anim/slide_in_bottom"
         app:exitAnim="@anim/alpha_hide"
         app:popEnterAnim="@anim/alpha_show"
