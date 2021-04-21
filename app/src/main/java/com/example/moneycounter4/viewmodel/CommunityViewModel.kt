@@ -23,7 +23,8 @@ class CommunityViewModel : BaseViewModel() {
     }
 
     fun getAllDynamic(pos: Int, size: Int, topic: String) {
-        ApiGenerator.getApiService(Api::class.java).getAllDynamic(pos, size, topic)
+        ApiGenerator.getApiService(Api::class.java)
+            .getAllDynamic(pos, size, topic)
             .checkApiError()
             .setSchedulers()
             .doOnError {
