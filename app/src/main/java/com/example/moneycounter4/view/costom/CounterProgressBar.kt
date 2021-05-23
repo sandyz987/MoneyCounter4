@@ -26,6 +26,20 @@ class CounterProgressBar @JvmOverloads constructor(
     private var mHeight = 0f
     private var rect: RectF? = null
 
+    var progressInt: Int = 0
+        set(@IntRange(from = 0, to = 100) value) {
+            startAnim(field)
+            field = value
+
+        }
+
+
+    init {
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.CounterProgressBar)
+        progressInt = typedArray.getInt(R.styleable.CounterProgressBar_progress_int, 0)
+        typedArray.recycle()
+    }
+
     private val backgroundPaint = Paint().apply {
         isAntiAlias = true
         style = Paint.Style.FILL
@@ -42,14 +56,8 @@ class CounterProgressBar @JvmOverloads constructor(
     }
 
 
-    var progressInt: Int = 0
-        set(@IntRange(from = 0, to = 100) value) {
-            field = value
-            startAnim()
-        }
-
-    fun startAnim() {
-        ValueAnimator.ofFloat(0f, 1f).apply {
+    fun startAnim(perValue: Int) {
+        ValueAnimator.ofFloat(perValue / 100f, 1f).apply {
             duration = 1000
             addUpdateListener {
                 animValue = it.animatedValue as Float

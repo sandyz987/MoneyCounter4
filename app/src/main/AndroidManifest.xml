@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/NoActionBar"
         tools:targetApi="n">
-        <activity android:name=".view.activity.TestActivity"></activity>
+        <activity android:name=".view.activity.TestActivity" />
         <activity
             android:name=".view.activity.ActivityRegister"
             android:launchMode="singleTop" />

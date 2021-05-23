@@ -23,7 +23,6 @@ import com.example.moneycounter4.viewmodel.CommunityViewModel
 import com.example.moneycounter4.widgets.KeyboardController
 import com.example.moneycounter4.widgets.ProgressDialogW
 import com.tbruyelle.rxpermissions2.RxPermissions
-import kotlinx.android.synthetic.main.fragment_mine.*
 import kotlinx.android.synthetic.main.fragment_talk_edit.*
 
 class FragmentTalkEdit : BaseFragment() {

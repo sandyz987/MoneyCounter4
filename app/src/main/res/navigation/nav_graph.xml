@@ -6,21 +6,22 @@
     app:startDestination="@id/fragmentMain">
 
     <fragment
-        android:id="@+id/fragmentMine"
+        android:id="@+id/fragmentIndividual"
         android:name="com.example.moneycounter4.view.fragment.FragmentIndividual"
-        android:label="fragment_mine"
-        tools:layout="@layout/fragment_mine"/>
+        android:label="fragment_individual"
+        tools:layout="@layout/fragment_individual" />
+    <action
+        android:id="@+id/action_global_fragmentIndividual"
+        app:destination="@id/fragmentIndividual"
+        app:enterAnim="@anim/fragment_open_enter"
+        app:launchSingleTop="true"
+        app:popEnterAnim="@anim/fragment_open_enter" />
     <fragment
         android:id="@+id/fragmentHome"
         android:name="com.example.moneycounter4.view.fragment.FragmentHome"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_my_home"/>
-    <action
-        android:id="@+id/action_global_fragmentMine"
-        app:destination="@id/fragmentMine"
-        app:enterAnim="@anim/fragment_open_enter"
-        app:launchSingleTop="true"
-        app:popEnterAnim="@anim/fragment_open_enter" />
+        tools:layout="@layout/fragment_my_home" />
+
     <fragment
         android:id="@+id/fragmentCommunity"
         android:name="com.example.moneycounter4.view.fragment.FragmentCommunity"
@@ -264,6 +265,20 @@
         app:exitAnim="@anim/alpha_hide"
         app:popEnterAnim="@anim/alpha_show"
         app:popExitAnim="@anim/slide_out_bottom" />
+
+
+    <fragment
+        android:id="@+id/fragmentProposal"
+        android:name="com.example.moneycounter4.view.fragment.FragmentProposal"
+        android:label="FragmentProposal"
+        tools:layout="@layout/fragment_proposal" />
+    <action
+        android:id="@+id/action_global_fragmentProposal"
+        app:destination="@id/fragmentProposal"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
 
 
 </navigation>

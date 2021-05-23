@@ -77,7 +77,7 @@ class ApiException(info: String, status: Int, cause: Throwable? = null) :
 object ApiGenerator {
     private var retrofit: Retrofit
     private var retrofitCommon: Retrofit
-    private var token: Int = 0
+    var token: Int = 0
     private const val retryNum = 3
 
     init {

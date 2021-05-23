@@ -51,6 +51,7 @@ class LoginViewModel : BaseViewModel() {
                     onFailed.invoke()
                 } else {
                     saveUserInfo(Config.userId, Config.password)
+                    ApiGenerator.token = t
                     onSuccess.invoke()
                 }
             }

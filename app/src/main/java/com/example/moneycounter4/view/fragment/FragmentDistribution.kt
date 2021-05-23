@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.view.OptionsPickerView
 import com.example.moneycounter4.R
-import com.example.moneycounter4.base.BaseFragment
 import com.example.moneycounter4.base.BaseViewModelFragment
 import com.example.moneycounter4.beannew.CounterDataItem
 import com.example.moneycounter4.view.adapter.LogRecyclerViewAdapter
@@ -27,8 +26,6 @@ import com.github.mikephil.charting.formatter.PercentFormatter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.fragment_distribution.*
-import kotlinx.android.synthetic.main.fragment_distribution.constraintInOrOut
-import kotlinx.android.synthetic.main.fragment_distribution.textViewExpend
 import kotlin.math.abs
 
 
@@ -133,7 +130,9 @@ class FragmentDistribution : BaseViewModelFragment<MainViewModel>() {
 
 
             arrayList.clear()
-            arrayList.addAll(list)
+            arrayList.addAll(list.sortedBy {
+                -it.time!!
+            })
             adapter.notifyDataSetChanged()
 
 

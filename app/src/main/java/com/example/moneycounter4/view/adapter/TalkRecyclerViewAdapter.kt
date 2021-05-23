@@ -93,7 +93,8 @@ class TalkRecyclerViewAdapter(
         holder.textViewTime?.text = TimeUtil.getChatTimeStr(mList[position].submitTime)
         if (mList[position].picUrl.isNotEmpty()) {
             holder.imageViewPic?.visibility = View.VISIBLE
-            Glide.with(mContext).load(mList[position].picUrl[0]).into(holder.imageViewPic!!)
+            Glide.with(mContext).load(mList[position].picUrl[0]).thumbnail(0.2f)
+                .into(holder.imageViewPic!!)
         } else {
             holder.imageViewPic?.visibility = View.GONE
         }
@@ -112,7 +113,7 @@ class TalkRecyclerViewAdapter(
             val bundle = Bundle()
             bundle.putBoolean("isMine", false)
             bundle.putString("userId", mList[position].userId)
-            navController.navigate(R.id.action_global_fragmentMine, bundle)
+            navController.navigate(R.id.action_global_fragmentIndividual, bundle)
         }
 
         holder.itemView.isClickable = true

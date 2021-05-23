@@ -11,8 +11,17 @@ import com.bumptech.glide.Glide
 import com.example.moneycounter4.R
 import com.example.moneycounter4.base.BaseViewModelFragment
 import com.example.moneycounter4.model.Config
+import com.example.moneycounter4.model.DataReader
+import com.example.moneycounter4.model.dao.getByDuration
+import com.example.moneycounter4.network.safeSubscribeBy
+import com.example.moneycounter4.network.setSchedulers
+import com.example.moneycounter4.utils.CalendarUtil
+import com.example.moneycounter4.utils.CounterAnalyze
+import com.example.moneycounter4.utils.toDateItem
 import com.example.moneycounter4.viewmodel.IndividualViewModel
-import kotlinx.android.synthetic.main.fragment_mine.*
+import io.reactivex.Observable
+import kotlinx.android.synthetic.main.fragment_individual.*
+import java.util.*
 
 
 class FragmentIndividual : BaseViewModelFragment<IndividualViewModel>() {
@@ -24,7 +33,7 @@ class FragmentIndividual : BaseViewModelFragment<IndividualViewModel>() {
     ): View? {
         // Inflate the layout for this fragment
 
-        return inflater.inflate(R.layout.fragment_mine, container, false)
+        return inflater.inflate(R.layout.fragment_individual, container, false)
     }
 
     @SuppressLint("SetTextI18n")
@@ -48,7 +57,7 @@ class FragmentIndividual : BaseViewModelFragment<IndividualViewModel>() {
             if (isMine == true) {
                 viewModel.getUser(Config.userId)
             } else {
-                viewModel.getUser(userId?: "")
+                viewModel.getUser(userId ?: "")
             }
 
         }
@@ -78,7 +87,33 @@ class FragmentIndividual : BaseViewModelFragment<IndividualViewModel>() {
         imageViewSetting.setOnClickListener {
             findNavController().navigate(R.id.action_global_fragmentSetting)
         }
+        val o = Observable.create<String> {
+            val list = getProposal()
+            if (list.isNotEmpty()) {
+                it.onNext(list[0])
+            }
 
+        }
+            .setSchedulers()
+            .safeSubscribeBy {
+                tv_proposal_mine.text = it
+            }
+
+        layoutCondition.setOnClickListener {
+            findNavController().navigate(R.id.action_global_fragmentProposal)
+        }
+
+
+    }
+
+    private fun getProposal(): List<String> {
+        val dateItem = CalendarUtil.getCalendar().apply { add(Calendar.DATE, -90) }.toDateItem()
+        DataReader.db?.userDao()?.getByDuration(dateItem, 0L, 93 * 86400000L, -1)?.let {
+            return CounterAnalyze.getStringProposal(
+                it
+            )
+        }
+        return listOf()
     }
 
 

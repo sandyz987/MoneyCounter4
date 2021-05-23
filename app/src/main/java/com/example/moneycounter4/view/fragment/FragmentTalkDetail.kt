@@ -2,7 +2,6 @@ package com.example.moneycounter4.view.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -273,7 +272,7 @@ class FragmentTalkDetail : BaseFragment() {
             val bundle = Bundle()
             bundle.putBoolean("isMine", false)
             bundle.putString("userId", dynamic?.userId)
-            navController.navigate(R.id.action_global_fragmentMine, bundle)
+            navController.navigate(R.id.action_global_fragmentIndividual, bundle)
         }
 
         imageViewTalk?.setOnClickListener {

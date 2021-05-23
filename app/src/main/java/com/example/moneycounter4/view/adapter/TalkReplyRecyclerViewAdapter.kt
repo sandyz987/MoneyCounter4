@@ -78,7 +78,7 @@ class TalkReplyRecyclerViewAdapter(
             val bundle = Bundle()
             bundle.putBoolean("isMine", false)
             bundle.putString("userId", mList[position].userId)
-            navController.navigate(R.id.action_global_fragmentMine, bundle)
+            navController.navigate(R.id.action_global_fragmentIndividual, bundle)
         }
 
         holder.itemView.setOnClickListener {
