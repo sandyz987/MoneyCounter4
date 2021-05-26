@@ -64,7 +64,7 @@ class FragmentProposal : BaseFragment() {
 
     private fun getProposal(): List<String> {
         val dateItem = CalendarUtil.getCalendar().apply { add(Calendar.DATE, -90) }.toDateItem()
-        DataReader.db?.userDao()?.getByDuration(dateItem, 0L, 93 * 86400000L, -1)?.let {
+        DataReader.db?.counterDao()?.getByDuration(dateItem, 0L, 93 * 86400000L, -1)?.let {
             return CounterAnalyze.getStringProposal(
                 it
             )

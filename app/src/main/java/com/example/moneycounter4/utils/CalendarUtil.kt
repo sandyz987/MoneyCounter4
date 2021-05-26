@@ -18,6 +18,8 @@ object CalendarUtil {
         return DateItem(cal.getYear(), cal.getMonth(), cal.getDay())
     }
 
+    fun getCalendar(time: Long): Calendar =
+        getCalendar().apply { timeInMillis = time }
 
     fun getCalendar(dateItem: DateItem): Calendar =
         getCalendar(dateItem.year, dateItem.month, dateItem.day)
@@ -141,8 +143,24 @@ fun Calendar.getDay(): Int {
     return get(Calendar.DATE)
 }
 
+fun Calendar.getHour(): Int {
+    return get(Calendar.HOUR_OF_DAY) + 1
+}
+
+fun Calendar.getMinute(): Int {
+    return get(Calendar.MINUTE)
+}
+
+fun Calendar.getSecond(): Int {
+    return get(Calendar.SECOND)
+}
+
 fun Calendar.setDefaultTime() {
     set(Calendar.HOUR_OF_DAY, 0)
     set(Calendar.MINUTE, 0)
     set(Calendar.SECOND, 0)
+}
+
+fun Calendar.toTimeString(): String {
+    return "${getYear()}年${getMonth()}月${getDay()}日${getHour()}:${getMinute()}:${getSecond()}"
 }

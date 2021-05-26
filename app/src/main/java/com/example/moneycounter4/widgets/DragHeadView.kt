@@ -62,12 +62,8 @@ class DragHeadView @JvmOverloads constructor(
 
     }
 
-    override fun onWindowFocusChanged(hasWindowFocus: Boolean) {
-        super.onWindowFocusChanged(hasWindowFocus)
 
 
-
-    }
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()

@@ -20,7 +20,7 @@ object BudgetCounter {
         val list = mutableListOf<CounterDataItem>()
         when (budgetPeriod) {
             "周" -> {
-                DataReader.db?.userDao()?.getByDuration(
+                DataReader.db?.counterDao()?.getByDuration(
                     CalendarUtil.getDateItem().mapDayOfWeek(budgetStartDate),
                     0L,
                     7 * 86400000L,
@@ -35,7 +35,7 @@ object BudgetCounter {
                     "sandyzhang",
                     CalendarUtil.getDateItem().mapDayOfMonth(budgetStartDate).toString()
                 )
-                DataReader.db?.userDao()?.getByDuration(
+                DataReader.db?.counterDao()?.getByDuration(
                     CalendarUtil.getDateItem().mapDayOfMonth(budgetStartDate),
                     0L,
                     CalendarUtil.getDateItem().getDayCountOfMonth() * 86400000L,

@@ -11,7 +11,6 @@ import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.navigation.findNavController
 import com.example.moneycounter4.R
-import com.example.moneycounter4.beannew.CounterDataItem
 import com.example.moneycounter4.extensions.dp2px
 import com.example.moneycounter4.extensions.sp
 import com.example.moneycounter4.model.DataReader
@@ -45,7 +44,7 @@ class CounterGraphView @JvmOverloads constructor(
     init {
         setOnClickListener {
             if (data.isNotEmpty() && data[0].duration != 0L) {
-                val list = DataReader.db?.userDao()
+                val list = DataReader.db?.counterDao()
                     ?.getByDuration(data[0].dateItem, 0L, data[0].duration, -1)
                 findNavController().navigate(R.id.action_global_fragmentDistribution, Bundle().apply {
                     putString("data", Gson().toJson(list))

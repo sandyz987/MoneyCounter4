@@ -72,7 +72,7 @@ object DataReader {
 
 
     fun addItem(dataItem: CounterDataItem) {
-        db?.userDao()?.insertAll(listOf(dataItem))
+        db?.counterDao()?.insertAll(listOf(dataItem))
         save()
     }
 
@@ -87,7 +87,7 @@ object DataReader {
 //    }
 
     fun delItem(id: Long) {
-        db?.userDao()?.deleteByTime(id)
+        db?.counterDao()?.deleteByTime(id)
     }
 
     fun getType(option: Int): ArrayList<TypeItem> {
@@ -158,17 +158,17 @@ object DataReader {
 
         when (option) {
             OPTION_BY_YEAR -> {
-                db?.userDao()?.getByTime(year, -1)?.let {
+                db?.counterDao()?.getByTime(year, -1)?.let {
                     list.addAll(it)
                 }
             }
             OPTION_BY_MONTH -> {
-                db?.userDao()?.getByTime(year, month, -1)?.let {
+                db?.counterDao()?.getByTime(year, month, -1)?.let {
                     list.addAll(it)
                 }
             }
             OPTION_BY_DAY -> {
-                db?.userDao()?.getByTime(year, month, day, -1)?.let {
+                db?.counterDao()?.getByTime(year, month, day, -1)?.let {
                     list.addAll(it)
                 }
             }

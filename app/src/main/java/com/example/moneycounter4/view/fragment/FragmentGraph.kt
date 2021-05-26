@@ -1,12 +1,17 @@
 package com.example.moneycounter4.view.fragment
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Typeface
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,16 +21,29 @@ import com.bigkoo.pickerview.view.OptionsPickerView
 import com.example.moneycounter4.R
 import com.example.moneycounter4.base.BaseViewModelFragment
 import com.example.moneycounter4.model.DataReader
+import com.example.moneycounter4.model.dao.DateItem
 import com.example.moneycounter4.model.dao.getByDuration
 import com.example.moneycounter4.network.setSchedulers
 import com.example.moneycounter4.utils.CalendarUtil
+import com.example.moneycounter4.utils.TimeUtil
+import com.example.moneycounter4.utils.toTimeString
 import com.example.moneycounter4.view.adapter.GraphAdapter
 import com.example.moneycounter4.view.adapter.WeekItemData
 import com.example.moneycounter4.view.costom.DataItem
 import com.example.moneycounter4.viewmodel.MainViewModel
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_graph.*
+import org.apache.poi.hssf.usermodel.HSSFRow
+import org.apache.poi.hssf.usermodel.HSSFSheet
+import org.apache.poi.hssf.usermodel.HSSFWorkbook
+import org.apache.poi.ss.usermodel.CellStyle
+import org.apache.poi.ss.usermodel.FillPatternType
+import org.apache.poi.ss.usermodel.IndexedColors
+import java.io.File
+import java.io.FileOutputStream
+import java.io.OutputStreamWriter
 import kotlin.math.abs
+
 
 class FragmentGraph : BaseViewModelFragment<MainViewModel>() {
 
@@ -48,6 +66,10 @@ class FragmentGraph : BaseViewModelFragment<MainViewModel>() {
         return inflater.inflate(R.layout.fragment_graph, container, false)
     }
 
+    fun add(wb: HSSFWorkbook, row: HSSFRow, index: Int, str: String) {
+        val cell = row.createCell(index)
+        cell.setCellValue(str)
+    }
 
     @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.N)
@@ -100,6 +122,57 @@ class FragmentGraph : BaseViewModelFragment<MainViewModel>() {
         drag_head_view.onRefreshAction = listener
         drag_head_view.refresh()
 
+        tv_export.setOnClickListener {
+            try {
+                val file = File(
+                    context?.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS),
+                    "账单.xls"
+                )
+                file.createNewFile()
+                val fos = FileOutputStream(file)
+                //=====================
+                val wb = HSSFWorkbook()
+                val sheet: HSSFSheet = wb.createSheet("sheet0")
+                val row1 = sheet.createRow(0)
+                // 初始化表头
+                row1.createCell(0).setCellValue("时间")
+                row1.createCell(1).setCellValue("时间戳")
+                row1.createCell(2).setCellValue("金额")
+                row1.createCell(3).setCellValue("类型")
+                row1.createCell(4).setCellValue("种类")
+                row1.createCell(5).setCellValue("备注")
+
+                // 以下为输出到excel
+                var line = 1
+                val list = DataReader.db?.counterDao()?.all
+                list?.sortedBy { it.time }?.forEach {
+                    val row = sheet.createRow(line++)
+                    var colIndex = 0
+                    add(wb, row, colIndex++, CalendarUtil.getCalendar(it.time ?: 0L).toTimeString())
+                    add(wb, row, colIndex++, it.time.toString())
+                    add(wb, row, colIndex++, it.money.toString())
+                    add(wb, row, colIndex++, if (it.money ?: 0.0 > 0.0) "收入" else "支出")
+                    add(wb, row, colIndex++, it.type.toString())
+                    add(wb, row, colIndex, it.tips.toString())
+                }
+                wb.write(fos)
+                fos.flush()
+                fos.close()
+
+                Toast.makeText(activity, "导出excel成功！文件路径为：${file.absolutePath}", Toast.LENGTH_SHORT)
+                    .show()
+                // 通知文件管理器新增了文件
+                // TODO 无效，待重写
+                val intent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
+                val uri = Uri.fromFile(file)
+                intent.data = uri
+                requireActivity().sendBroadcast(intent)
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+
     }
 
 
@@ -126,7 +199,7 @@ class FragmentGraph : BaseViewModelFragment<MainViewModel>() {
 
                 for (i in 1..7) {
                     var m = 0.0
-                    DataReader.db?.userDao()
+                    DataReader.db?.counterDao()
                         ?.getByDuration(it, 86400000L * (i - 1), 86400000L * i, option)
                         ?.forEach { cit ->
                             cit.money?.let { money ->
@@ -152,8 +225,6 @@ class FragmentGraph : BaseViewModelFragment<MainViewModel>() {
             adapter.submitList(it)
             drag_head_view?.finishRefresh()
         }
-
-
 
 
     }

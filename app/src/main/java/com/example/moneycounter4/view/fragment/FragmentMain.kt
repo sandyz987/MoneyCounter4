@@ -54,7 +54,7 @@ class FragmentMain : BaseViewModelFragment<MainViewModel>() {
 
             for (i in 1..7) {
                 var m = 0.0
-                DataReader.db?.userDao()
+                DataReader.db?.counterDao()
                     ?.getByDuration(
                         CalendarUtil.getFirstDayOfWeek(week),
                         86400000L * (i - 1),
@@ -78,7 +78,7 @@ class FragmentMain : BaseViewModelFragment<MainViewModel>() {
             graph_view_main.setOnClickListener {
                 val week = CalendarUtil.getWeek()
                 val option = DataReader.OPTION_EXPEND
-                val list = DataReader.db?.userDao()
+                val list = DataReader.db?.counterDao()
                     ?.getByDuration(
                         CalendarUtil.getFirstDayOfWeek(week),
                         0L,
@@ -97,14 +97,14 @@ class FragmentMain : BaseViewModelFragment<MainViewModel>() {
             val list = mutableListOf<Double>()
             val cal = Calendar.getInstance()
             var sum = 0.0
-            DataReader.db?.userDao()?.getByTime(cal.getYear(), cal.getMonth(), -1)
+            DataReader.db?.counterDao()?.getByTime(cal.getYear(), cal.getMonth(), -1)
                 ?.forEach { item ->
                     sum += item.money ?: 0.0
                 }
             list.add(sum)
 
             sum = 0.0
-            DataReader.db?.userDao()
+            DataReader.db?.counterDao()
                 ?.getByTime(cal.getYear(), cal.getMonth(), DataReader.OPTION_EXPEND)
                 ?.forEach { item ->
                     sum -= item.money ?: 0.0
@@ -112,7 +112,7 @@ class FragmentMain : BaseViewModelFragment<MainViewModel>() {
             list.add(sum)
 
             sum = 0.0
-            DataReader.db?.userDao()
+            DataReader.db?.counterDao()
                 ?.getByTime(cal.getYear(), cal.getMonth(), DataReader.OPTION_INCOME)
                 ?.forEach { item ->
                     sum += item.money ?: 0.0

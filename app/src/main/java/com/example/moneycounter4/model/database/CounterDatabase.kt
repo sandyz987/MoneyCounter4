@@ -7,5 +7,5 @@ import com.example.moneycounter4.model.dao.CounterDao
 
 @Database(entities = [CounterDataItem::class], version = 1)
 abstract class CounterDatabase : RoomDatabase() {
-    abstract fun userDao(): CounterDao?
+    abstract fun counterDao(): CounterDao?
 }
