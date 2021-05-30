@@ -28,13 +28,14 @@
                 app:layout_constraintStart_toEndOf="@+id/textViewNum0"
                 app:layout_constraintTop_toBottomOf="@+id/textViewNum1" />
 
-            <EditText
-                android:id="@+id/editTextTip"
+            <TextView
+                android:id="@+id/tv_tip"
                 android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
-                android:hint="(+) 备注"
+                android:gravity="center"
+                android:hint="+添加备注"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -51,10 +52,10 @@
                 android:paddingEnd="8dp"
                 android:textColor="#000000"
                 android:textSize="24sp"
-                app:layout_constraintBottom_toBottomOf="@+id/editTextTip"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_tip"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/editTextTip"
-                app:layout_constraintTop_toTopOf="@+id/editTextTip" />
+                app:layout_constraintStart_toEndOf="@+id/tv_tip"
+                app:layout_constraintTop_toTopOf="@+id/tv_tip" />
 
             <TextView
                 android:id="@+id/textViewNum7"
@@ -68,7 +69,7 @@
                 android:textSize="36sp"
                 app:layout_constraintEnd_toStartOf="@+id/textViewNum8"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTip" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_tip" />
 
             <TextView
                 android:id="@+id/textViewNum8"

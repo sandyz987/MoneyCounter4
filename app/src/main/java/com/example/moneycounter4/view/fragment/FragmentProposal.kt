@@ -37,7 +37,7 @@ class FragmentProposal : BaseFragment() {
 
         ObjectAnimator.ofInt(0, 100).setDuration(2000).apply {
             addUpdateListener {
-                counter_pb_proposal.progressInt = it.animatedValue as Int
+                counter_pb_proposal?.progressInt = it.animatedValue as Int
                 if (it.animatedValue as Int == 100) {
                     refresh()
                 }
@@ -50,8 +50,8 @@ class FragmentProposal : BaseFragment() {
     }
 
     private fun refresh() {
-        counter_pb_proposal.visibility = View.GONE
-        textView.visibility = View.GONE
+        counter_pb_proposal?.visibility = View.GONE
+        textView?.visibility = View.GONE
 
         val o = Observable.create<List<String>> {
             it.onNext(getProposal())

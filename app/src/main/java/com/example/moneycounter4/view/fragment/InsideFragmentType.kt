@@ -7,21 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.ObservableArrayList
-import androidx.databinding.ObservableList
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.moneycounter4.R
-import com.example.moneycounter4.base.BaseFragment
+import com.example.moneycounter4.base.BaseViewModelFragment
 import com.example.moneycounter4.bean.TypeItem
 import com.example.moneycounter4.databinding.FragmentTypeBinding
 import com.example.moneycounter4.view.adapter.TypeRecyclerViewAdapter
 import com.example.moneycounter4.viewmodel.MainViewModel
+import com.example.moneycounter4.widgets.ItemTouchGridCallback
+import com.example.moneycounter4.widgets.ItemTouchLinearCallback
 import kotlinx.android.synthetic.main.fragment_type.*
 
 //conf表明显示支出列表还是收入列表
 
-class InsideFragmentType : BaseFragment() {
+class InsideFragmentType : BaseViewModelFragment<MainViewModel>() {
 
     companion object {
         const val CONF_IN = 0//表明这个fragment显示收入类型列表
@@ -31,7 +32,6 @@ class InsideFragmentType : BaseFragment() {
     lateinit var adapter: TypeRecyclerViewAdapter
     lateinit var onClickAction: (TypeItem) -> Unit
 
-    lateinit var viewModel: MainViewModel
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,7 +44,6 @@ class InsideFragmentType : BaseFragment() {
             false
         )
         viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
-        fragmentTypeBinding.vm = viewModel
         fragmentTypeBinding.lifecycleOwner = this
         return fragmentTypeBinding.root
     }
@@ -60,7 +59,7 @@ class InsideFragmentType : BaseFragment() {
             CONF_IN -> {
                 TypeRecyclerViewAdapter(
                     requireActivity(),
-                    requireContext(),
+                    viewModel,
                     viewModel.typeListIn,
                     1
                 )
@@ -68,7 +67,7 @@ class InsideFragmentType : BaseFragment() {
             CONF_OUT -> {
                 TypeRecyclerViewAdapter(
                     requireActivity(),
-                    requireContext(),
+                    viewModel,
                     viewModel.typeListOut,
                     1
                 )
@@ -76,71 +75,22 @@ class InsideFragmentType : BaseFragment() {
             else -> {
                 TypeRecyclerViewAdapter(
                     requireActivity(),
-                    requireContext(),
+                    viewModel,
                     viewModel.typeListOut,
                     1
                 )
             }
         }
-        val list = when(conf) {
-            CONF_IN -> {
-                viewModel.typeListIn
-            }
-            CONF_OUT -> {
-                viewModel.typeListOut
-            }
-            else -> {
-                viewModel.typeListIn
-            }
-        }
+
+        val ihCallback =
+            ItemTouchGridCallback(adapter)
+
+        val itemTouchHelper = ItemTouchHelper(ihCallback)
+        itemTouchHelper.attachToRecyclerView(recyclerViewType)
 
         recyclerViewType.adapter = adapter
         adapter.setOnClick(onClickAction)
 
-        list.addOnListChangedCallback(object :
-            ObservableList.OnListChangedCallback<ObservableArrayList<TypeItem>>() {
-            override fun onChanged(sender: ObservableArrayList<TypeItem>?) {
-                adapter.setList(sender)
-                adapter.notifyDataSetChanged()
-            }
-
-            override fun onItemRangeRemoved(
-                sender: ObservableArrayList<TypeItem>?,
-                positionStart: Int,
-                itemCount: Int
-            ) {
-                adapter.setList(sender)
-                adapter.notifyDataSetChanged();
-            }
-
-            override fun onItemRangeMoved(
-                sender: ObservableArrayList<TypeItem>?,
-                fromPosition: Int,
-                toPosition: Int,
-                itemCount: Int
-            ) {
-                adapter.setList(sender)
-                adapter.notifyDataSetChanged();
-            }
-
-            override fun onItemRangeInserted(
-                sender: ObservableArrayList<TypeItem>?,
-                positionStart: Int,
-                itemCount: Int
-            ) {
-                adapter.setList(sender)
-                adapter.notifyDataSetChanged()
-            }
-
-            override fun onItemRangeChanged(
-                sender: ObservableArrayList<TypeItem>?,
-                positionStart: Int,
-                itemCount: Int
-            ) {
-                adapter.setList(sender)
-                adapter.notifyDataSetChanged()
-            }
-        })
     }
 
     fun setInnerOnClickAction(t: (TypeItem) -> Unit) {

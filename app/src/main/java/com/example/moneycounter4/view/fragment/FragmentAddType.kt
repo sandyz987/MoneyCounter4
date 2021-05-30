@@ -44,7 +44,6 @@ class FragmentAddType : BaseFragment() {
             false
         )
         viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
-        fragmentTypeBinding.vm = viewModel
         fragmentTypeBinding.lifecycleOwner = this
         return fragmentTypeBinding.root
     }
@@ -52,10 +51,10 @@ class FragmentAddType : BaseFragment() {
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        recyclerViewType.layoutManager = GridLayoutManager(requireContext(),4)
+        recyclerViewType.layoutManager = GridLayoutManager(requireContext(), 4)
         val list = ObservableArrayList<TypeItem>()
         TypeIndex.getAllType().forEach { list.add(it) }
-        val adapter = TypeRecyclerViewAdapter(requireActivity(),requireContext(),list,0)
+        val adapter = TypeRecyclerViewAdapter(requireActivity(), viewModel, list, 0)
         recyclerViewType.adapter = adapter
 
 

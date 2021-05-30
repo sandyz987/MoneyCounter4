@@ -23,7 +23,7 @@ import com.example.moneycounter4.widgets.FirstItemDecoration
 @RequiresApi(Build.VERSION_CODES.N)
 class LogRecyclerViewAdapter(
     private val fragment: Fragment, private val vm: MainViewModel,
-    private val mList: ArrayList<CounterDataItem>, rv: RecyclerView
+    private val mList: List<CounterDataItem>, rv: RecyclerView
 ) :
     RecyclerView.Adapter<LogRecyclerViewAdapter.ViewHolder>() {
 

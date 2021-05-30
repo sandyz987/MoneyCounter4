@@ -26,7 +26,7 @@ import java.lang.ref.WeakReference
 class FragmentCounterEdit : BaseViewModelFragment<MoneyEditViewModel>() {
 
     lateinit var adapter: TypeFragmentPagerAdapter
-    lateinit var dialog: BaseFullBottomSheetFragment
+    var dialog = BaseFullBottomSheetFragment()
     var type: TypeItem? = null
     var float = 0f
     override fun useActivityViewModel() = true
@@ -55,9 +55,11 @@ class FragmentCounterEdit : BaseViewModelFragment<MoneyEditViewModel>() {
         val onClickAction: ((TypeItem) -> Unit) = { t ->
             //LogW.d(t?.name?:"null")//=============================
             type = t
-            dialog = BaseFullBottomSheetFragment()
-            dialog.show(requireActivity().supportFragmentManager, "")
-            val weakReference = WeakReference<FragmentCounterEdit>(this@FragmentCounterEdit)
+            if(!dialog.isVisible) {
+                dialog = BaseFullBottomSheetFragment()
+
+                dialog.show(requireActivity().supportFragmentManager, "")
+                val weakReference = WeakReference(this@FragmentCounterEdit)
 //            viewModel.handlerAddType =
 //                SafeHandler(weakReference, object : SafeHandlerCallback<FragmentCounterEdit> {
 //                    @RequiresApi(Build.VERSION_CODES.N)
@@ -83,25 +85,27 @@ class FragmentCounterEdit : BaseViewModelFragment<MoneyEditViewModel>() {
 //
 //                    }
 //                }).make()
-            viewModel.tranData.observeNotNull {
-                val dataItem = CounterDataItem()
-                dataItem.time = it.time
-                if (weakReference.get()?.tabLayout?.selectedTabPosition == 0) {
-                    dataItem.money = -it.money
-                } else {
-                    dataItem.money = it.money
+                viewModel.willBeAddedItem.observeNotNull {
+                    val dataItem = CounterDataItem()
+                    dataItem.time = it.time
+                    if (tabLayout.selectedTabPosition == 0) {
+                        dataItem.money = -(it.money ?: 0.0)
+                    } else {
+                        dataItem.money = it.money
+                    }
+                    dataItem.type = type?.name.toString()
+                    dataItem.tips = it.tips
+                    DataReader.addItem(dataItem)
+                    Toast.makeText(requireContext(), "已添加", Toast.LENGTH_SHORT).show()
+                    findNavController()
+                        .navigate(R.id.action_fragmentCounterEdit_pop, Bundle().apply {
+                            putBoolean("need_refresh", true)
+                        })
+                    dialog.behavior?.state =
+                        BottomSheetBehavior.STATE_HIDDEN
                 }
-                dataItem.type = weakReference.get()?.type?.name.toString()
-                dataItem.tips = it.tips
-                DataReader.addItem(dataItem)
-                Toast.makeText(requireContext(), "已添加", Toast.LENGTH_SHORT).show()
-                weakReference.get()?.findNavController()
-                    ?.navigate(R.id.action_fragmentCounterEdit_pop, Bundle().apply {
-                        putBoolean("need_refresh", true)
-                    })
-                weakReference.get()?.dialog?.behavior?.state =
-                    BottomSheetBehavior.STATE_HIDDEN
             }
+
 
         }
 

@@ -204,7 +204,7 @@ object ApiGenerator {
 
         NetworkCache.addCache("${request.url}?${args}", buffer.clone().readString(charset))
         Log.e(
-            "sandyzhang6",
+            "sandyzhangSaveCache",
             "${request.url}?${args}" + "*" + buffer.clone().readString(charset) + " ==${buffer.size}"
         )
     }

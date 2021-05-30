@@ -8,6 +8,7 @@ import android.graphics.Rect
 import android.text.TextPaint
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.example.moneycounter4.extensions.sp
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.math.min
 
@@ -23,12 +24,14 @@ class FirstItemDecoration(private val recyclerView: RecyclerView, private val is
     @SuppressLint("ResourceType")
     override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         val paint = Paint()
+        paint.isAntiAlias = true
 //        paint.color = Color.DKGRAY
         paint.color = Color.WHITE
 
         val textPaint = TextPaint()
         textPaint.color = Color.BLACK
-        textPaint.textSize = 50f
+        textPaint.isAntiAlias = true
+        textPaint.textSize = parent.context.sp(14).toFloat()
 
         var height = 100
         if(isFirst(parent.getChildAdapterPosition(parent.getChildAt(1)))){

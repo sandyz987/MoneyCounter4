@@ -30,7 +30,7 @@ class FragmentCounterSetting : BaseViewModelFragment<MainViewModel>() {
     }
 
     companion object {
-        val mapWeek = HashMap<Int, String>()
+        private val mapWeek = HashMap<Int, String>()
 
         init {
             mapWeek[1] = "星期日"
@@ -129,7 +129,7 @@ class FragmentCounterSetting : BaseViewModelFragment<MainViewModel>() {
         constraint_budget_start.setOnClickListener {
             val options1Items = when (SettingUtil.settingData!!.budgetPeriod) {
                 "周" -> listOf("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六")
-                "月" -> listOf("1号", "15号")
+                "月" -> mutableListOf<String>().apply { for (i in 1..28) {add("${i}号")} }
                 else -> listOf()
             }
             val pvOptions: OptionsPickerView<String> =
@@ -139,9 +139,7 @@ class FragmentCounterSetting : BaseViewModelFragment<MainViewModel>() {
                     SettingUtil.settingData!!.budgetStartDate =
                         when (SettingUtil.settingData!!.budgetPeriod) {
                             "周" -> options1 + 1
-                            "月" -> when (options1) {
-                                0 -> 1; 1 -> 15; else -> 1
-                            }
+                            "月" -> options1 + 1
                             else -> 1
                         }
                     SettingUtil.save()

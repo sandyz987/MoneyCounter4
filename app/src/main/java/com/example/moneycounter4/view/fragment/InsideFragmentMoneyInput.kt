@@ -15,7 +15,7 @@ import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.example.calculatorjni.jni.Calculator
 import com.example.moneycounter4.R
 import com.example.moneycounter4.base.BaseViewModelFragment
-import com.example.moneycounter4.bean.TranData
+import com.example.moneycounter4.beannew.CounterDataItem
 import com.example.moneycounter4.utils.TimeUtil
 import com.example.moneycounter4.viewmodel.MoneyEditViewModel
 import kotlinx.android.synthetic.main.activity_welcome.*
@@ -96,10 +96,10 @@ class InsideFragmentMoneyInput : BaseViewModelFragment<MoneyEditViewModel>(), Vi
                 Toast.makeText(requireContext(), "请输入非零数值哦~", Toast.LENGTH_SHORT).show()
                 return@OnClickListener
             }
-            viewModel.tranData.value = TranData(
-                time ?: 0L,
-                editTextTip.text.toString(),
-                (inputMoney.value ?: "0").toDouble()
+            viewModel.willBeAddedItem.value = CounterDataItem(
+                time = time ?: 0L,
+                tips = tv_tip.text.toString(),
+                money = (inputMoney.value ?: "0").toDouble()
             )
 
         }
@@ -142,7 +142,7 @@ class InsideFragmentMoneyInput : BaseViewModelFragment<MoneyEditViewModel>(), Vi
         return c.getAns().also { c.destroy() }
     }
 
-    fun del() {
+    private fun del() {
         if (inputMoney.value!!.isNotEmpty())
             inputMoney.value =
                 inputMoney.value!!.take(inputMoney.value!!.length - 1)

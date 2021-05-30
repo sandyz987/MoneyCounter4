@@ -10,18 +10,20 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.moneycounter4.R
 import com.example.moneycounter4.base.BaseFragment
+import com.example.moneycounter4.base.BaseViewModelFragment
 import com.example.moneycounter4.databinding.FragmentTypeEditBinding
 import com.example.moneycounter4.view.adapter.TypeFragmentPagerAdapter
 import com.example.moneycounter4.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_counter_edit.*
 
-class FragmentTypeEdit : BaseFragment() {
+class FragmentTypeEdit : BaseViewModelFragment<MainViewModel>() {
+
+    override fun useActivityViewModel() = true
 
     lateinit var adapter: TypeFragmentPagerAdapter
-    lateinit var viewModel: MainViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         val fragmentTypeEditBinding = DataBindingUtil.inflate<FragmentTypeEditBinding>(
             LayoutInflater.from(requireContext()),
@@ -29,8 +31,6 @@ class FragmentTypeEdit : BaseFragment() {
             null,
             false
         )
-        viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
-        fragmentTypeEditBinding.vm = viewModel
 
         fragmentTypeEditBinding.lifecycleOwner = this
         return fragmentTypeEditBinding.root

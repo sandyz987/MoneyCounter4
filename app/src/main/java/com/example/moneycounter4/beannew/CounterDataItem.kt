@@ -17,8 +17,17 @@ data class CounterDataItem(
     var tips: String? = "", // 用户输入备注
 
     @ColumnInfo(name = "type")
-    var type: String? = "" // 种类
-): Serializable {
+    var type: String? = "", // 种类
+
+    @ColumnInfo(name = "image_path")
+    var image_path: String? = "", // 图片的路径
+
+    @ColumnInfo(name = "wallet")
+    var wallet: String? = "", // 账户
+
+    @ColumnInfo(name = "account_book")
+    var accountBook: String? = "" // 账本
+) : Serializable {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
 }

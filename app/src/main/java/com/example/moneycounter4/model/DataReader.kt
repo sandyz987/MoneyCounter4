@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.databinding.ObservableArrayList
+import androidx.lifecycle.LiveData
 import androidx.room.Room
 import com.example.moneycounter4.bean.TypeData
 import com.example.moneycounter4.bean.TypeItem
@@ -59,7 +60,7 @@ object DataReader {
         //LogW.d(counterData.list.size.toString())
     }
 
-    fun save() {
+    private fun save() {
         val sharedPreferences =
             MainApplication.app.getSharedPreferences("counterData", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
@@ -73,7 +74,6 @@ object DataReader {
 
     fun addItem(dataItem: CounterDataItem) {
         db?.counterDao()?.insertAll(listOf(dataItem))
-        save()
     }
 
 //    fun replaceItem(id: Long, dataItem: CounterDataItem) {
@@ -103,7 +103,7 @@ object DataReader {
     }
 
 
-    fun saveType(list: ObservableArrayList<TypeItem>, option: Int) {
+    fun saveType(list: MutableList<TypeItem>, option: Int) {
         val l = when (option) {
             OPTION_IN -> typeData.typeListIn
             OPTION_OUT -> typeData.typeListOut

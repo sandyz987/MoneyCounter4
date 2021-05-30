@@ -1,7 +1,6 @@
 package com.example.moneycounter4.view.adapter
 
 import android.app.Activity
-import android.content.Context
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -16,32 +15,41 @@ import com.example.moneycounter4.R
 import com.example.moneycounter4.bean.TypeItem
 import com.example.moneycounter4.databinding.ItemTypeRemoveBinding
 import com.example.moneycounter4.view.activity.ActivityMain
+import com.example.moneycounter4.viewmodel.MainViewModel
+import com.example.moneycounter4.widgets.ItemMoveCallback
 import com.example.moneycounter4.widgets.LogW
+import java.util.*
 
 //记账记录的adapter
 @RequiresApi(Build.VERSION_CODES.N)
-class TypeEditRecyclerViewAdapter(private val mActivity:Activity, private var mContext:Context, private var mList: ObservableArrayList<TypeItem>?) :
-    RecyclerView.Adapter<TypeEditRecyclerViewAdapter.ViewHolder>() {
-
-    private var mLayoutInflater = LayoutInflater.from(mContext)
-
+class TypeEditRecyclerViewAdapter(
+    private val mActivity: Activity,
+    private val vm: MainViewModel,
+    private var mList: MutableList<TypeItem>?
+) :
+    RecyclerView.Adapter<TypeEditRecyclerViewAdapter.ViewHolder>(), ItemMoveCallback {
 
 
     override fun onCreateViewHolder(container: ViewGroup, viewType: Int): ViewHolder {
-        val itemTypeRemoveBinding = DataBindingUtil.inflate<ItemTypeRemoveBinding>(mLayoutInflater,R.layout.item_type_remove,container,false)
+        val itemTypeRemoveBinding = DataBindingUtil.inflate<ItemTypeRemoveBinding>(
+            LayoutInflater.from(container.context),
+            R.layout.item_type_remove,
+            container,
+            false
+        )
         return ViewHolder(itemTypeRemoveBinding.root)
     }
 
     override fun getItemCount(): Int {
-        return (mList?.size?:0) + 1
+        return (mList?.size ?: 0) + 1
     }
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val binding = DataBindingUtil.getBinding<ItemTypeRemoveBinding>(holder.itemView)
 
-        if(position == mList?.size){
-            binding?.typeItem = TypeItem("添加类目",R.drawable.tallytype_set)
+        if (position == mList?.size) {
+            binding?.typeItem = TypeItem("添加类目", R.drawable.tallytype_set)
             holder.imageViewDel.visibility = View.INVISIBLE
             holder.itemView.setOnClickListener {
                 //======add type
@@ -65,15 +73,32 @@ class TypeEditRecyclerViewAdapter(private val mActivity:Activity, private var mC
     }
 
 
-    fun setList(list: ObservableArrayList<TypeItem>?){
-        this.mList = list
-    }
-
-
-
-
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageViewDel: ImageView = itemView.findViewById(R.id.imageViewDel)
     }
+
+    override fun onItemMove(fromPosition: Int, toPosition: Int) {
+        if (fromPosition < itemCount - 1 && toPosition < itemCount - 1) {
+            //交换位置
+            Collections.swap(mList as MutableList<*>, fromPosition, toPosition)
+            notifyItemMoved(fromPosition, toPosition)
+            vm.saveType()
+        } else {
+            notifyDataSetChanged()
+        }
+    }
+
+    override fun onItemDismiss(position: Int) {
+        if (position < itemCount - 1) {
+            //移除数据
+            mList?.removeAt(position)
+            notifyItemRemoved(position)
+            vm.saveType()
+        } else {
+            notifyDataSetChanged()
+        }
+
+    }
+
 
 }

@@ -1,7 +1,9 @@
 package com.example.moneycounter4.view.fragment
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Build
@@ -11,15 +13,19 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.bigkoo.pickerview.view.OptionsPickerView
 import com.example.moneycounter4.R
 import com.example.moneycounter4.base.BaseViewModelFragment
+import com.example.moneycounter4.extensions.sp
 import com.example.moneycounter4.model.DataReader
 import com.example.moneycounter4.model.dao.DateItem
 import com.example.moneycounter4.model.dao.getByDuration
@@ -31,6 +37,15 @@ import com.example.moneycounter4.view.adapter.GraphAdapter
 import com.example.moneycounter4.view.adapter.WeekItemData
 import com.example.moneycounter4.view.costom.DataItem
 import com.example.moneycounter4.viewmodel.MainViewModel
+import com.example.moneycounter4.widgets.LogW
+import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.YAxis
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
+import com.github.mikephil.charting.utils.ColorTemplate
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_graph.*
 import org.apache.poi.hssf.usermodel.HSSFRow
@@ -42,6 +57,8 @@ import org.apache.poi.ss.usermodel.IndexedColors
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStreamWriter
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.abs
 
 
@@ -54,7 +71,7 @@ class FragmentGraph : BaseViewModelFragment<MainViewModel>() {
     override fun useActivityViewModel() = true
 
     private var year = 0
-    private val adapter = GraphAdapter()
+    private val adapter = ChartAdapter(listOf())
 
 
     override fun onCreateView(
@@ -161,8 +178,7 @@ class FragmentGraph : BaseViewModelFragment<MainViewModel>() {
 
                 Toast.makeText(activity, "导出excel成功！文件路径为：${file.absolutePath}", Toast.LENGTH_SHORT)
                     .show()
-                // 通知文件管理器新增了文件
-                // TODO 无效，待重写
+                // TODO 无效，待重写 通知文件管理器新增了文件
                 val intent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
                 val uri = Uri.fromFile(file)
                 intent.data = uri
@@ -183,7 +199,7 @@ class FragmentGraph : BaseViewModelFragment<MainViewModel>() {
 
         textViewTimeYear.text = "${year}年"
 
-        val o = Observable.create<ArrayList<WeekItemData>> {
+        val o = Observable.create<ArrayList<BarData>> {
             val chara = listOf("一", "二", "三", "四", "五", "六", "日")
             var week = 1
             val option = when (textViewExpend.text.toString()) {
@@ -192,11 +208,13 @@ class FragmentGraph : BaseViewModelFragment<MainViewModel>() {
                 "结余" -> DataReader.OPTION_LAST
                 else -> DataReader.OPTION_EXPEND
             }
-            val list = ArrayList<WeekItemData>()
+            val list = ArrayList<BarData>()
             CalendarUtil.getEveryFirstDayOfWeek(year).forEach {
                 val t = ArrayList<DataItem>()
                 var weekMoney = 0.0
 
+
+                val entries: ArrayList<BarEntry> = ArrayList()
                 for (i in 1..7) {
                     var m = 0.0
                     DataReader.db?.counterDao()
@@ -212,9 +230,22 @@ class FragmentGraph : BaseViewModelFragment<MainViewModel>() {
                     }
                     weekMoney += m
                     t.add(DataItem(chara[i - 1], abs(m), it, 86400000L * 7))
+                    //
+                    entries.add(BarEntry(i.toFloat(), abs(m).toFloat()))
+                    //
                 }
                 if (weekMoney != 0.0) {
-                    list.add(WeekItemData("第${week}周", t))
+                    //list.add(WeekItemData("第${week}周", t))
+                    val d = BarDataSet(entries, "第${week}周")
+                    d.setDrawValues(true)
+//                    d.valueTextSize = context?.sp(10)?.toFloat()?: 0f
+                    d.colors = ColorTemplate.VORDIPLOM_COLORS.toList()
+                    d.barShadowColor = Color.rgb(203, 203, 203)
+                    val sets: ArrayList<IBarDataSet> = ArrayList()
+                    sets.add(d)
+                    val cd = BarData(sets)
+                    cd.barWidth = 0.9f
+                    list.add(cd)
                 }
                 week++
             }
@@ -222,17 +253,76 @@ class FragmentGraph : BaseViewModelFragment<MainViewModel>() {
 
             it.onNext(list)
         }.setSchedulers().subscribe {
-            adapter.submitList(it)
+            adapter.refresh(it)
             drag_head_view?.finishRefresh()
         }
 
 
     }
 
+    private class ChartAdapter(var list: List<BarData>) :
+        RecyclerView.Adapter<ChartAdapter.ChartViewHolder>() {
 
-//
-//    //========
-//    private class ChartDataAdapter internal constructor(context: Context?, objects: List<BarData?>?) :
+        inner class ChartViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+            var chart: BarChart? = null
+            var textViewTag: TextView? = null
+            init {
+                chart = v.findViewById(R.id.chart)
+                textViewTag = v.findViewById(R.id.textViewTag)
+            }
+        }
+
+        fun refresh(list: List<BarData>) {
+            this.list = list
+            notifyDataSetChanged()
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChartViewHolder {
+            val v = LayoutInflater.from(parent.context).inflate(R.layout.item_list_barchart, parent, false)
+            return ChartViewHolder(v)
+        }
+
+        override fun onBindViewHolder(holder: ChartViewHolder, position: Int) {
+            holder.chart?.setTouchEnabled(false)
+
+            // apply styling
+
+            list[position].setValueTypeface(tfLight)
+            list[position].setValueTextColor(Color.BLACK)
+
+            holder.chart?.description?.isEnabled = false
+            holder.chart?.setDrawGridBackground(false)
+            val xAxis: XAxis? = holder.chart?.xAxis
+            xAxis?.position = XAxis.XAxisPosition.BOTTOM
+            xAxis?.typeface = tfLight
+            xAxis?.setDrawGridLines(false)
+            val leftAxis: YAxis? = holder.chart?.axisLeft
+            leftAxis?.typeface = tfLight
+            leftAxis?.setLabelCount(5, false)
+            leftAxis?.spaceTop = 15f
+            val rightAxis: YAxis? = holder.chart?.axisRight
+            rightAxis?.typeface = tfLight
+            rightAxis?.setLabelCount(5, false)
+            rightAxis?.spaceTop = 15f
+
+            list[position].setValueTextSize(14f)
+            holder.chart?.data = list[position]
+            holder.chart?.setFitBars(true)
+            holder.chart?.animateY(700)
+
+
+        }
+
+        override fun getItemCount() = list.size
+
+    }
+
+
+    //========
+//    private class ChartDataAdapter internal constructor(
+//        context: Context?,
+//        objects: List<BarData?>?
+//    ) :
 //        ArrayAdapter<BarData?>(context!!, 0, objects!!) {
 //
 //        @SuppressLint("InflateParams")
@@ -248,7 +338,8 @@ class FragmentGraph : BaseViewModelFragment<MainViewModel>() {
 //            val holder: ViewHolder
 //            if (convertView1 == null) {
 //                holder = ViewHolder()
-//                convertView1 = LayoutInflater.from(context).inflate(R.layout.item_list_barchart, null)
+//                convertView1 =
+//                    LayoutInflater.from(context).inflate(R.layout.item_list_barchart, null)
 //                holder.chart = convertView1.findViewById(R.id.chart)
 //                holder.textViewTag = convertView1.findViewById(R.id.textViewTag)
 //                convertView1.tag = holder
@@ -295,26 +386,27 @@ class FragmentGraph : BaseViewModelFragment<MainViewModel>() {
 //            var textViewTag: TextView? = null
 //        }
 //    }
+//
 //    @RequiresApi(Build.VERSION_CODES.N)
-//    private fun getData(month: Int): Pair<BarData?,Boolean> {
+//    private fun getData(month: Int): Pair<BarData?, Boolean> {
 //        val entries: ArrayList<BarEntry> = ArrayList()
 //        var b = false
 //
 //        val calendar = Calendar.getInstance()
-//        calendar.set(year,month,0)
+//        calendar.set(year, month, 0)
 //        val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
-//        val option = when(textViewExpend.text.toString()){
-//            "支出"->DataReader.OPTION_EXPEND
-//            "收入"->DataReader.OPTION_INCOME
-//            "结余"->DataReader.OPTION_LAST
-//            else->DataReader.OPTION_EXPEND
+//        val option = when (textViewExpend.text.toString()) {
+//            "支出" -> DataReader.OPTION_EXPEND
+//            "收入" -> DataReader.OPTION_INCOME
+//            "结余" -> DataReader.OPTION_LAST
+//            else -> DataReader.OPTION_EXPEND
 //        }
 //        LogW.d("$year $month")
 //        for (day in 1..dayOfMonth) {
 //
-//            val list = DataReader.getCounterItems(year,month,day,DataReader.OPTION_BY_DAY)
-//            val money = DataReader.count(list,option)
-//            if (money!= 0.0){
+//            val list = DataReader.getCounterItems(year, month, day, DataReader.OPTION_BY_DAY)
+//            val money = DataReader.count(list, option)
+//            if (money != 0.0) {
 //                b = true
 //            }
 //            entries.add(BarEntry(day.toFloat(), money.toFloat()))
@@ -327,7 +419,7 @@ class FragmentGraph : BaseViewModelFragment<MainViewModel>() {
 //        sets.add(d)
 //        val cd = BarData(sets)
 //        cd.barWidth = 0.9f
-//        return Pair(cd,b)
+//        return Pair(cd, b)
 //    }
 
 }

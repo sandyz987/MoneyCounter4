@@ -13,7 +13,7 @@
             name="dataItem"
             type="com.example.moneycounter4.beannew.CounterDataItem" />
 
-        <import type="com.example.moneycounter4.model.TypeFinder" />
+        <import type="com.example.moneycounter4.model.TypePicFinder" />
 
         <import type="com.example.moneycounter4.R" />
     </data>
@@ -45,7 +45,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/iv_item_background"
             app:layout_constraintTop_toTopOf="parent"
-            app:src="@{TypeFinder.findTypePicIdByName(vm.typeListIn, vm.typeListOut, dataItem.type)}" />
+            app:src="@{TypePicFinder.findTypePicIdByName(vm.typeListIn, vm.typeListOut, dataItem.type)}" />
 
         <TextView
             android:id="@+id/textViewTypeName"

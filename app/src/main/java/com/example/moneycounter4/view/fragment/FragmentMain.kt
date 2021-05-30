@@ -76,19 +76,8 @@ class FragmentMain : BaseViewModelFragment<MainViewModel>() {
             graph_view_main.title = it.title
             graph_view_main.data = it.data
             graph_view_main.setOnClickListener {
-                val week = CalendarUtil.getWeek()
-                val option = DataReader.OPTION_EXPEND
-                val list = DataReader.db?.counterDao()
-                    ?.getByDuration(
-                        CalendarUtil.getFirstDayOfWeek(week),
-                        0L,
-                        86400000L * 7,
-                        option
-                    )
-
                 findNavController().navigate(R.id.action_global_fragmentDistribution, Bundle().apply {
-                    putString("data", Gson().toJson(list))
-                    putString("label", "支出分布图")
+                    putBoolean("label", true)
                 })
             }
         }

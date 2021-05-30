@@ -12,7 +12,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.moneycounter4.R
 import com.example.moneycounter4.base.BaseFragment
 import com.example.moneycounter4.beannew.CounterDataItem
-import com.example.moneycounter4.model.TypeFinder
+import com.example.moneycounter4.model.DataReader
+import com.example.moneycounter4.model.TypePicFinder
 import com.example.moneycounter4.utils.TimeUtil
 import com.example.moneycounter4.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_item_detail.*
@@ -42,7 +43,7 @@ class FragmentItemDetail : BaseFragment() {
         textViewType.text = dataItem.type
         textViewTips.text = if (dataItem.tips!!.isEmpty()) "无" else dataItem.tips
         imageViewTypeImage.setImageResource(
-            TypeFinder.findTypePicIdByName(
+            TypePicFinder.findTypePicIdByName(
                 viewModel.typeListIn, viewModel.typeListOut,
                 dataItem.type
             )
@@ -54,8 +55,10 @@ class FragmentItemDetail : BaseFragment() {
             builder.setPositiveButton(
                 "是的"
             ) { _, _ ->
-                dataItem.time?.let { it1 -> viewModel.delItemByTime(it1) }
-                close()
+                dataItem.time?.let { it1 ->
+                    DataReader.delItem(it1)
+                    close()
+                }
             }.show()
 
         }

@@ -1,7 +1,7 @@
 package com.example.moneycounter4.viewmodel
 
 import com.example.moneycounter4.base.BaseViewModel
-import com.example.moneycounter4.bean.TranData
+import com.example.moneycounter4.beannew.CounterDataItem
 import com.example.moneycounter4.widgets.SingleLiveEvent
 
 /**
@@ -12,6 +12,6 @@ import com.example.moneycounter4.widgets.SingleLiveEvent
 
 class MoneyEditViewModel : BaseViewModel() {
 
-    val tranData = SingleLiveEvent<TranData>()
+    val willBeAddedItem = SingleLiveEvent<CounterDataItem>()
 
 }

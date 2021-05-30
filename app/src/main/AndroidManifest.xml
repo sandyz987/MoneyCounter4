@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.moneycounter4">
+    package="com.example.moneycounter4" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -28,7 +28,7 @@
             android:name=".view.activity.ActivityLogin"
             android:launchMode="singleTop" />
         <activity android:name=".view.activity.ActivityMain" />
-        <activity android:name=".view.activity.ActivityWelcome">
+        <activity android:name=".view.activity.ActivityWelcome" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

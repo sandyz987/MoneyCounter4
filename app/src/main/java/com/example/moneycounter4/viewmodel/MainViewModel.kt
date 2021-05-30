@@ -21,9 +21,9 @@ class MainViewModel : BaseViewModel() {
     val income = ObservableField<Double>()
     val expend = ObservableField<Double>()
     var selectedYear = 0
-    val list = ObservableArrayList<CounterDataItem>()
-    val typeListOut = ObservableArrayList<TypeItem>()
-    val typeListIn = ObservableArrayList<TypeItem>()
+    val list = mutableListOf<CounterDataItem>()
+    val typeListOut = mutableListOf<TypeItem>()
+    val typeListIn = mutableListOf<TypeItem>()
 
 
     init {
@@ -75,11 +75,6 @@ class MainViewModel : BaseViewModel() {
 
 
 
-    fun delItemByTime(t: Long) {
-        DataReader.delItem(t)
-
-        refreshList()
-    }
 
 
     fun addType(typeItem: TypeItem, option: Int) {
@@ -99,6 +94,10 @@ class MainViewModel : BaseViewModel() {
     fun delType(typeItem: TypeItem) {
         typeListOut.remove(typeItem)
         typeListIn.remove(typeItem)
+        DataReader.saveType(typeListOut, DataReader.OPTION_OUT)
+        DataReader.saveType(typeListIn, DataReader.OPTION_IN)
+    }
+    fun saveType() {
         DataReader.saveType(typeListOut, DataReader.OPTION_OUT)
         DataReader.saveType(typeListIn, DataReader.OPTION_IN)
     }
