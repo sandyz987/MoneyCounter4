@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    ndkVersion "23.0.7196353"
+    ndkVersion "21.3.6528147"
     compileSdkVersion 30
     buildToolsVersion "29.0.3"
     sourceSets{
@@ -71,14 +71,14 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.3.1'
     //noinspection LifecycleAnnotationProcessorWithJava8
 //    kapt "android.arch.lifecycle:compiler:1.1.1"
 
-    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
     implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.6'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 //    implementation 'com.qiniu:qiniu-java-sdk:7.2.27'
 
     implementation 'com.baoyz.pullrefreshlayout:library:1.2.0'
@@ -121,11 +121,14 @@ dependencies {
     kapt "androidx.room:room-compiler:2.3.0-beta02"
 
     // EventBus
-    implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation 'org.greenrobot:eventbus:3.2.0'
 
 
     // Calculator
     implementation 'com.github.sandyz987:CalculatorJNI:1.1.1'
+
+    // poi
+    implementation 'org.apache.poi:poi:3.6'
 
 
 }

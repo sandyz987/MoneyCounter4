@@ -9,10 +9,7 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bigkoo.pickerview.builder.OptionsPickerBuilder
-import com.bigkoo.pickerview.view.OptionsPickerView
 import com.example.moneycounter4.R
 import com.example.moneycounter4.base.BaseViewModelFragment
 import com.example.moneycounter4.beannew.CounterDataItem
@@ -21,7 +18,6 @@ import com.example.moneycounter4.model.dao.DateItem
 import com.example.moneycounter4.model.dao.getByDuration
 import com.example.moneycounter4.utils.CalendarUtil
 import com.example.moneycounter4.view.adapter.LogRecyclerViewAdapter
-import com.example.moneycounter4.view.adapter.SingleSelectAdapter
 import com.example.moneycounter4.viewmodel.MainViewModel
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.components.Description
@@ -31,10 +27,7 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.google.android.material.tabs.TabLayout
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.fragment_distribution.*
-import kotlinx.android.synthetic.main.layout_header_filter.*
 import kotlin.math.abs
 
 @RequiresApi(Build.VERSION_CODES.N)
@@ -96,8 +89,7 @@ class FragmentDistribution : BaseViewModelFragment<MainViewModel>() {
             }
 
             override fun onDrawerOpened(drawerView: View) {
-                rv_account_select.layoutManager = GridLayoutManager(requireContext(), 3)
-                rv_account_select.adapter = SingleSelectAdapter(rv_account_select, listOf("555","666","ghhhg"))
+
             }
 
             override fun onDrawerClosed(drawerView: View) {

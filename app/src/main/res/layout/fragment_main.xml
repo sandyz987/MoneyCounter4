@@ -7,79 +7,6 @@
     android:background="@color/color_white"
     tools:context=".view.fragment.FragmentMain">
 
-    <View
-        android:id="@+id/view3"
-        android:layout_width="180dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/shape_budget_background"
-        android:elevation="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/iv_welfare"
-        app:layout_constraintStart_toStartOf="@+id/graph_view_main"
-        app:layout_constraintTop_toBottomOf="@+id/graph_view_main" />
-
-    <TextView
-        android:id="@+id/tv_money_rest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="25dp"
-        android:text="剩余："
-        android:textColor="#FF6E3A"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="@+id/view3"
-        app:layout_constraintEnd_toEndOf="@+id/view3"
-        app:layout_constraintStart_toEndOf="@+id/tv_money_out"
-        app:layout_constraintTop_toBottomOf="@+id/counter_pb_main" />
-
-    <TextView
-        android:id="@+id/tv_money_out"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="25dp"
-        android:text="已支出："
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="@+id/view3"
-        app:layout_constraintEnd_toStartOf="@id/tv_money_rest"
-        app:layout_constraintStart_toStartOf="@+id/view3"
-        app:layout_constraintTop_toBottomOf="@+id/counter_pb_main" />
-
-    <TextView
-        android:id="@+id/tv_money_pocket"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:elevation="25dp"
-        android:text="￥000.00"
-        android:textColor="#FF6E3A"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/view3"
-        app:layout_constraintStart_toStartOf="@+id/view3"
-        app:layout_constraintTop_toBottomOf="@+id/textView22" />
-
-    <TextView
-        android:id="@+id/textView22"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="8dp"
-        android:elevation="25dp"
-        android:text="预算"
-        android:textColor="@color/colorBlack"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/view3"
-        app:layout_constraintTop_toTopOf="@+id/view3" />
-
-    <com.example.moneycounter4.view.costom.CalendarView
-        android:id="@+id/calendar_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:elevation="20dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 
     <ImageView
         android:id="@+id/iv_welfare"
@@ -126,105 +53,13 @@
         app:layout_constraintStart_toStartOf="@+id/textView20"
         app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
-    <com.example.moneycounter4.view.costom.CounterGraphView
-        android:id="@+id/graph_view_main"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:elevation="20dp"
-        android:layout_marginBottom="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView3"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_widget"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:clipChildren="false"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calendar_view" />
-
-    <View
-        android:id="@+id/view1"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/shape_in_or_out_background"
-        android:elevation="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/calendar_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/calendar_view"
-        app:layout_constraintTop_toTopOf="@+id/calendar_view" />
-
-    <TextView
-        android:id="@+id/tv_money_last"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="25dp"
-        android:text="￥000.00"
-        android:textColor="#FF6E3A"
-        android:textSize="28sp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_money_out_month"
-        app:layout_constraintEnd_toEndOf="@+id/view1"
-        app:layout_constraintStart_toStartOf="@+id/view1"
-        app:layout_constraintTop_toBottomOf="@+id/textView13" />
-
-    <TextView
-        android:id="@+id/tv_money_in_month"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:elevation="25dp"
-        android:text="本月收入："
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="@+id/view1"
-        app:layout_constraintStart_toStartOf="@+id/textView13" />
-
-    <TextView
-        android:id="@+id/tv_money_out_month"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:elevation="25dp"
-        android:text="本月支出："
-        android:textSize="10sp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_money_in_month"
-        app:layout_constraintStart_toStartOf="@+id/textView13" />
-
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:elevation="25dp"
-        android:text="本月结余"
-        android:textColor="@color/colorBlack"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/view1"
-        app:layout_constraintTop_toTopOf="@+id/view1" />
-
-    <com.example.moneycounter4.view.costom.CounterProgressBar
-        android:id="@+id/counter_pb_main"
-        android:layout_width="0dp"
-        android:layout_height="12dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
-        android:elevation="25dp"
-        app:layout_constraintEnd_toEndOf="@+id/view3"
-        app:layout_constraintStart_toStartOf="@+id/view3"
-        app:layout_constraintTop_toBottomOf="@+id/tv_money_pocket" />
-
-    <TextView
-        android:id="@+id/tv_budget_setting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/shape_budget_setting_background"
-        android:elevation="25dp"
-        android:text="设置"
-        android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="@+id/view3"
-        app:layout_constraintTop_toTopOf="@+id/textView22" />
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

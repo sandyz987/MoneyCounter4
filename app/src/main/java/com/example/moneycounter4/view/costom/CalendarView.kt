@@ -6,7 +6,6 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import com.example.moneycounter4.R
-import com.example.moneycounter4.extensions.dp2px
 import kotlinx.android.synthetic.main.layout_calendar.view.*
 import java.util.*
 
@@ -27,7 +26,7 @@ class CalendarView @JvmOverloads constructor(
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         // 设置固定大小
-        setMeasuredDimension(context.dp2px(150f), context.dp2px(180f))
+        // setMeasuredDimension(context.dp2px(150f), context.dp2px(180f))
     }
 
     @SuppressLint("SetTextI18n")
