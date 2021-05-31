@@ -1,5 +1,8 @@
 package com.example.moneycounter4.view.adapter
 
+import android.app.IntentService
+import android.os.HandlerThread
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,12 +11,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moneycounter4.R
 import com.google.android.material.chip.Chip
 
-class SingleSelectAdapter(private val rv: RecyclerView, private val mList: List<String>) :
+class SingleSelectAdapter(private val mList: List<String>) :
     RecyclerView.Adapter<SingleSelectAdapter.ItemViewHolder>() {
     private val selectedSet = mutableSetOf<String>()
+    private val selectedMap = hashMapOf<Int, Boolean>()
+    private var noItemSelected = true
 
     inner class ItemViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-        var text: TextView = v.findViewById(R.id.counter_graph_view_item)
+        var text: Chip = v.findViewById(R.id.chip_single_select_chip)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -29,28 +34,49 @@ class SingleSelectAdapter(private val rv: RecyclerView, private val mList: List<
              */
             holder.text.text = "不限"
             (holder.itemView as Chip).setOnCheckedChangeListener { buttonView, isChecked ->
-                if (isChecked){
-                    for (i in 1 until itemCount + 1) {
-                        (rv.findViewHolderForAdapterPosition(i)?.itemView as Chip).isChecked = false
-                    }
+                if (isChecked) {
                     selectedSet.clear()
+                    val it = selectedMap.iterator()
+                    while (it.hasNext()) {
+                        if (it.next().key != 0) {
+                            it.next().setValue(false)
+                        }
+                    }
                 }
             }
+            (holder.itemView as Chip?)?.isChecked = selectedMap[0] ?: true
         } else {
             bindView(holder, position - 1)
         }
     }
 
     private fun bindView(holder: ItemViewHolder, realPosition: Int) {
-        (rv.findViewHolderForAdapterPosition(0)?.itemView as Chip).isChecked = false
+
+
+        (holder.itemView as Chip?)?.isChecked = selectedMap[realPosition + 1].let {
+            if (it == null) {
+                selectedMap[realPosition + 1] = false
+                false
+            } else {
+                it
+            }
+        }
+
         holder.text.text = mList[realPosition]
         (holder.itemView as Chip).setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 selectedSet.add(mList[realPosition])
+                selectedMap[realPosition + 1] = true
+                selectedMap[0] = false
+
             } else {
                 selectedSet.remove(mList[realPosition])
+                selectedMap[realPosition + 1] = false
+
             }
+            Log.e("sandyzhang", "=======" + selectedSet.toString())
         }
+
     }
 
     override fun getItemCount() = mList.size + 1

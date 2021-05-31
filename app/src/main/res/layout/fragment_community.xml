@@ -21,14 +21,15 @@
             app:before_refresh_text="下拉刷新"
             app:can_refresh_text="释放立即刷新"
             app:head_view="@layout/layout_head_view"
+            app:refreshed_ic="@drawable/ic_positive"
+            app:refreshed_text="加载完成！"
+            app:refreshing_text="玩命加载中..."
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
-            app:refreshed_ic="@drawable/ic_positive"
-            app:refreshed_text="加载完成！"
-            app:refreshing_text="玩命加载中...">
+            >
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewTalkList"
