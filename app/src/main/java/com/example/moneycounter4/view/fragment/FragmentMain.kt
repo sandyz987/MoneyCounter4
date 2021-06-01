@@ -134,7 +134,24 @@ class FragmentMain : BaseViewModelFragment<MainViewModel>() {
         // =========================
 
 
-        val widgetAdapter = WidgetAdapter(mutableListOf("日历", "月结余", "本周支出", "全局预算"))
+        val widgetAdapter = WidgetAdapter(mutableListOf("日历", "月结余", "本周支出", "全局预算")) {
+            when (it) {
+                1 -> {
+                }
+                2 -> {
+                }
+                3 -> {
+                    findNavController().navigate(
+                        R.id.action_global_fragmentDistribution,
+                        Bundle().apply { putBoolean("label", true) })
+                }
+                4 -> {
+                    findNavController().navigate(R.id.action_global_fragmentCounterSetting)
+                }
+                else -> {
+                }
+            }
+        }
         val ihCallback =
             ItemTouchGridCallback(widgetAdapter)
         val itemTouchHelper = ItemTouchHelper(ihCallback)

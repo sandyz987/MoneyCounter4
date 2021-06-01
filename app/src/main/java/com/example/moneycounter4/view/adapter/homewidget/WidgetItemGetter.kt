@@ -1,5 +1,6 @@
 package com.example.moneycounter4.view.adapter.homewidget
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.moneycounter4.R
@@ -80,7 +81,8 @@ class WidgetItemGetter {
                 )
             }
 
-        fun bindView(holder: WidgetAdapter.BaseViewHolder) {
+        @SuppressLint("SetTextI18n")
+        fun bindView(holder: WidgetAdapter.BaseViewHolder, onInnerClickAction: ((Int) -> Unit)) {
             if (holder is CalendarViewHolder) {
                 // 自动显示日期，无需操作
             }
@@ -154,6 +156,7 @@ class WidgetItemGetter {
 //                        findNavController().navigate(R.id.action_global_fragmentDistribution, Bundle().apply {
 //                            putBoolean("label", true)
 //                        })
+                        onInnerClickAction.invoke(holder.viewType)
                     }
                 }
             }
@@ -182,6 +185,9 @@ class WidgetItemGetter {
 //                    view3.setOnClickListener {
 //                        findNavController().navigate(R.id.action_global_fragmentCounterSetting)
 //                    }
+                    holder.tv_budget_setting.setOnClickListener {
+                        onInnerClickAction.invoke(holder.viewType)
+                    }
                     holder.tv_budget_setting.text =
                         "结算日:每${SettingUtil.settingData!!.budgetPeriod}${FragmentCounterSetting.getDescribe()}"
 
