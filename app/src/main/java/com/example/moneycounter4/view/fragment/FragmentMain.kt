@@ -5,15 +5,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.moneycounter4.R
 import com.example.moneycounter4.base.BaseViewModelFragment
+import com.example.moneycounter4.extensions.dp2px
+import com.example.moneycounter4.extensions.getScreenHeight
 import com.example.moneycounter4.view.adapter.homewidget.WidgetAdapter
 import com.example.moneycounter4.view.adapter.homewidget.WidgetItemGetter
 import com.example.moneycounter4.viewmodel.MainViewModel
 import com.example.moneycounter4.widgets.ItemTouchGridCallback
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.fragment_main.*
 
 
@@ -33,6 +37,21 @@ class FragmentMain : BaseViewModelFragment<MainViewModel>() {
         iv_welfare.setOnClickListener {
             findNavController().navigate(R.id.action_global_fragmentWelfare)
         }
+
+        val behavior = BottomSheetBehavior.from(rv_widget)
+        behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+            }
+
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                val lp = iv_welfare.layoutParams as CoordinatorLayout.LayoutParams
+                lp.width = ((1 - slideOffset) * bottomSheet.context.dp2px(220f)).toInt()
+                lp.height = ((1 - slideOffset) * bottomSheet.context.dp2px(220f)).toInt()
+                lp.topMargin =
+                    ((1 - slideOffset) * bottomSheet.context.getScreenHeight() / 2 - lp.height / 2).toInt()
+                iv_welfare.requestLayout()
+            }
+        }.apply { onSlide(rv_widget, 0f) })
 
         // =======================
 //        val o = Observable.create<WeekItemData> {
