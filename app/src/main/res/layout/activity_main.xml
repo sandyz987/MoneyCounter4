@@ -43,7 +43,7 @@
             app:layout_constraintEnd_toStartOf="@+id/bottomViewGraph"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:no_checked_src="@drawable/ic_list_new_fill" />
+            app:no_checked_src="@drawable/ic_list_new_stroke" />
 
         <com.example.moneycounter4.view.costom.BottomViewZ
             android:id="@+id/bottomViewGraph"
@@ -60,7 +60,7 @@
             app:layout_constraintStart_toEndOf="@+id/bottomViewList"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            app:no_checked_src="@drawable/ic_graph_new_fill" />
+            app:no_checked_src="@drawable/ic_graph_new_stroke" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingMain"
@@ -91,7 +91,7 @@
             app:layout_constraintStart_toEndOf="@+id/floatingMain"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            app:no_checked_src="@drawable/ic_community_new_fill" />
+            app:no_checked_src="@drawable/ic_community_new_stroke" />
 
         <com.example.moneycounter4.view.costom.BottomViewZ
             android:id="@+id/bottomViewMine"
@@ -108,7 +108,7 @@
             app:layout_constraintStart_toEndOf="@+id/bottomViewCommunity"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            app:no_checked_src="@drawable/ic_mine_new_fill" />
+            app:no_checked_src="@drawable/ic_mine_new_stroke" />
     </com.example.moneycounter4.view.costom.BottomConstraintLayoutZ>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

@@ -1,6 +1,7 @@
 package com.example.moneycounter4.view.fragment
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +24,8 @@ import kotlinx.android.synthetic.main.fragment_main.*
 
 class FragmentMain : BaseViewModelFragment<MainViewModel>() {
 
+    override fun useActivityViewModel() = true
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,12 +47,17 @@ class FragmentMain : BaseViewModelFragment<MainViewModel>() {
             }
 
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                val lp = iv_welfare.layoutParams as CoordinatorLayout.LayoutParams
-                lp.width = ((1 - slideOffset) * bottomSheet.context.dp2px(220f)).toInt()
-                lp.height = ((1 - slideOffset) * bottomSheet.context.dp2px(220f)).toInt()
-                lp.topMargin =
-                    ((1 - slideOffset) * bottomSheet.context.getScreenHeight() / 2 - lp.height / 2).toInt()
-                iv_welfare.requestLayout()
+                val lp = iv_welfare?.layoutParams as CoordinatorLayout.LayoutParams?
+                lp?.width = ((1 - slideOffset) * bottomSheet.context.dp2px(180f)).toInt()
+                lp?.height = ((1 - slideOffset) * bottomSheet.context.dp2px(180f)).toInt()
+                lp?.topMargin =
+                    ((1 - slideOffset) * bottomSheet.context.getScreenHeight() * 0.65f - (lp?.height
+                        ?: 0) / 2).toInt()
+                iv_welfare?.requestLayout()
+
+
+                realtimeblurview?.setBlurRadius((((25f * slideOffset + 0.6f) / 4).toInt() * 4).toFloat())
+                realtimeblurview?.setOverlayColor(Color.argb((55 * slideOffset).toInt(), 0, 0, 0))
             }
         }.apply { onSlide(rv_widget, 0f) })
 

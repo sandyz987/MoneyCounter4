@@ -15,9 +15,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 
 //所有fragment都在这个activity中运行
-class Msg(val s: String)
 
 class ActivityMain : BaseViewModelActivity<MainViewModel>() {
+
+    private var currentId = R.id.action_global_fragmentMain
 
     @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("RestrictedApi")
@@ -87,14 +88,17 @@ class ActivityMain : BaseViewModelActivity<MainViewModel>() {
 
     @SuppressLint("RestrictedApi")
     private fun navTo(id: Int, bundle: Bundle?) {
-        val navController = findNavController(R.id.fragment)
-        if (navController.backStack.size > 1) {
-            navController.popBackStack()
-        }
-        if (bundle != null) {
-            navController.navigate(id, bundle)
-        } else {
-            navController.navigate(id)
+        if (currentId != id) {
+            currentId = id
+            val navController = findNavController(R.id.fragment)
+            if (navController.backStack.size > 1) {
+                navController.popBackStack()
+            }
+            if (bundle != null) {
+                navController.navigate(id, bundle)
+            } else {
+                navController.navigate(id)
+            }
         }
 
 

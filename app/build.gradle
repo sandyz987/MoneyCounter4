@@ -76,7 +76,11 @@ dependencies {
     //noinspection LifecycleAnnotationProcessorWithJava8
 //    kapt "android.arch.lifecycle:compiler:1.1.1"
 
+    // Glide
     implementation 'com.github.bumptech.glide:glide:4.12.0'
+    // 高斯模糊
+    implementation 'com.github.mmin18:realtimeblurview:1.2.1'
+
     implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.6'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 //    implementation 'com.qiniu:qiniu-java-sdk:7.2.27'

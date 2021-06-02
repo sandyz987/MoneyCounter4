@@ -9,11 +9,26 @@
 
 
     <ImageView
+        android:id="@+id/iv_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_home_background" />
+
+    <com.github.mmin18.widget.RealtimeBlurView
+        android:id="@+id/realtimeblurview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:realtimeBlurRadius="1dp"
+        app:realtimeOverlayColor="#00000000" />
+
+    <ImageView
         android:id="@+id/iv_welfare"
         android:layout_width="222dp"
         android:layout_gravity="center_horizontal"
         android:layout_height="247dp"
-        android:src="@drawable/ic_home_background_pic" />
+        android:src="@drawable/ic_home_duck_pic" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_widget"
@@ -22,9 +37,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:clipChildren="false"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-        app:behavior_peekHeight="160dp"
+        app:behavior_peekHeight="120dp"
         app:behavior_hideable="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
