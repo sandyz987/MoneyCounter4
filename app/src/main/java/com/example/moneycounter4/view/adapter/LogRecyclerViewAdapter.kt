@@ -1,6 +1,5 @@
 package com.example.moneycounter4.view.adapter
 
-import android.app.Activity
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,20 +8,19 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moneycounter4.R
 import com.example.moneycounter4.beannew.CounterDataItem
 import com.example.moneycounter4.databinding.ItemCounterDataBinding
 import com.example.moneycounter4.utils.TimeUtil
-import com.example.moneycounter4.viewmodel.MainViewModel
+import com.example.moneycounter4.viewmodel.GlobalViewModel
 import com.example.moneycounter4.widgets.FirstItemDecoration
 
 //记账记录的adapter
 @RequiresApi(Build.VERSION_CODES.N)
 class LogRecyclerViewAdapter(
-    private val fragment: Fragment, private val vm: MainViewModel,
+    private val fragment: Fragment, private val vm: GlobalViewModel,
     private val mList: List<CounterDataItem>, rv: RecyclerView
 ) :
     RecyclerView.Adapter<LogRecyclerViewAdapter.ViewHolder>() {

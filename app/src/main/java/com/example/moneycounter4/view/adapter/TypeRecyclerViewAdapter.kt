@@ -1,7 +1,6 @@
 package com.example.moneycounter4.view.adapter
 
 import android.app.Activity
-import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,14 +15,14 @@ import com.example.moneycounter4.R
 import com.example.moneycounter4.bean.TypeItem
 import com.example.moneycounter4.databinding.ItemTypeBinding
 import com.example.moneycounter4.view.activity.ActivityMain
-import com.example.moneycounter4.viewmodel.MainViewModel
+import com.example.moneycounter4.viewmodel.GlobalViewModel
 import com.example.moneycounter4.widgets.ItemMoveCallback
 import java.util.*
 
 //记账记录的adapter
 class TypeRecyclerViewAdapter(
     private val mActivity: Activity,
-    private var vm: MainViewModel,
+    private var vm: GlobalViewModel,
     private var mList: MutableList<TypeItem>?,
     private val showSettingItem: Int
 ) :

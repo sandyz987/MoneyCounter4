@@ -18,7 +18,7 @@ import com.example.moneycounter4.model.dao.DateItem
 import com.example.moneycounter4.model.dao.getByDuration
 import com.example.moneycounter4.utils.CalendarUtil
 import com.example.moneycounter4.view.adapter.LogRecyclerViewAdapter
-import com.example.moneycounter4.viewmodel.MainViewModel
+import com.example.moneycounter4.viewmodel.GlobalViewModel
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.Legend
@@ -28,6 +28,7 @@ import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_distribution.*
+import kotlinx.android.synthetic.main.layout_header_filter.*
 import kotlin.math.abs
 
 @RequiresApi(Build.VERSION_CODES.N)
@@ -37,7 +38,7 @@ import kotlin.math.abs
  * putInt: year month day last_day 年月日和期限（年月日后多少天）
  */
 
-class FragmentDistribution : BaseViewModelFragment<MainViewModel>() {
+class FragmentDistribution : BaseViewModelFragment<GlobalViewModel>() {
 
     override fun useActivityViewModel() = true
 
@@ -61,7 +62,7 @@ class FragmentDistribution : BaseViewModelFragment<MainViewModel>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        textViewFinish3.setOnClickListener {
+        tv_finish.setOnClickListener {
             findNavController().navigate(R.id.action_fragmentDistribution_pop)
         }
         label = arguments?.getBoolean("label", true)!!
@@ -89,7 +90,9 @@ class FragmentDistribution : BaseViewModelFragment<MainViewModel>() {
             }
 
             override fun onDrawerOpened(drawerView: View) {
-
+                flow_account_select?.setOptions("666", "hhh","33", "sasdd","66asdfa6", "hhasdfh","66fdsg6", "hsdfghh","666sdfg", "hsdhh")
+                flow_out_select?.setOptions("666", "hhh","33", "sasdd","66asdfa6", "hhasdfh","66fdsg6", "hsdfghh","666sdfg", "hsdhh")
+                flow_in_select?.setOptions("666", "hhh","33", "sasdd","66asdfa6", "hhasdfh","66fdsg6", "hsdfghh","666sdfg", "hsdhh")
             }
 
             override fun onDrawerClosed(drawerView: View) {

@@ -6,17 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.moneycounter4.R
-import com.example.moneycounter4.base.BaseFragment
 import com.example.moneycounter4.base.BaseViewModelFragment
 import com.example.moneycounter4.databinding.FragmentTypeEditBinding
 import com.example.moneycounter4.view.adapter.TypeFragmentPagerAdapter
-import com.example.moneycounter4.viewmodel.MainViewModel
+import com.example.moneycounter4.viewmodel.GlobalViewModel
 import kotlinx.android.synthetic.main.fragment_counter_edit.*
 
-class FragmentTypeEdit : BaseViewModelFragment<MainViewModel>() {
+class FragmentTypeEdit : BaseViewModelFragment<GlobalViewModel>() {
 
     override fun useActivityViewModel() = true
 

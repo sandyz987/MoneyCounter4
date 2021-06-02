@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vm"
-            type="com.example.moneycounter4.viewmodel.MainViewModel" />
+            type="com.example.moneycounter4.viewmodel.HomeViewModel" />
     </data>
 
     <FrameLayout

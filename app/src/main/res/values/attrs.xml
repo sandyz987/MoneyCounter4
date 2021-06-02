@@ -41,4 +41,9 @@
     <declare-styleable name="CounterProgressBar">
         <attr name="progress_int" format="integer" />
     </declare-styleable>
+
+    <declare-styleable name="SingleSelectItem">
+        <attr name="no_select_color" format="color" />
+        <attr name="selected_color" format="color" />
+    </declare-styleable>
 </resources>

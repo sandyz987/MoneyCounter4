@@ -16,13 +16,13 @@ import com.example.moneycounter4.extensions.dp2px
 import com.example.moneycounter4.extensions.getScreenHeight
 import com.example.moneycounter4.view.adapter.homewidget.WidgetAdapter
 import com.example.moneycounter4.view.adapter.homewidget.WidgetItemGetter
-import com.example.moneycounter4.viewmodel.MainViewModel
+import com.example.moneycounter4.viewmodel.GlobalViewModel
 import com.example.moneycounter4.widgets.ItemTouchGridCallback
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.fragment_main.*
 
 
-class FragmentMain : BaseViewModelFragment<MainViewModel>() {
+class FragmentMain : BaseViewModelFragment<GlobalViewModel>() {
 
     override fun useActivityViewModel() = true
 

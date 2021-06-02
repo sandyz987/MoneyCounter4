@@ -21,7 +21,7 @@ import com.example.moneycounter4.model.DataReader
 import com.example.moneycounter4.model.TypeIndex
 import com.example.moneycounter4.view.adapter.TypeRecyclerViewAdapter
 import com.example.moneycounter4.view.costom.EditTextZ
-import com.example.moneycounter4.viewmodel.MainViewModel
+import com.example.moneycounter4.viewmodel.GlobalViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_type.*
@@ -31,7 +31,7 @@ import kotlinx.android.synthetic.main.fragment_type.*
 
 class FragmentAddType : BaseFragment() {
 
-    lateinit var viewModel: MainViewModel
+    lateinit var viewModel: GlobalViewModel
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -43,7 +43,7 @@ class FragmentAddType : BaseFragment() {
             null,
             false
         )
-        viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(GlobalViewModel::class.java)
         fragmentTypeBinding.lifecycleOwner = this
         return fragmentTypeBinding.root
     }

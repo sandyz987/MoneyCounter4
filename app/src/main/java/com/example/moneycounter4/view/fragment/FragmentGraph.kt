@@ -26,9 +26,10 @@ import com.example.moneycounter4.model.DataReader
 import com.example.moneycounter4.model.dao.getByDuration
 import com.example.moneycounter4.network.setSchedulers
 import com.example.moneycounter4.utils.CalendarUtil
+import com.example.moneycounter4.utils.getYear
 import com.example.moneycounter4.utils.toTimeString
 import com.example.moneycounter4.view.costom.DataItem
-import com.example.moneycounter4.viewmodel.MainViewModel
+import com.example.moneycounter4.viewmodel.GlobalViewModel
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
@@ -44,10 +45,12 @@ import org.apache.poi.hssf.usermodel.HSSFSheet
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import java.io.File
 import java.io.FileOutputStream
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.abs
 
 
-class FragmentGraph : BaseViewModelFragment<MainViewModel>() {
+class FragmentGraph : BaseViewModelFragment<GlobalViewModel>() {
 
     companion object {
         lateinit var tfLight: Typeface
@@ -62,9 +65,8 @@ class FragmentGraph : BaseViewModelFragment<MainViewModel>() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
         tfLight = Typeface.createFromAsset(requireContext().assets, "alibaba_light.ttf")
-        year = viewModel.selectedYear
+        year = Calendar.getInstance().getYear()
         return inflater.inflate(R.layout.fragment_graph, container, false)
     }
 
@@ -84,7 +86,6 @@ class FragmentGraph : BaseViewModelFragment<MainViewModel>() {
                     requireContext()
                 ) { date, _ ->
                     year = date.year + 1900
-                    viewModel.selectedYear = year
                     drag_head_view.refresh()
                 }
                     .setType(booleanArrayOf(true, false, false, false, false, false))

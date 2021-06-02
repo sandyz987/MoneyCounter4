@@ -15,18 +15,18 @@ import com.example.moneycounter4.beannew.CounterDataItem
 import com.example.moneycounter4.model.DataReader
 import com.example.moneycounter4.model.TypePicFinder
 import com.example.moneycounter4.utils.TimeUtil
-import com.example.moneycounter4.viewmodel.MainViewModel
+import com.example.moneycounter4.viewmodel.GlobalViewModel
 import kotlinx.android.synthetic.main.fragment_item_detail.*
 
 class FragmentItemDetail : BaseFragment() {
 
-    lateinit var viewModel: MainViewModel
+    lateinit var viewModel: GlobalViewModel
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(GlobalViewModel::class.java)
 
         return inflater.inflate(R.layout.fragment_item_detail, container, false)
     }

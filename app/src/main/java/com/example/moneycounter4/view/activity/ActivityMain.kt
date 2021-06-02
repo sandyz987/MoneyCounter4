@@ -10,13 +10,13 @@ import androidx.navigation.findNavController
 import com.example.moneycounter4.R
 import com.example.moneycounter4.base.BaseViewModelActivity
 import com.example.moneycounter4.model.Config
-import com.example.moneycounter4.viewmodel.MainViewModel
+import com.example.moneycounter4.viewmodel.GlobalViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 //所有fragment都在这个activity中运行
 
-class ActivityMain : BaseViewModelActivity<MainViewModel>() {
+class ActivityMain : BaseViewModelActivity<GlobalViewModel>() {
 
     private var currentId = R.id.action_global_fragmentMain
 

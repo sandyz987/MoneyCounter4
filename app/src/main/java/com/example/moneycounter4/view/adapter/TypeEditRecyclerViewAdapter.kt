@@ -8,14 +8,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.ObservableArrayList
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moneycounter4.R
 import com.example.moneycounter4.bean.TypeItem
 import com.example.moneycounter4.databinding.ItemTypeRemoveBinding
 import com.example.moneycounter4.view.activity.ActivityMain
-import com.example.moneycounter4.viewmodel.MainViewModel
+import com.example.moneycounter4.viewmodel.GlobalViewModel
 import com.example.moneycounter4.widgets.ItemMoveCallback
 import com.example.moneycounter4.widgets.LogW
 import java.util.*
@@ -24,7 +23,7 @@ import java.util.*
 @RequiresApi(Build.VERSION_CODES.N)
 class TypeEditRecyclerViewAdapter(
     private val mActivity: Activity,
-    private val vm: MainViewModel,
+    private val vm: GlobalViewModel,
     private var mList: MutableList<TypeItem>?
 ) :
     RecyclerView.Adapter<TypeEditRecyclerViewAdapter.ViewHolder>(), ItemMoveCallback {

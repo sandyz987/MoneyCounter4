@@ -14,13 +14,13 @@ import com.example.moneycounter4.R
 import com.example.moneycounter4.base.BaseViewModelFragment
 import com.example.moneycounter4.databinding.FragmentTypeBinding
 import com.example.moneycounter4.view.adapter.TypeEditRecyclerViewAdapter
-import com.example.moneycounter4.viewmodel.MainViewModel
+import com.example.moneycounter4.viewmodel.GlobalViewModel
 import com.example.moneycounter4.widgets.ItemTouchLinearCallback
 import kotlinx.android.synthetic.main.fragment_type.*
 
 //conf表明显示支出列表还是收入列表
 
-class InsideFragmentTypeEdit(private val conf: Int) : BaseViewModelFragment<MainViewModel>() {
+class InsideFragmentTypeEdit(private val conf: Int) : BaseViewModelFragment<GlobalViewModel>() {
     override fun useActivityViewModel() = true
 
     companion object {
@@ -39,7 +39,7 @@ class InsideFragmentTypeEdit(private val conf: Int) : BaseViewModelFragment<Main
             null,
             false
         )
-        viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(GlobalViewModel::class.java)
         fragmentTypeBinding.lifecycleOwner = this
         return fragmentTypeBinding.root
     }

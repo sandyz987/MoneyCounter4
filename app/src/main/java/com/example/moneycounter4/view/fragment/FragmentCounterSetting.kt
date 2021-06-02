@@ -13,12 +13,12 @@ import com.bigkoo.pickerview.view.OptionsPickerView
 import com.example.moneycounter4.R
 import com.example.moneycounter4.base.BaseViewModelFragment
 import com.example.moneycounter4.model.SettingUtil
-import com.example.moneycounter4.viewmodel.MainViewModel
+import com.example.moneycounter4.viewmodel.GlobalViewModel
 import kotlinx.android.synthetic.main.fragment_counter_setting.*
 import kotlin.math.abs
 
 
-class FragmentCounterSetting : BaseViewModelFragment<MainViewModel>() {
+class FragmentCounterSetting : BaseViewModelFragment<GlobalViewModel>() {
 
     override fun useActivityViewModel() = true
 

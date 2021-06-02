@@ -8,20 +8,22 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.baoyz.widget.PullRefreshLayout
 import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.example.moneycounter4.R
 import com.example.moneycounter4.base.BaseFragment
+import com.example.moneycounter4.base.BaseViewModelFragment
 import com.example.moneycounter4.databinding.FragmentMyHomeBinding
 import com.example.moneycounter4.view.adapter.LogRecyclerViewAdapter
-import com.example.moneycounter4.viewmodel.MainViewModel
+import com.example.moneycounter4.viewmodel.GlobalViewModel
+import com.example.moneycounter4.viewmodel.HomeViewModel
 import kotlinx.android.synthetic.main.fragment_my_home.*
 
 
-class FragmentHome : BaseFragment() {
+class FragmentHome : BaseViewModelFragment<HomeViewModel>() {
 
-    lateinit var viewModel: MainViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -32,7 +34,7 @@ class FragmentHome : BaseFragment() {
             null,
             false
         )
-        viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         fragmentHomeBinding.vm = viewModel
 
         fragmentHomeBinding.lifecycleOwner = this
@@ -48,7 +50,7 @@ class FragmentHome : BaseFragment() {
 
         val adapter = LogRecyclerViewAdapter(
             this,
-            viewModel,
+            ViewModelProviders.of(requireActivity()).get(GlobalViewModel::class.java),
             viewModel.list,
             recyclerViewLog
         )
