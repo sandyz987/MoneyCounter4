@@ -8,6 +8,20 @@
     android:clipChildren="false"
     tools:context=".view.activity.ActivityMain">
 
+    <ImageView
+        android:id="@+id/iv_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_home_background" />
+
+    <com.github.mmin18.widget.RealtimeBlurView
+        android:id="@+id/realtimeblurview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:realtimeBlurRadius="25dp"
+        app:realtimeOverlayColor="#37ffffff" />
+
     <fragment
         android:id="@+id/fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"

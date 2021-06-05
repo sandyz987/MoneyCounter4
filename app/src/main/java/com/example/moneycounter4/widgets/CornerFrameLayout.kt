@@ -28,16 +28,24 @@ class CornerFrameLayout @JvmOverloads constructor(
         mHeight = h.toFloat()
     }
 
-    override fun draw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas?) {
         canvas?.save()
-        canvas?.setDrawFilter(PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG or Paint.FILTER_BITMAP_FLAG))
+        canvas?.setDrawFilter(
+            PaintFlagsDrawFilter(
+                0,
+                Paint.ANTI_ALIAS_FLAG or Paint.FILTER_BITMAP_FLAG
+            )
+        )
 
         canvas?.clipPath(Path().apply {
-            addRoundRect(RectF(0f, 0f, mWidth, mHeight), floatArrayOf(50f,50f,50f,50f,50f,50f,50f,50f), Path.Direction.CCW)
+            addRoundRect(
+                RectF(0f, 0f, mWidth, mHeight),
+                floatArrayOf(50f, 50f, 50f, 50f, 50f, 50f, 50f, 50f),
+                Path.Direction.CCW
+            )
         })
-        super.draw(canvas)
+        super.onDraw(canvas)
         canvas?.restore()
-
     }
 
 }

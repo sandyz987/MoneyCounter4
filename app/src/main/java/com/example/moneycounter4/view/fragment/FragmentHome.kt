@@ -7,13 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.baoyz.widget.PullRefreshLayout
 import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.example.moneycounter4.R
-import com.example.moneycounter4.base.BaseFragment
 import com.example.moneycounter4.base.BaseViewModelFragment
 import com.example.moneycounter4.databinding.FragmentMyHomeBinding
 import com.example.moneycounter4.view.adapter.LogRecyclerViewAdapter
@@ -24,18 +22,18 @@ import kotlinx.android.synthetic.main.fragment_my_home.*
 
 class FragmentHome : BaseViewModelFragment<HomeViewModel>() {
 
+    private lateinit var fragmentHomeBinding: FragmentMyHomeBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
 
-        val fragmentHomeBinding = DataBindingUtil.inflate<FragmentMyHomeBinding>(
+        fragmentHomeBinding = DataBindingUtil.inflate(
             LayoutInflater.from(requireContext()),
             R.layout.fragment_my_home,
             null,
             false
         )
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        fragmentHomeBinding.vm = viewModel
 
         fragmentHomeBinding.lifecycleOwner = this
         return fragmentHomeBinding.root
@@ -45,6 +43,7 @@ class FragmentHome : BaseViewModelFragment<HomeViewModel>() {
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        fragmentHomeBinding.vm = viewModel
 
         viewModel.refreshList()
 

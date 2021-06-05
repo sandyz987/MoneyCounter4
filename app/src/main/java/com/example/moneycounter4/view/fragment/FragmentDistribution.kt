@@ -28,7 +28,7 @@ import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_distribution.*
-import kotlinx.android.synthetic.main.layout_header_filter.*
+import kotlinx.android.synthetic.main.layout_header_filter.view.*
 import kotlin.math.abs
 
 @RequiresApi(Build.VERSION_CODES.N)
@@ -74,25 +74,58 @@ class FragmentDistribution : BaseViewModelFragment<GlobalViewModel>() {
 
 
             adapter = LogRecyclerViewAdapter(
-            this,
-            viewModel,
-            arrayList,
-            rv_list
-        )
+                this,
+                viewModel,
+                arrayList,
+                rv_list
+            )
 
 
 
         iv_filter.setOnClickListener {
             drawer_layout.open()
         }
+        nav_view.getHeaderView(0).flow_account_select?.setOptions(
+            "666",
+            "hhh",
+            "33",
+            "sasdd",
+            "66asdfa6",
+            "hhasdfh",
+            "66fdsg6",
+            "hsdfghh",
+            "666sdfg",
+            "hsdhh"
+        )
+        nav_view.getHeaderView(0).flow_out_select?.setOptions(
+            "666",
+            "hhh",
+            "33",
+            "sasdd",
+            "66asdfa6",
+            "hhasdfh",
+            "66fdsg6",
+            "hsdfghh",
+            "666sdfg",
+            "hsdhh"
+        )
+        nav_view.getHeaderView(0).flow_in_select?.setOptions(
+            "666",
+            "hhh",
+            "33",
+            "sasdd",
+            "66asdfa6",
+            "hhasdfh",
+            "66fdsg6",
+            "hsdfghh",
+            "666sdfg",
+            "hsdhh"
+        )
         drawer_layout.addDrawerListener(object : DrawerLayout.DrawerListener {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
             }
 
             override fun onDrawerOpened(drawerView: View) {
-                flow_account_select?.setOptions("666", "hhh","33", "sasdd","66asdfa6", "hhasdfh","66fdsg6", "hsdfghh","666sdfg", "hsdhh")
-                flow_out_select?.setOptions("666", "hhh","33", "sasdd","66asdfa6", "hhasdfh","66fdsg6", "hsdfghh","666sdfg", "hsdhh")
-                flow_in_select?.setOptions("666", "hhh","33", "sasdd","66asdfa6", "hhasdfh","66fdsg6", "hsdfghh","666sdfg", "hsdhh")
             }
 
             override fun onDrawerClosed(drawerView: View) {
