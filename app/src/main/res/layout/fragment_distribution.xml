@@ -5,7 +5,6 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:openDrawer="left"
     android:layout_gravity="start">
 
 
@@ -17,7 +16,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout4"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/shape_my_home_appbar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -52,9 +51,11 @@
                 android:id="@+id/tab_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_date"
                 app:tabIndicatorColor="@color/colorAccent"
                 app:tabTextColor="#ffffff">
 
@@ -69,7 +70,29 @@
                     android:text="收入" />
 
             </com.google.android.material.tabs.TabLayout>
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="所选日期："
+                android:textColor="#FFFFFF"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_no_log_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="该时间段暂无记录~\n快记录一笔账吧！"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
 
         <com.baoyz.widget.PullRefreshLayout
             android:id="@+id/pullRefreshLayout"
@@ -109,7 +132,7 @@
                         android:layout_marginTop="16dp"
                         android:text="账单详细"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/rv_rank" />
+                        app:layout_constraintTop_toBottomOf="@+id/pie_chart" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_list"
@@ -121,25 +144,6 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-                    <TextView
-                        android:id="@+id/textView14"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="16dp"
-                        android:text="类目排行"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/pie_chart" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_rank"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="8dp"
-                        android:nestedScrollingEnabled="true"
-                        app:layout_constraintTop_toBottomOf="@+id/textView14"
-                        tools:layout_editor_absoluteX="100dp" />
 
                     <TextView
                         android:id="@+id/textView15"

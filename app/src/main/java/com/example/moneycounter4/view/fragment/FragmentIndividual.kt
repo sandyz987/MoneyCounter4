@@ -47,7 +47,7 @@ class FragmentIndividual : BaseViewModelFragment<IndividualViewModel>() {
                 layoutCondition.visibility = View.GONE
                 imageViewSetting.visibility = View.GONE
             } else {
-                textViewTag.text = "我的主题"
+                fragment_detail?.view?.visibility = View.GONE
             }
         }
 

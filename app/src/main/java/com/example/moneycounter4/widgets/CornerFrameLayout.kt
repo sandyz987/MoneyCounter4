@@ -29,7 +29,6 @@ class CornerFrameLayout @JvmOverloads constructor(
     }
 
     override fun onDraw(canvas: Canvas?) {
-        canvas?.save()
         canvas?.setDrawFilter(
             PaintFlagsDrawFilter(
                 0,
@@ -45,7 +44,6 @@ class CornerFrameLayout @JvmOverloads constructor(
             )
         })
         super.onDraw(canvas)
-        canvas?.restore()
     }
 
 }

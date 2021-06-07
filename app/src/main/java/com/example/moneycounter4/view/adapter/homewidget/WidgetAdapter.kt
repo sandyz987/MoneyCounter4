@@ -16,7 +16,8 @@ import java.util.*
 
 class WidgetAdapter(
     private val widgetList: MutableList<String>,
-    private val onInnerClickAction: ((Int) -> Unit)
+    private val onInnerClickAction: ((Int) -> Unit),
+    private val onChange: ((List<String>) -> Unit)
 ) :
     RecyclerView.Adapter<WidgetAdapter.BaseViewHolder>(), ItemMoveCallback {
 
@@ -41,6 +42,7 @@ class WidgetAdapter(
 
     override fun onItemMove(fromPosition: Int, toPosition: Int) {
         Collections.swap(widgetList, fromPosition, toPosition)
+        onChange.invoke(widgetList)
         notifyItemMoved(fromPosition, toPosition)
     }
 

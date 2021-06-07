@@ -3,7 +3,6 @@ package com.example.moneycounter4.base
 import android.app.ProgressDialog
 import android.os.Bundle
 import android.widget.Toast
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import java.lang.reflect.ParameterizedType
@@ -63,15 +62,15 @@ abstract class BaseViewModelFragment<T : BaseViewModel> : BaseFragment() {
         }
     }
 
-    inline fun <T> LiveData<T>.observe(crossinline onChange: (T?) -> Unit) =
-        activity?.let { observe(it, Observer { onChange(it) }) }
-
-    inline fun <T> LiveData<T>.observeNotNull(crossinline onChange: (T) -> Unit) =
-        activity?.let {
-            observe(it, Observer { obj ->
-                obj ?: return@Observer
-                onChange(obj)
-            })
-        }
+//    inline fun <T> LiveData<T>.observe(crossinline onChange: (T?) -> Unit) =
+//        activity?.let { observe(it, Observer { onChange(it) }) }
+//
+//    inline fun <T> LiveData<T>.observeNotNull(crossinline onChange: (T) -> Unit) =
+//        activity?.let {
+//            observe(it, Observer { obj ->
+//                obj ?: return@Observer
+//                onChange(obj)
+//            })
+//        }
 }
 

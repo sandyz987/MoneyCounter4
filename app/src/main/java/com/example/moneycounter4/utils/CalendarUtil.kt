@@ -127,6 +127,13 @@ fun DateItem.getDayCountOfMonth(): Int {
     return CalendarUtil.getCalendar(this).getActualMaximum(Calendar.DAY_OF_MONTH)
 }
 
+/**
+ * 本年的天数
+ */
+fun DateItem.getDayCountOfYear(): Int {
+    return CalendarUtil.getCalendar(this).getActualMaximum(Calendar.DAY_OF_YEAR)
+}
+
 fun Calendar.toDateItem(): DateItem {
     return DateItem(getYear(), getMonth(), getDay())
 }

@@ -261,10 +261,8 @@
     <action
         android:id="@+id/action_global_fragmentDistribution"
         app:destination="@id/fragmentDistribution"
-        app:enterAnim="@anim/slide_in_bottom"
-        app:exitAnim="@anim/alpha_hide"
-        app:popEnterAnim="@anim/alpha_show"
-        app:popExitAnim="@anim/slide_out_bottom" />
+        app:enterAnim="@anim/fragment_open_enter"
+        app:popEnterAnim="@anim/fragment_open_enter" />
 
 
     <fragment

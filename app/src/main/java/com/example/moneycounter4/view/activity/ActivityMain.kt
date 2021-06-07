@@ -52,7 +52,7 @@ class ActivityMain : BaseViewModelActivity<GlobalViewModel>() {
         bottomViewGraph.setOnClickListener {
             clrBottomViewSelect()
             bottomViewGraph.setSelect(true)
-            navTo(R.id.action_global_fragmentGraph, null)
+            navTo(R.id.action_global_fragmentDistribution, null)
         }
 
         floatingMain.setOnClickListener {

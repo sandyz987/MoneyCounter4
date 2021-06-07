@@ -14,6 +14,7 @@ import com.example.moneycounter4.R
 import com.example.moneycounter4.base.BaseViewModelFragment
 import com.example.moneycounter4.extensions.dp2px
 import com.example.moneycounter4.extensions.getScreenHeight
+import com.example.moneycounter4.model.SettingUtil
 import com.example.moneycounter4.view.adapter.homewidget.WidgetAdapter
 import com.example.moneycounter4.view.adapter.homewidget.WidgetItemGetter
 import com.example.moneycounter4.viewmodel.GlobalViewModel
@@ -161,24 +162,28 @@ class FragmentMain : BaseViewModelFragment<GlobalViewModel>() {
         // =========================
 
 
-        val widgetAdapter = WidgetAdapter(mutableListOf("日历", "月结余", "本周支出", "全局预算")) {
-            when (it) {
-                1 -> {
+        val widgetAdapter =
+            WidgetAdapter(SettingUtil.settingData?.widgetList?.toMutableList() ?: mutableListOf(), {
+                when (it) {
+                    1 -> {
+                    }
+                    2 -> {
+                    }
+                    3 -> {
+                        findNavController().navigate(
+                            R.id.action_global_fragmentDistribution,
+                            Bundle().apply { putBoolean("label", true) })
+                    }
+                    4 -> {
+                        findNavController().navigate(R.id.action_global_fragmentCounterSetting)
+                    }
+                    else -> {
+                    }
                 }
-                2 -> {
-                }
-                3 -> {
-                    findNavController().navigate(
-                        R.id.action_global_fragmentDistribution,
-                        Bundle().apply { putBoolean("label", true) })
-                }
-                4 -> {
-                    findNavController().navigate(R.id.action_global_fragmentCounterSetting)
-                }
-                else -> {
-                }
-            }
-        }
+            }, {
+                SettingUtil.settingData?.widgetList = it
+                SettingUtil.save()
+            })
         val ihCallback =
             ItemTouchGridCallback(widgetAdapter)
         val itemTouchHelper = ItemTouchHelper(ihCallback)

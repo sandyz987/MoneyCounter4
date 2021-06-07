@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".view.fragment.FragmentGraph">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:id="@+id/linearLayout12"
@@ -75,12 +75,11 @@
                     android:id="@+id/textViewType2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:fontFamily="@font/alibaba_bold"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
                     android:text="收支状况"
                     android:textColor="#ffffff"
                     android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -124,13 +123,12 @@
         <com.example.moneycounter4.widgets.DragHeadView
             android:id="@+id/drag_head_view"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             app:before_ic="@drawable/ic_down_arrow"
             app:before_refresh_text="下拉刷新"
             app:can_refresh_text="释放立即刷新"
             app:head_view="@layout/layout_head_view"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout12"

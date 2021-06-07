@@ -13,7 +13,8 @@ import com.google.gson.Gson
 data class SettingData(
     var budgetPeriod: String = "周",   // 周 月
     var budgetStartDate: Int = 2,   // 当budgetPeriod为周时，范围为1-7 周日是1，否则值为1或15
-    var budgetMoney: Double = 500.0   // 预算的可用金额
+    var budgetMoney: Double = 500.0,   // 预算的可用金额
+    var widgetList: List<String> = listOf("日历", "月结余", "本周支出", "全局预算")
 
 )
 
