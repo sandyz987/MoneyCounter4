@@ -7,13 +7,14 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import com.example.moneycounter4.base.BaseViewModel
 import com.example.moneycounter4.beannew.CounterDataItem
+import com.example.moneycounter4.extensions.getIfExist
 import com.example.moneycounter4.model.BillWalletSettingUtil
 import com.example.moneycounter4.model.DataReader
 import com.example.moneycounter4.widgets.LogW
 import java.util.*
 
 @RequiresApi(Build.VERSION_CODES.N)
-class HomeViewModel: BaseViewModel() {
+class HomeViewModel : BaseViewModel() {
 
     val year = ObservableField<Int>()
     val month = ObservableField<Int>()
@@ -22,7 +23,8 @@ class HomeViewModel: BaseViewModel() {
     var selectedYear = 0
     val list = mutableListOf<CounterDataItem>()
 
-    val bill = MutableLiveData("日常账本")
+    val bill = MutableLiveData<String>(BillWalletSettingUtil.settingData?.billList?.map { it.name }
+        ?.getIfExist(0, "日常账本"))
 
 
     init {
@@ -58,7 +60,7 @@ class HomeViewModel: BaseViewModel() {
                 month.get()!!,
                 0,
                 DataReader.OPTION_BY_MONTH
-            )
+            ).filter { it.accountBook == bill.value }
         )
         income.set(DataReader.count(list, DataReader.OPTION_INCOME))
         expend.set(DataReader.count(list, DataReader.OPTION_EXPEND))

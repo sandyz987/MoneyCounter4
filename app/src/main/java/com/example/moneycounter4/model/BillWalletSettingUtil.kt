@@ -2,6 +2,7 @@ package com.example.moneycounter4.model
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import com.example.moneycounter4.extensions.getIfExist
 import com.example.moneycounter4.viewmodel.MainApplication
 import com.google.gson.Gson
 
@@ -55,8 +56,11 @@ object BillWalletSettingUtil {
         }
 
     fun findBillPicByName(name: String): Drawable? {
-        val id = settingData?.billList?.get(settingData?.billList?.indexOfFirst { it.name == name }
-            ?: 0)?.picId ?: -1
+        val ind = settingData?.billList?.indexOfFirst { it.name == name } ?: 0
+        val id = settingData?.billList?.getIfExist(
+            if (ind != -1) ind else
+                0, null
+        )?.picId ?: -1
         return BillPicGetter.getBillPic(id)
     }
 

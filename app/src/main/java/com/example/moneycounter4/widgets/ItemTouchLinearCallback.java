@@ -40,7 +40,7 @@ public class ItemTouchLinearCallback extends ItemTouchHelper.Callback {
     @Override
     public void clearView(@androidx.annotation.NonNull RecyclerView recyclerView, @androidx.annotation.NonNull RecyclerView.ViewHolder viewHolder) {
         super.clearView(recyclerView, viewHolder);
-        c.onItemMoveFinish();
+        c.onItemMoveFinish(recyclerView);
     }
 
     @Override

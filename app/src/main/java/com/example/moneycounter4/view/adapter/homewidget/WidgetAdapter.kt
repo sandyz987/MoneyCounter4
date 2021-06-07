@@ -47,8 +47,8 @@ class WidgetAdapter(
     }
 
     override fun onItemDismiss(position: Int) {}
-    override fun onItemMoveFinish() {
-        notifyDataSetChanged()
+    override fun onItemMoveFinish(recyclerView: RecyclerView) {
+        recyclerView.post { notifyDataSetChanged() }
     }
 
 

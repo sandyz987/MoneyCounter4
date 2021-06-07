@@ -22,7 +22,7 @@ import com.example.moneycounter4.view.adapter.LogRecyclerViewAdapter
 import com.example.moneycounter4.view.adapter.SingleSelectBillAdapter
 import com.example.moneycounter4.viewmodel.GlobalViewModel
 import com.example.moneycounter4.viewmodel.HomeViewModel
-import com.example.moneycounter4.widgets.ItemTouchLinearCallback
+import com.example.moneycounter4.widgets.ItemTouchLinearCallbackRight
 import kotlinx.android.synthetic.main.fragment_my_home.*
 import kotlinx.android.synthetic.main.layout_header_bill.view.*
 
@@ -30,7 +30,7 @@ import kotlinx.android.synthetic.main.layout_header_bill.view.*
 class FragmentHome : BaseViewModelFragment<HomeViewModel>() {
 
     private lateinit var fragmentHomeBinding: FragmentMyHomeBinding
-
+    private lateinit var singleSelectBillAdapter: SingleSelectBillAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -103,6 +103,7 @@ class FragmentHome : BaseViewModelFragment<HomeViewModel>() {
             }
 
             override fun onDrawerClosed(drawerView: View) {
+                viewModel.bill.value = singleSelectBillAdapter.currentSelect
                 refresh()
 
             }
@@ -118,12 +119,12 @@ class FragmentHome : BaseViewModelFragment<HomeViewModel>() {
     fun refreshNav() {
         nav_view.getHeaderView(0).apply {
             rv_bill.layoutManager = LinearLayoutManager(requireContext())
-            val adapter = SingleSelectBillAdapter()
+            singleSelectBillAdapter = SingleSelectBillAdapter()
             val ihCallback =
-                ItemTouchLinearCallback(adapter)
+                ItemTouchLinearCallbackRight(singleSelectBillAdapter)
             val itemTouchHelper = ItemTouchHelper(ihCallback)
             itemTouchHelper.attachToRecyclerView(rv_bill)
-            rv_bill.adapter = adapter
+            rv_bill.adapter = singleSelectBillAdapter
         }
     }
 

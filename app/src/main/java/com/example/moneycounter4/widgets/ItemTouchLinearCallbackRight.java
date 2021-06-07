@@ -10,11 +10,11 @@ import org.jetbrains.annotations.NotNull;
 import io.reactivex.annotations.NonNull;
 
 
-public class ItemTouchGridCallback extends ItemTouchHelper.Callback {
+public class ItemTouchLinearCallbackRight extends ItemTouchHelper.Callback {
 
     private final ItemMoveCallback c;
 
-    public ItemTouchGridCallback(ItemMoveCallback c) {
+    public ItemTouchLinearCallbackRight(ItemMoveCallback c) {
         this.c = c;
     }
 
@@ -22,9 +22,8 @@ public class ItemTouchGridCallback extends ItemTouchHelper.Callback {
     @Override
     public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
         //允许上下的拖动
-        int dragFlags = dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
-        //只允许从右向左侧滑
-        int swipeFlags = 0;
+        int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
+        int swipeFlags = ItemTouchHelper.RIGHT;
         return makeMovementFlags(dragFlags, swipeFlags);
     }
 
@@ -43,6 +42,7 @@ public class ItemTouchGridCallback extends ItemTouchHelper.Callback {
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
 
+        c.onItemDismiss(viewHolder.getAdapterPosition());
     }
 
     @Override

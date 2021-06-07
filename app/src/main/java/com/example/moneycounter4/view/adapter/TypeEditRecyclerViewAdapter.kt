@@ -99,8 +99,8 @@ class TypeEditRecyclerViewAdapter(
 
     }
 
-    override fun onItemMoveFinish() {
-        notifyDataSetChanged()
+    override fun onItemMoveFinish(recyclerView: RecyclerView) {
+        recyclerView.post { notifyDataSetChanged() }
     }
 
 

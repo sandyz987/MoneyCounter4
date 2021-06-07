@@ -30,6 +30,7 @@ class SingleSelectBillAdapter : RecyclerView.Adapter<SingleSelectBillAdapter.Vie
         BillWalletSettingUtil.settingData?.billList ?: mutableListOf()
     private lateinit var recyclerView: RecyclerView
     private val selectedMap = HashMap<String, Boolean>()
+    var currentSelect = ""
 
     init {
         if (!sourceList.isNullOrEmpty()) {
@@ -74,6 +75,7 @@ class SingleSelectBillAdapter : RecyclerView.Adapter<SingleSelectBillAdapter.Vie
         }
 
     private fun setSelect(item: String) {
+        currentSelect = item
         val it = selectedMap.iterator()
         while (it.hasNext()) {
             it.next().setValue(false)
@@ -94,16 +96,16 @@ class SingleSelectBillAdapter : RecyclerView.Adapter<SingleSelectBillAdapter.Vie
     override fun onItemDismiss(position: Int) {
         OptionalDialog.show(
             recyclerView.context,
-            "真的要删除吗？不会删除已经记录的条目，可以通过添加同名账单恢复！",
-            { notifyDataSetChanged() }) {
+            "真的要删除吗？不会删除已经记录的条目，可以通过添加同名账单恢复~",
+            { notifyItemChanged(position) }) {
             sourceList.removeAt(position)
             notifyItemRemoved(position)
             BillWalletSettingUtil.save()
         }
     }
 
-    override fun onItemMoveFinish() {
-        notifyDataSetChanged()
+    override fun onItemMoveFinish(recyclerView: RecyclerView) {
+        recyclerView.post { notifyDataSetChanged() }
     }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {

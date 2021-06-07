@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moneycounter4.R
 import com.example.moneycounter4.base.BaseViewModelFragment
 import com.example.moneycounter4.beannew.CounterDataItem
+import com.example.moneycounter4.beannew.findEquals
+import com.example.moneycounter4.model.BillWalletSettingUtil
 import com.example.moneycounter4.model.DataReader
 import com.example.moneycounter4.model.dao.DateItem
 import com.example.moneycounter4.model.dao.getByDuration
@@ -58,8 +59,29 @@ class FragmentDistribution : BaseViewModelFragment<DistributionViewModel>() {
 
 
     private var label = true
-    private val arrayList = ArrayList<CounterDataItem>()
+    private val sourceList = ArrayList<CounterDataItem>()
     lateinit var adapter: LogRecyclerViewAdapter
+
+    private val bills: MutableList<String>
+        get() {
+            return (nav_view.getHeaderView(0).flow_account_select?.getOptions()
+                ?: listOf()).toMutableList()
+        }
+
+    private val wallets: MutableList<String>
+        get() {
+            return (nav_view.getHeaderView(0).flow_wallet_select?.getOptions()
+                ?: listOf()).toMutableList()
+        }
+
+    private val types: MutableList<String>
+        get() {
+            return (nav_view.getHeaderView(0).flow_in_out_select?.getOptions()
+                ?: listOf()).toMutableList()
+        }
+
+    private var outType: MutableSet<String> = mutableSetOf()
+    private var inType: MutableSet<String> = mutableSetOf()
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -80,7 +102,7 @@ class FragmentDistribution : BaseViewModelFragment<DistributionViewModel>() {
         adapter = LogRecyclerViewAdapter(
             this,
             ViewModelProviders.of(requireActivity()).get(GlobalViewModel::class.java),
-            arrayList,
+            sourceList,
             rv_list
         )
 
@@ -92,6 +114,13 @@ class FragmentDistribution : BaseViewModelFragment<DistributionViewModel>() {
         tab_layout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 refreshData()
+                nav_view.getHeaderView(0).tv_in_or_out.text =
+                    when (tab_layout.selectedTabPosition) {
+                        0 -> "支出"
+                        1 -> "收入"
+                        else -> "支出"
+                    }
+                refreshType()
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -188,7 +217,7 @@ class FragmentDistribution : BaseViewModelFragment<DistributionViewModel>() {
 
                 }.show()
             }
-
+            refreshType()
         }
 
         nav_view.getHeaderView(0).flow_date_select?.apply {
@@ -196,7 +225,6 @@ class FragmentDistribution : BaseViewModelFragment<DistributionViewModel>() {
             singleSelect = true
             reverseSelect("日")
             onSelect = {
-                Log.e("sandyzhang", it.toString())
                 if (it.isEmpty()) {
                     viewModel.lastDay.value = 36500
                     viewModel.year.value = 1970
@@ -232,18 +260,24 @@ class FragmentDistribution : BaseViewModelFragment<DistributionViewModel>() {
         }
 
         nav_view.getHeaderView(0).flow_account_select?.apply {
-
-        }
-        nav_view.getHeaderView(0).flow_out_select?.apply {
             setOptions(
+                *(BillWalletSettingUtil.settingData?.billList?.map { it -> it.name }
+                    ?: listOf()).toTypedArray()
             )
+            onSelect = {
+                refreshType()
+            }
             singleSelect = false
         }
-        nav_view.getHeaderView(0).flow_in_select?.apply {
+        nav_view.getHeaderView(0).flow_wallet_select?.apply {
             setOptions(
+                *(BillWalletSettingUtil.settingData?.walletList?.map { it -> it.name }
+                    ?: listOf()).toTypedArray()
             )
+            onSelect = {
+                refreshType()
+            }
             singleSelect = false
-
         }
         drawer_layout.addDrawerListener(object : DrawerLayout.DrawerListener {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
@@ -273,7 +307,7 @@ class FragmentDistribution : BaseViewModelFragment<DistributionViewModel>() {
 
 
             if (!label) {
-                list = viewModel.getData()
+                list = viewModel.getData()?.filter()
                 tv_date.visibility = View.VISIBLE
                 tv_date.text = "日期：${
                     DateItem(
@@ -306,7 +340,7 @@ class FragmentDistribution : BaseViewModelFragment<DistributionViewModel>() {
                         0L,
                         86400000L * 7,
                         option
-                    )
+                    )?.filter()
             }
 
             list = list!!.filter {
@@ -321,14 +355,14 @@ class FragmentDistribution : BaseViewModelFragment<DistributionViewModel>() {
 
 
 
-            arrayList.clear()
-            arrayList.addAll(list.sortedBy {
+            sourceList.clear()
+            sourceList.addAll(list.sortedBy {
                 -it.time!!
             })
             adapter.notifyDataSetChanged()
 
 
-            if (arrayList.isNullOrEmpty()) {
+            if (sourceList.isNullOrEmpty()) {
                 tv_no_log_hint.visibility = View.VISIBLE
                 constraintLayout7.visibility = View.INVISIBLE
             } else {
@@ -420,6 +454,60 @@ class FragmentDistribution : BaseViewModelFragment<DistributionViewModel>() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    fun refreshType() {
+        val list = viewModel.getData()
+            ?.filter { counterData ->
+                if (bills.isEmpty()) {
+                    true
+                } else bills.findEquals { counterData.accountBook == it }
+            }
+            ?.filter { counterData ->
+                if (wallets.isEmpty()) {
+                    true
+                } else wallets.findEquals { counterData.wallet == it }
+            }
+        outType.clear()
+        list?.filter { (it.money ?: 0.0) < 0.0 }?.forEach {
+            outType.add(it.type ?: "未知")
+        }
+        inType.clear()
+        list?.filter { (it.money ?: 0.0) > 0.0 }?.forEach {
+            inType.add(it.type ?: "未知")
+        }
+
+        nav_view.getHeaderView(0).flow_in_out_select?.apply {
+
+            when (tab_layout.selectedTabPosition) {
+                0 -> setOptions(*outType.toTypedArray())
+                1 -> setOptions(*inType.toTypedArray())
+                else -> setOptions(*outType.toTypedArray())
+            }
+
+            singleSelect = false
+
+        }
+
+    }
+
+    private fun List<CounterDataItem>.filter(): List<CounterDataItem>? {
+        return this.filter { counterData ->
+            if (bills.isEmpty()) {
+                true
+            } else bills.findEquals { counterData.accountBook == it }
+        }
+            .filter { counterData ->
+                if (wallets.isEmpty()) {
+                    true
+                } else wallets.findEquals { counterData.wallet == it }
+            }
+            .filter { counterData ->
+                if (types.isEmpty()) {
+                    true
+                } else types.findEquals { counterData.type == it }
+            }
+
     }
 
 }

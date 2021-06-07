@@ -22,7 +22,7 @@
             app:layout_constraintTop_toBottomOf="@+id/constraint_budget_start">
 
             <TextView
-                android:id="@+id/textView18"
+                android:id="@+id/tv_in_or_out"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
