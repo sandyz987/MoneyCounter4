@@ -1,7 +1,6 @@
 package com.example.moneycounter4.model
 
 import android.annotation.SuppressLint
-import android.app.Application
 import android.graphics.drawable.Drawable
 import com.example.moneycounter4.R
 import com.example.moneycounter4.viewmodel.MainApplication
@@ -28,6 +27,8 @@ object BillPicGetter {
             }
             else -> MainApplication.context.getDrawable(R.drawable.ic_bill_normal)
         }
+
+    fun getSize() = 4
 
 
 }

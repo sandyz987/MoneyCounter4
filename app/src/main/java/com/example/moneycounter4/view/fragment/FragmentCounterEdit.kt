@@ -88,6 +88,7 @@ class FragmentCounterEdit : BaseViewModelFragment<MoneyEditViewModel>() {
                 viewModel.willBeAddedItem.observeNotNull {
                     val dataItem = CounterDataItem()
                     dataItem.time = it.time
+                    dataItem.accountBook = it.accountBook
                     if (tabLayout.selectedTabPosition == 0) {
                         dataItem.money = -(it.money ?: 0.0)
                     } else {

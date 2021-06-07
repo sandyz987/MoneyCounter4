@@ -134,6 +134,30 @@
         app:exitAnim="@anim/alpha_hide"
         app:popEnterAnim="@anim/alpha_show"
         app:popExitAnim="@anim/slide_out_bottom" />
+
+
+    <fragment
+        android:id="@+id/fragmentAddBill"
+        android:name="com.example.moneycounter4.view.fragment.FragmentAddBill"
+        android:label="FragmentAddBill"
+        tools:layout="@layout/fragment_bill">
+        <action
+            android:id="@+id/action_fragmentAddBill_pop"
+            app:enterAnim="@anim/alpha_hide"
+            app:exitAnim="@anim/slide_in_bottom"
+            app:popEnterAnim="@anim/slide_out_bottom"
+            app:popExitAnim="@anim/alpha_show"
+            app:popUpTo="@id/fragmentAddBill"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_fragmentAddBill"
+        app:destination="@id/fragmentAddBill"
+        app:enterAnim="@anim/slide_in_bottom"
+        app:exitAnim="@anim/alpha_hide"
+        app:popEnterAnim="@anim/alpha_show"
+        app:popExitAnim="@anim/slide_out_bottom" />
+
     <fragment
         android:id="@+id/fragmentSetting"
         android:name="com.example.moneycounter4.view.fragment.FragmentSetting"

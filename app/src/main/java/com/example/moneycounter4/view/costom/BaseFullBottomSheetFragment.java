@@ -72,8 +72,8 @@ public class BaseFullBottomSheetFragment extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_input, container, false);
-        view.measure(0,0);
-        topOffset = getHeight() - view.getMeasuredHeight();
+        view.measure(0, 0);
+        topOffset = getHeight() - 1200;
         LogW.INSTANCE.d(String.valueOf(view.getMeasuredHeight()));
         return view;
     }

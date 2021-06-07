@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.icu.util.Calendar
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +12,15 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.example.calculatorjni.jni.Calculator
 import com.example.moneycounter4.R
 import com.example.moneycounter4.base.BaseViewModelFragment
 import com.example.moneycounter4.beannew.CounterDataItem
 import com.example.moneycounter4.utils.TimeUtil
+import com.example.moneycounter4.view.adapter.SingleSelectBillAdapter2
 import com.example.moneycounter4.viewmodel.MoneyEditViewModel
 import com.example.moneycounter4.widgets.InputDialog
 import kotlinx.android.synthetic.main.activity_welcome.*
@@ -30,6 +34,7 @@ class InsideFragmentMoneyInput : BaseViewModelFragment<MoneyEditViewModel>(), Vi
     private var tip: String = ""
 
     private val inputMoney = MutableLiveData<String>("")
+    private lateinit var adapter: SingleSelectBillAdapter2
 
     override fun useActivityViewModel() = true
 
@@ -110,8 +115,10 @@ class InsideFragmentMoneyInput : BaseViewModelFragment<MoneyEditViewModel>(), Vi
             viewModel.willBeAddedItem.value = CounterDataItem(
                 time = time ?: 0L,
                 tips = tv_tip.text.toString(),
-                money = (inputMoney.value ?: "0").toDouble()
+                money = (inputMoney.value ?: "0").toDouble(),
+                accountBook = adapter.currentSelect
             )
+            Log.e("sandyzhang", adapter.currentSelect + "4554")
 
         }
 
@@ -122,6 +129,12 @@ class InsideFragmentMoneyInput : BaseViewModelFragment<MoneyEditViewModel>(), Vi
             textViewOk.text = "完成"
             textViewOk.setOnClickListener(listener)
         }
+
+
+        rv_bill.layoutManager =
+            LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+        adapter = SingleSelectBillAdapter2()
+        rv_bill.adapter = adapter
 
     }
 

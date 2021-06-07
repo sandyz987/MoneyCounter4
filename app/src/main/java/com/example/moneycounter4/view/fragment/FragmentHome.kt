@@ -9,6 +9,7 @@ import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.baoyz.widget.PullRefreshLayout
@@ -31,7 +32,7 @@ class FragmentHome : BaseViewModelFragment<HomeViewModel>() {
 
     private lateinit var fragmentHomeBinding: FragmentMyHomeBinding
     private lateinit var singleSelectBillAdapter: SingleSelectBillAdapter
-
+    private lateinit var adapter: LogRecyclerViewAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -53,13 +54,14 @@ class FragmentHome : BaseViewModelFragment<HomeViewModel>() {
         super.onActivityCreated(savedInstanceState)
         fragmentHomeBinding.vm = viewModel
 
-        refresh()
-        val adapter = LogRecyclerViewAdapter(
+        adapter = LogRecyclerViewAdapter(
             this,
             ViewModelProviders.of(requireActivity()).get(GlobalViewModel::class.java),
             viewModel.list,
             recyclerViewLog
         )
+        refresh()
+
         imageViewMonth.setOnClickListener {
             val pvTime =
                 TimePickerBuilder(
@@ -116,7 +118,7 @@ class FragmentHome : BaseViewModelFragment<HomeViewModel>() {
 
     }
 
-    fun refreshNav() {
+    private fun refreshNav() {
         nav_view.getHeaderView(0).apply {
             rv_bill.layoutManager = LinearLayoutManager(requireContext())
             singleSelectBillAdapter = SingleSelectBillAdapter()
@@ -125,13 +127,16 @@ class FragmentHome : BaseViewModelFragment<HomeViewModel>() {
             val itemTouchHelper = ItemTouchHelper(ihCallback)
             itemTouchHelper.attachToRecyclerView(rv_bill)
             rv_bill.adapter = singleSelectBillAdapter
+            iv_add_bill.setOnClickListener {
+                findNavController().navigate(R.id.action_global_fragmentAddBill)
+            }
         }
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
     fun refresh() {
         viewModel.refreshList()
-
+        adapter.notifyDataSetChanged()
     }
 
 }

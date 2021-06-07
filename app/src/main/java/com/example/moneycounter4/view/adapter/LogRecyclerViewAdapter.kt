@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moneycounter4.R
 import com.example.moneycounter4.beannew.CounterDataItem
 import com.example.moneycounter4.databinding.ItemCounterDataBinding
+import com.example.moneycounter4.extensions.getIfExist
 import com.example.moneycounter4.utils.TimeUtil
 import com.example.moneycounter4.viewmodel.GlobalViewModel
 import com.example.moneycounter4.widgets.FirstItemDecoration
@@ -33,7 +34,12 @@ class LogRecyclerViewAdapter(
                 true
             } else {
                 if (it < mList.size) {
-                    TimeUtil.monthStr(mList[it - 1].time!!) != TimeUtil.monthStr(mList[it].time!!)
+                    TimeUtil.monthStr(
+                        mList.getIfExist(
+                            it - 1,
+                            CounterDataItem()
+                        ).time!!
+                    ) != TimeUtil.monthStr(mList.getIfExist(it, CounterDataItem()).time!!)
                 } else {
                     false
                 }
@@ -42,7 +48,7 @@ class LogRecyclerViewAdapter(
         }, {
             return@FirstItemDecoration if (mList.size == 0) ""
             else if (it < mList.size) {
-                TimeUtil.monthStr(mList[it].time!!)
+                TimeUtil.monthStr(mList.getIfExist(it, CounterDataItem()).time!!)
             } else {
                 ""
             }
