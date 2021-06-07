@@ -69,7 +69,7 @@ class FragmentCounterSetting : BaseViewModelFragment<GlobalViewModel>() {
 
         constraintDel.setOnClickListener {
             val builder = AlertDialog.Builder(requireContext())
-            builder.setTitle("是否恢复默认设置？")
+            builder.setTitle("是否恢复默认设置？包括首页的控件顺序")
                 .setNegativeButton("否", null)
             builder.setPositiveButton(
                 "是"

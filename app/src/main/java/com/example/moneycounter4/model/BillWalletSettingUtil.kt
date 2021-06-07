@@ -10,19 +10,33 @@ import com.google.gson.Gson
  *@description 设置的自动获取和保存
  */
 
-data class SettingData(
-    var budgetPeriod: String = "周",   // 周 月
-    var budgetStartDate: Int = 2,   // 当budgetPeriod为周时，范围为1-7 周日是1，否则值为1或15
-    var budgetMoney: Double = 500.0,   // 预算的可用金额
-    var widgetList: List<String> = listOf("日历", "月结余", "本周支出", "全局预算")
+data class BillItem(
+    val name: String,
+    val picId: Int
+)
+
+data class WalletItem(
+    val name: String,
+    val picId: Int,
+    val money: Double
+)
+
+data class BillWalletSettingData(
+    var billList: MutableList<BillItem> = mutableListOf(
+        BillItem("日常账本", 0),
+        BillItem("校园账本", 2)
+    ),
+    var walletList: MutableList<WalletItem> = mutableListOf(
+        WalletItem("微信", 5, 0.0),
+        WalletItem("支付宝", 4, 0.0)
+    )
 
 )
 
-fun SettingData.toJson(): String = Gson().toJson(this)
+fun BillWalletSettingData.toJson(): String = Gson().toJson(this)
 
-object SettingUtil {
-    private const val modelStr = "home_setting_data"
-
+object BillWalletSettingUtil {
+    private const val modelStr = "bill_wallet_setting_data"
     private val sp =
         MainApplication.context.getSharedPreferences("counterData", Context.MODE_PRIVATE)
     var settingData: SettingData? = null

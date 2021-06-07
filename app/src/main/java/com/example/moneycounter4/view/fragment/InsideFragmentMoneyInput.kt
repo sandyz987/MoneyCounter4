@@ -18,6 +18,7 @@ import com.example.moneycounter4.base.BaseViewModelFragment
 import com.example.moneycounter4.beannew.CounterDataItem
 import com.example.moneycounter4.utils.TimeUtil
 import com.example.moneycounter4.viewmodel.MoneyEditViewModel
+import com.example.moneycounter4.widgets.InputDialog
 import kotlinx.android.synthetic.main.activity_welcome.*
 import kotlinx.android.synthetic.main.fragment_money_input.*
 
@@ -25,6 +26,8 @@ class InsideFragmentMoneyInput : BaseViewModelFragment<MoneyEditViewModel>(), Vi
 
     lateinit var listener: View.OnClickListener
     private var time: Long? = null
+
+    private var tip: String = ""
 
     private val inputMoney = MutableLiveData<String>("")
 
@@ -50,6 +53,14 @@ class InsideFragmentMoneyInput : BaseViewModelFragment<MoneyEditViewModel>(), Vi
         inputMoney.observeNotNull {
             textViewMoneyNum.text = "￥$it"
         }
+
+        tv_tip.setOnClickListener {
+            InputDialog(requireContext(), "请输入备注", tip) {
+                tip = it
+                tv_tip.text = tip
+            }.show()
+        }
+
 
         textViewAdd.setOnClickListener(this)
         textViewSub.setOnClickListener(this)
