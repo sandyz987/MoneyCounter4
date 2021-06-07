@@ -4,9 +4,10 @@ package com.example.moneycounter4.viewmodel
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.databinding.ObservableField
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.MutableLiveData
 import com.example.moneycounter4.base.BaseViewModel
 import com.example.moneycounter4.beannew.CounterDataItem
+import com.example.moneycounter4.model.BillWalletSettingUtil
 import com.example.moneycounter4.model.DataReader
 import com.example.moneycounter4.widgets.LogW
 import java.util.*
@@ -20,6 +21,8 @@ class HomeViewModel: BaseViewModel() {
     val expend = ObservableField<Double>()
     var selectedYear = 0
     val list = mutableListOf<CounterDataItem>()
+
+    val bill = MutableLiveData("日常账本")
 
 
     init {
@@ -40,6 +43,11 @@ class HomeViewModel: BaseViewModel() {
         tmpList.forEach { list.add(it) }
 
         refreshList()
+        // 日常账本设置为第1个
+        bill.value =
+            if (BillWalletSettingUtil.settingData?.billList?.isNullOrEmpty() != true) BillWalletSettingUtil.settingData?.billList?.get(
+                0
+            )?.name ?: "日常账本" else "日常账本"
     }
 
     fun refreshList() {

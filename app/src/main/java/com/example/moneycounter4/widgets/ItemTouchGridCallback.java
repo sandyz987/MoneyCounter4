@@ -19,7 +19,6 @@ public class ItemTouchGridCallback extends ItemTouchHelper.Callback {
     }
 
 
-
     @Override
     public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
         //允许上下的拖动
@@ -36,6 +35,12 @@ public class ItemTouchGridCallback extends ItemTouchHelper.Callback {
     }
 
     @Override
+    public void clearView(@androidx.annotation.NonNull RecyclerView recyclerView, @androidx.annotation.NonNull RecyclerView.ViewHolder viewHolder) {
+        super.clearView(recyclerView, viewHolder);
+        c.onItemMoveFinish();
+    }
+
+    @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
 
     }
@@ -43,9 +48,9 @@ public class ItemTouchGridCallback extends ItemTouchHelper.Callback {
     @Override
     public void onChildDraw(@NotNull Canvas c, @NotNull RecyclerView recyclerView, @NotNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-        if(actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+        if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
             //滑动时改变Item的透明度
-            final float alpha = 1 - Math.abs(dX) / (float)viewHolder.itemView.getWidth();
+            final float alpha = 1 - Math.abs(dX) / (float) viewHolder.itemView.getWidth();
             viewHolder.itemView.setAlpha(alpha);
         }
     }

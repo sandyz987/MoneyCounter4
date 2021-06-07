@@ -1,6 +1,7 @@
 package com.example.moneycounter4.model
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import com.example.moneycounter4.viewmodel.MainApplication
 import com.google.gson.Gson
 
@@ -39,19 +40,32 @@ object BillWalletSettingUtil {
     private const val modelStr = "bill_wallet_setting_data"
     private val sp =
         MainApplication.context.getSharedPreferences("counterData", Context.MODE_PRIVATE)
-    var settingData: SettingData? = null
+    var settingData: BillWalletSettingData? = null
         get() {
             if (field != null) {
                 return field
             }
             try {
                 settingData =
-                    Gson().fromJson(sp.getString(modelStr, ""), SettingData::class.java)
+                    Gson().fromJson(sp.getString(modelStr, ""), BillWalletSettingData::class.java)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-            return field ?: SettingData()
+            return field ?: BillWalletSettingData()
         }
+
+    fun findBillPicByName(name: String): Drawable? {
+        val id = settingData?.billList?.get(settingData?.billList?.indexOfFirst { it.name == name }
+            ?: 0)?.picId ?: -1
+        return BillPicGetter.getBillPic(id)
+    }
+
+    fun findWalletPicByName(name: String): Drawable? {
+        val id =
+            settingData?.walletList?.get(settingData?.walletList?.indexOfFirst { it.name == name }
+                ?: 0)?.picId ?: -1
+        return WalletPicGetter.getWalletPic(id)
+    }
 
     fun save() {
         settingData?.let {
