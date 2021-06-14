@@ -3,8 +3,6 @@ package com.example.moneycounter4.model
 import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.databinding.ObservableArrayList
-import androidx.lifecycle.LiveData
 import androidx.room.Room
 import com.example.moneycounter4.bean.TypeData
 import com.example.moneycounter4.bean.TypeItem
@@ -17,14 +15,15 @@ import java.util.*
 
 object DataReader {
     var typeData: TypeData
-    const val OPTION_BY_YEAR = 0
-    const val OPTION_BY_MONTH = 1
-    const val OPTION_BY_DAY = 2
-    const val OPTION_INCOME = 3
-    const val OPTION_EXPEND = 4
-    const val OPTION_LAST = 5
-    const val OPTION_IN = 6
-    const val OPTION_OUT = 7
+    const val OPTION_GET_BY_YEAR = 0 // 按年获取
+    const val OPTION_GET_BY_MONTH = 1 // 按月获取
+    const val OPTION_GET_BY_DAY = 2 // 按天获取
+    const val OPTION_INCOME = 3 // 收入
+    const val OPTION_EXPEND = 4 // 花费
+    const val OPTION_LAST = 5 // 结余
+    const val OPTION_NO_ASSIGN = -1 // 结余
+    const val OPTION_TYPE_EDIT_IN = 6 // 添加种类是收入
+    const val OPTION_TYPE_EDIT_OUT = 7 // 添加种类是支出
     var db: CounterDatabase? = null
 
     init {
@@ -92,10 +91,10 @@ object DataReader {
 
     fun getType(option: Int): ArrayList<TypeItem> {
         return when (option) {
-            OPTION_IN -> {
+            OPTION_TYPE_EDIT_IN -> {
                 typeData.typeListIn
             }
-            OPTION_OUT -> {
+            OPTION_TYPE_EDIT_OUT -> {
                 typeData.typeListOut
             }
             else -> TypeIndex.getAllType()
@@ -105,8 +104,8 @@ object DataReader {
 
     fun saveType(list: MutableList<TypeItem>, option: Int) {
         val l = when (option) {
-            OPTION_IN -> typeData.typeListIn
-            OPTION_OUT -> typeData.typeListOut
+            OPTION_TYPE_EDIT_IN -> typeData.typeListIn
+            OPTION_TYPE_EDIT_OUT -> typeData.typeListOut
             else -> typeData.typeListIn
         }
         l.clear()
@@ -157,18 +156,18 @@ object DataReader {
         val list = ArrayList<CounterDataItem>()
 
         when (option) {
-            OPTION_BY_YEAR -> {
-                db?.counterDao()?.getByTime(year, -1)?.let {
+            OPTION_GET_BY_YEAR -> {
+                db?.counterDao()?.getByTime(year, OPTION_NO_ASSIGN)?.let {
                     list.addAll(it)
                 }
             }
-            OPTION_BY_MONTH -> {
-                db?.counterDao()?.getByTime(year, month, -1)?.let {
+            OPTION_GET_BY_MONTH -> {
+                db?.counterDao()?.getByTime(year, month, OPTION_NO_ASSIGN)?.let {
                     list.addAll(it)
                 }
             }
-            OPTION_BY_DAY -> {
-                db?.counterDao()?.getByTime(year, month, day, -1)?.let {
+            OPTION_GET_BY_DAY -> {
+                db?.counterDao()?.getByTime(year, month, day, OPTION_NO_ASSIGN)?.let {
                     list.addAll(it)
                 }
             }

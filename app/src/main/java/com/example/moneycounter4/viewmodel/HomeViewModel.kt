@@ -4,7 +4,6 @@ package com.example.moneycounter4.viewmodel
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.databinding.ObservableField
-import androidx.lifecycle.ViewModel
 import com.example.moneycounter4.base.BaseViewModel
 import com.example.moneycounter4.beannew.CounterDataItem
 import com.example.moneycounter4.model.DataReader
@@ -35,7 +34,7 @@ class HomeViewModel: BaseViewModel() {
             Calendar.getInstance().get(Calendar.YEAR),
             Calendar.getInstance().get(Calendar.MONTH) + 1,
             Calendar.getInstance().get(Calendar.DATE),
-            DataReader.OPTION_BY_MONTH
+            DataReader.OPTION_GET_BY_MONTH
         )
         tmpList.forEach { list.add(it) }
 
@@ -49,7 +48,7 @@ class HomeViewModel: BaseViewModel() {
                 year.get()!!,
                 month.get()!!,
                 0,
-                DataReader.OPTION_BY_MONTH
+                DataReader.OPTION_GET_BY_MONTH
             )
         )
         income.set(DataReader.count(list, DataReader.OPTION_INCOME))

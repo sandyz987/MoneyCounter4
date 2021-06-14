@@ -78,8 +78,8 @@ class FragmentAddType : BaseFragment() {
                     return@setOnClickListener
                 }
                 when (a) {
-                    0 -> viewModel.addType(TypeItem(typeName, picResId), DataReader.OPTION_OUT)
-                    1 -> viewModel.addType(TypeItem(typeName, picResId), DataReader.OPTION_IN)
+                    0 -> viewModel.addType(TypeItem(typeName, picResId), DataReader.OPTION_TYPE_EDIT_OUT)
+                    1 -> viewModel.addType(TypeItem(typeName, picResId), DataReader.OPTION_TYPE_EDIT_IN)
                 }
                 findNavController().navigate(R.id.action_fragmentAddType_pop)
                 dialog.hide()

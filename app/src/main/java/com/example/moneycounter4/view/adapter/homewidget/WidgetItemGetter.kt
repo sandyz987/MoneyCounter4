@@ -7,6 +7,7 @@ import com.example.moneycounter4.R
 import com.example.moneycounter4.beannew.CounterDataItem
 import com.example.moneycounter4.model.BudgetCounter
 import com.example.moneycounter4.model.DataReader
+import com.example.moneycounter4.model.DataReader.OPTION_NO_ASSIGN
 import com.example.moneycounter4.model.SettingUtil
 import com.example.moneycounter4.model.dao.getByDuration
 import com.example.moneycounter4.model.dao.getByTime
@@ -91,7 +92,7 @@ class WidgetItemGetter {
                     val list = mutableListOf<Double>()
                     val cal = Calendar.getInstance()
                     var sum = 0.0
-                    DataReader.db?.counterDao()?.getByTime(cal.getYear(), cal.getMonth(), -1)
+                    DataReader.db?.counterDao()?.getByTime(cal.getYear(), cal.getMonth(), OPTION_NO_ASSIGN)
                         ?.forEach { item ->
                             sum += item.money ?: 0.0
                         }
