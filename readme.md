@@ -1,8 +1,17 @@
 ## 记账鸭 —— 一款轻量级简约的记账app
 
+<img src="https://github.com/sandyz987/MoneyCounter4/blob/master/pic/1.jpg" width="200" height="400"/>
+<img src="https://github.com/sandyz987/MoneyCounter4/blob/master/pic/2.jpg" width="200" height="400"/>
+<img src="https://github.com/sandyz987/MoneyCounter4/blob/master/pic/3.jpg" width="200" height="400"/>
+<img src="https://github.com/sandyz987/MoneyCounter4/blob/master/pic/4.jpg" width="200" height="400"/>
+<img src="https://github.com/sandyz987/MoneyCounter4/blob/master/pic/5.jpg" width="200" height="400"/>
+<img src="https://github.com/sandyz987/MoneyCounter4/blob/master/pic/6.jpg" width="200" height="400"/>
+<img src="https://github.com/sandyz987/MoneyCounter4/blob/master/pic/7.jpg" width="200" height="400"/>
+<img src="https://github.com/sandyz987/MoneyCounter4/blob/master/pic/8.jpg" width="200" height="400"/>
+<img src="https://github.com/sandyz987/MoneyCounter4/blob/master/pic/9.jpg" width="200" height="400"/>
 
 
-### 项目情况
+### 项目
 
 1. 语言大部分使用kotlin
 2. 使用的第三方库：
