@@ -4,8 +4,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.FloatRange
 import androidx.recyclerview.widget.RecyclerView
+import com.example.moneycounter4.extensions.swapOrder
 import com.example.moneycounter4.widgets.ItemMoveCallback
-import java.util.*
 
 
 /**
@@ -41,12 +41,15 @@ class WidgetAdapter(
     open class BaseViewHolder(v: View, val viewType: Int) : RecyclerView.ViewHolder(v)
 
     override fun onItemMove(fromPosition: Int, toPosition: Int) {
-        Collections.swap(widgetList, fromPosition, toPosition)
+        swapOrder(widgetList as MutableList<*>, fromPosition, toPosition)
         onChange.invoke(widgetList)
         notifyItemMoved(fromPosition, toPosition)
     }
 
     override fun onItemDismiss(position: Int) {}
+    override fun onItemMoveFinish() {
+        notifyDataSetChanged()
+    }
 
 
     companion object {

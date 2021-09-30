@@ -4,8 +4,10 @@ package com.example.moneycounter4.viewmodel
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
 import com.example.moneycounter4.base.BaseViewModel
 import com.example.moneycounter4.beannew.CounterDataItem
+import com.example.moneycounter4.model.BillWalletSettingUtil
 import com.example.moneycounter4.model.DataReader
 import com.example.moneycounter4.widgets.LogW
 import java.util.*
@@ -19,6 +21,8 @@ class HomeViewModel: BaseViewModel() {
     val expend = ObservableField<Double>()
     var selectedYear = 0
     val list = mutableListOf<CounterDataItem>()
+
+    val bill = MutableLiveData("日常账本")
 
 
     init {
@@ -34,11 +38,16 @@ class HomeViewModel: BaseViewModel() {
             Calendar.getInstance().get(Calendar.YEAR),
             Calendar.getInstance().get(Calendar.MONTH) + 1,
             Calendar.getInstance().get(Calendar.DATE),
-            DataReader.OPTION_GET_BY_MONTH
+            DataReader.OPTION_BY_MONTH
         )
         tmpList.forEach { list.add(it) }
 
         refreshList()
+        // 日常账本设置为第1个
+        bill.value =
+            if (BillWalletSettingUtil.settingData?.billList?.isNullOrEmpty() != true) BillWalletSettingUtil.settingData?.billList?.get(
+                0
+            )?.name ?: "日常账本" else "日常账本"
     }
 
     fun refreshList() {
@@ -48,7 +57,7 @@ class HomeViewModel: BaseViewModel() {
                 year.get()!!,
                 month.get()!!,
                 0,
-                DataReader.OPTION_GET_BY_MONTH
+                DataReader.OPTION_BY_MONTH
             )
         )
         income.set(DataReader.count(list, DataReader.OPTION_INCOME))

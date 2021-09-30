@@ -13,11 +13,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moneycounter4.R
 import com.example.moneycounter4.bean.TypeItem
 import com.example.moneycounter4.databinding.ItemTypeRemoveBinding
+import com.example.moneycounter4.extensions.swapOrder
 import com.example.moneycounter4.view.activity.ActivityMain
 import com.example.moneycounter4.viewmodel.GlobalViewModel
 import com.example.moneycounter4.widgets.ItemMoveCallback
 import com.example.moneycounter4.widgets.LogW
-import java.util.*
 
 //记账记录的adapter
 @RequiresApi(Build.VERSION_CODES.N)
@@ -79,7 +79,7 @@ class TypeEditRecyclerViewAdapter(
     override fun onItemMove(fromPosition: Int, toPosition: Int) {
         if (fromPosition < itemCount - 1 && toPosition < itemCount - 1) {
             //交换位置
-            Collections.swap(mList as MutableList<*>, fromPosition, toPosition)
+            swapOrder(mList as MutableList<*>, fromPosition, toPosition)
             notifyItemMoved(fromPosition, toPosition)
             vm.saveType()
         } else {
@@ -97,6 +97,10 @@ class TypeEditRecyclerViewAdapter(
             notifyDataSetChanged()
         }
 
+    }
+
+    override fun onItemMoveFinish() {
+        notifyDataSetChanged()
     }
 
 

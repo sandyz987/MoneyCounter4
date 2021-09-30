@@ -15,7 +15,6 @@
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:openDrawer="start"
         android:layout_gravity="start">
 
         <FrameLayout
@@ -49,8 +48,7 @@
                             app:layout_constraintBottom_toTopOf="@+id/textViewYear"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/ic_bill"
-                            app:tint="#A9FFFFFF" />
+                            app:srcCompat="@drawable/ic_bill" />
 
                         <TextView
                             android:id="@+id/textViewIncome"
@@ -158,6 +156,17 @@
                             app:month_pic_src="@drawable/ic_drop_down"
                             app:month_text="@{vm.month}" />
 
+                        <TextView
+                            android:id="@+id/tv_bill_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:text="账本"
+                            android:textColor="#FFFFFF"
+                            app:layout_constraintBottom_toBottomOf="@+id/iv_bill_select"
+                            app:layout_constraintStart_toEndOf="@+id/iv_bill_select"
+                            app:layout_constraintTop_toTopOf="@+id/iv_bill_select" />
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>
 
@@ -186,6 +195,6 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:background="@android:color/transparent"
-            app:headerLayout="@layout/layout_header_filter" />
+            app:headerLayout="@layout/layout_header_bill" />
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>
