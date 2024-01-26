@@ -1,4 +1,4 @@
-## 记账鸭 —— 一款轻量级简约的记账app
+## 记账鸭 —— 一款轻量级简约的记账APP
 
 <img src="https://github.com/sandyz987/MoneyCounter4/blob/master/pic/1.jpg" width="200" height="400"/>
 <img src="https://github.com/sandyz987/MoneyCounter4/blob/master/pic/2.jpg" width="200" height="400"/>
